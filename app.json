@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./App/assets/adaptive-icon.png",
+        "foregroundImage": "./App/assets/logo-squareco.jpeg",
         "backgroundColor": "#FFFFFF"
       }
     },
