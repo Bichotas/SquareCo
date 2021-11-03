@@ -14,7 +14,7 @@ function LoadingScreen(props) {
           style={styles.imageU}
         />
         <View style={styles.loader}>
-          <Entypo name="dots-three-horizontal" size={60} color={colors.white} />
+          <Entypo name="dots-three-horizontal" size={50} color={colors.white} />
         </View>
       </View>
     </ScreenC>
