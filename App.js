@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import LoadingScreen from "./App/screens/LoadingScreen";
+
+import HomeScreen from "./App/screens/HomeScreen";
+
 export default function App() {
-  return <LoadingScreen></LoadingScreen>;
+  return <HomeScreen></HomeScreen>;
 }
 
 const styles = StyleSheet.create({

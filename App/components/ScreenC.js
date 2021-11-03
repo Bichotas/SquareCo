@@ -1,8 +1,15 @@
 import React from "react";
-import { Platform, SafeAreaView, StyleSheet } from "react-native";
+import { Platform, SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import colors from "../config/colors";
 function ScreenC({ children, style }) {
-  return <SafeAreaView style={[styles.screen, style]}>{children}</SafeAreaView>;
+  return (
+    <SafeAreaView style={[styles.screen, style]}>
+      {children}
+
+      {/* { Quitar el status bar si se ve feo} */}
+      {/* <StatusBar barStyle="light-content" /> */}
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
