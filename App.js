@@ -2,10 +2,10 @@ import React from "react";
 import { StyleSheet, Text } from "react-native";
 import TitleC from "./App/components/TitleC";
 
-import HomeScreen from "./App/screens/HomeScreen";
+import LoginScreen from "./App/screens/LoginScreen";
 
 export default function App() {
-  return <HomeScreen></HomeScreen>;
+  return <LoginScreen></LoginScreen>;
 }
 
 const styles = StyleSheet.create({

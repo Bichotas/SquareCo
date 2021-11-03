@@ -1,6 +1,5 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import ScreenC from "../components/ScreenC";
 
 function CIrclesD(props) {
   return (
