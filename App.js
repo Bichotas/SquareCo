@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
+import TitleC from "./App/components/TitleC";
 
 import HomeScreen from "./App/screens/HomeScreen";
 
