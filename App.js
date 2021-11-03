@@ -1,13 +1,8 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import ButtonC from "./App/components/ButtonC";
-import ScreenC from "./App/components/ScreenC";
+import LoadingScreen from "./App/screens/LoadingScreen";
 export default function App() {
-  return (
-    <ScreenC>
-      <ButtonC title="Amm"></ButtonC>
-    </ScreenC>
-  );
+  return <LoadingScreen></LoadingScreen>;
 }
 
 const styles = StyleSheet.create({
