@@ -1,16 +1,19 @@
 import React from "react";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 // Designs
-import LoginCirclesD from "../designs/LoginCIrclesD";
+import RegisterCirclesD from "../designs/RegisterCirclesD";
 // Components
 import ScreenC from "../components/ScreenC";
 import ButtonC from "../components/ButtonC";
 import InputFormC from "../components/InputFormC";
+
+// Colores
 import colors from "../config/colors";
+
 function RegisterScreen(props) {
   return (
     <ScreenC style={styles.loginScreen}>
-      <LoginCirclesD></LoginCirclesD>
+      <RegisterCirclesD></RegisterCirclesD>
       <KeyboardAvoidingView style={styles.container} enabled={true}>
         <View style={styles.textContainer}>
           <Text style={styles.texto}>Crea tu cuenta</Text>
@@ -34,7 +37,7 @@ function RegisterScreen(props) {
             autoCapitalize="none"
             autoCorrect={false}
             icon="lock"
-            placeholder="Contraseñas"
+            placeholder="Contraseña"
             textContentType="password"
             secureTextEntry={true}
           />
@@ -48,7 +51,8 @@ function RegisterScreen(props) {
 }
 const styles = StyleSheet.create({
   loginScreen: {
-    backgroundColor: "#71D7F1",
+    backgroundColor: "#FA8C47",
+    overflow: "hidden",
   },
   container: {
     flex: 1,
