@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   textContainer: {
-    alignItems: "center",
     width: "100%",
     padding: 10,
   },
@@ -72,6 +71,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     // borderColor: colors.white,
     // borderBottomWidth: 5,
+    textAlign: "center",
   },
   formContainer: {
     width: "100%",
