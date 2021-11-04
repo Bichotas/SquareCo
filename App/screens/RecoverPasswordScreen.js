@@ -10,13 +10,14 @@ import InputFormC from "../components/InputFormC";
 // Colores
 import colors from "../config/colors";
 
-function RegisterScreen(props) {
+function RecoverPasswordScreen(props) {
   return (
     <ScreenC style={styles.loginScreen}>
+      {/* Se utiliza el mismo diseño de circulos para register */}
       <RegisterCirclesD></RegisterCirclesD>
       <KeyboardAvoidingView style={styles.container} enabled={true}>
         <View style={styles.textContainer}>
-          <Text style={styles.texto}>Crea tu cuenta</Text>
+          <Text style={styles.texto}>Recuperar contraseña</Text>
           <View style={styles.ada} />
         </View>
         <View style={styles.formContainer}>
@@ -34,17 +35,9 @@ function RegisterScreen(props) {
             keyboardType="email-address"
             textContentType="emailAddress"
           />
-          <InputFormC
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="lock"
-            placeholder="Contraseña"
-            textContentType="password"
-            secureTextEntry={true}
-          />
         </View>
         <View style={styles.buttonContainer}>
-          <ButtonC title="Registrarse" color="azul" />
+          <ButtonC title="Recuperar" color="naranja" />
         </View>
       </KeyboardAvoidingView>
     </ScreenC>
@@ -52,7 +45,7 @@ function RegisterScreen(props) {
 }
 const styles = StyleSheet.create({
   loginScreen: {
-    backgroundColor: "#FA8C47",
+    backgroundColor: "#000",
     overflow: "hidden",
   },
   container: {
@@ -62,6 +55,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   textContainer: {
+    paddingHorizontal: 30,
     width: "100%",
     padding: 10,
   },
@@ -75,7 +69,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   ada: {
-    paddingHorizontal: 30,
     height: 4,
     backgroundColor: colors.white,
     width: "100%",
@@ -87,7 +80,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: "100%",
     paddingTop: 20,
-    paddingHorizontal: 50,
+    paddingHorizontal: 60,
     alignItems: "center",
   },
   link: {
@@ -96,4 +89,4 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
 });
-export default RegisterScreen;
+export default RecoverPasswordScreen;

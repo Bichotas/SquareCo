@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
 
-import RegisterScreen from "./App/screens/RegisterScreen";
+import RecoverPasswordScreen from "./App/screens/RecoverPasswordScreen";
 export default function App() {
-  return <RegisterScreen></RegisterScreen>;
+  return <RecoverPasswordScreen></RecoverPasswordScreen>;
 }
 
 const styles = StyleSheet.create({
