@@ -1,11 +1,9 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import TitleC from "./App/components/TitleC";
 
-import LoginScreen from "./App/screens/LoginScreen";
-
+import RegisterScreen from "./App/screens/RegisterScreen";
 export default function App() {
-  return <LoginScreen></LoginScreen>;
+  return <RegisterScreen></RegisterScreen>;
 }
 
 const styles = StyleSheet.create({
