@@ -1,1 +1,3 @@
 # SquareCo
+
+Clonar el repositorio
