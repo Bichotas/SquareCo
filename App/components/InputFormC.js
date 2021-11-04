@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 
     width: "100%",
     padding: 15,
-    marginVertical: 20,
+    marginVertical: 15,
   },
   icon: {
     marginRight: 10,
