@@ -78,7 +78,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
   },
   buttonContainer: {
-    padding: 20,
+    width: "100%",
+    paddingTop: 20,
+    paddingHorizontal: 50,
     alignItems: "center",
   },
   link: {
