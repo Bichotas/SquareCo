@@ -1,9 +1,8 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-
-import RecoverPasswordScreen from "./App/screens/RecoverPasswordScreen";
+import AccountOptionScreen from "./App/screens/AccountOptionScreen";
 export default function App() {
-  return <RecoverPasswordScreen></RecoverPasswordScreen>;
+  return <AccountOptionScreen></AccountOptionScreen>;
 }
 
 const styles = StyleSheet.create({
