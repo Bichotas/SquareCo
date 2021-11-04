@@ -46,6 +46,7 @@ function LoginScreen(props) {
 const styles = StyleSheet.create({
   loginScreen: {
     backgroundColor: "#71D7F1",
+    overflow: "hidden",
   },
   container: {
     flex: 1,
