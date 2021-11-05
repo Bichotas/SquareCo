@@ -1,5 +1,6 @@
 # SquareCo
 ## ¿Qué es SquareCo?
+Nuestro proyecto surge a partir de Enrédate, un programa paraalumnos  y  padres  de  familia  que  forman  parte  de  la  EscuelaPolitécnica Ing. Jorge Matute Remus. Cada año se organiza esteevento  con  el  fin  de  apoyar  a  las  personas  interesadas  enemprender su negocio, formalizar el que ya poseen y/o acelerarel que ya está consolidado; se colocan puestos en el plantel, enlos que se ofrecen diferentes servicios y productos al público.
 
 ## Requerimentos
 Tener instalado Node.js en su versión más estable (16.13.0) https://nodejs.org/en/
