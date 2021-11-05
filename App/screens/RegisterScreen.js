@@ -44,7 +44,7 @@ function RegisterScreen(props) {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <ButtonC title="Registrarse" color="azul" />
+          <ButtonC title="Registrarse" color="white" text="dark" />
         </View>
       </KeyboardAvoidingView>
     </ScreenC>

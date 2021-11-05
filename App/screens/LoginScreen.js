@@ -34,7 +34,7 @@ function LoginScreen(props) {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <ButtonC title="ACCEDER" color="naranja" />
+          <ButtonC title="ACCEDER" color="white" text="dark" />
           <TouchableOpacity>
             <Text style={styles.link}>Olvidé mi contraseña</Text>
           </TouchableOpacity>
