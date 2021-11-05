@@ -18,7 +18,10 @@ function AccountOptionScreen(props) {
       <View style={styles.container}>
         {/* Imagen */}
         <View style={styles.imageContainer}>
-          <Image></Image>
+          <Image
+            source={require("../assets/enredate.png")}
+            resizeMode="center"
+          ></Image>
         </View>
 
         {/* Texto */}
@@ -49,12 +52,17 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   imageContainer: {
+    justifyContent: "center",
+    alignItems: "center",
     width: "90%",
-    height: "25%",
+    height: "30%",
     padding: 20,
     borderRadius: 30,
     backgroundColor: colors.azul,
     marginBottom: 15,
+  },
+  image: {
+    width: 300,
   },
   text: {
     padding: 10,
@@ -67,7 +75,9 @@ const styles = StyleSheet.create({
     flex: 0.75,
     width: "100%",
     justifyContent: "space-evenly",
-    padding: 20,
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   button1: {
     width: "60%",
