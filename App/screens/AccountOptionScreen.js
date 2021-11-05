@@ -30,7 +30,7 @@ function AccountOptionScreen(props) {
             <ButtonC title="Comprar" color="naranja" />
           </View>
           <View style={styles.button2}>
-            <ButtonC title="Vender" color="white" />
+            <ButtonC title="Vender" color="white" text="dark" />
           </View>
         </View>
       </View>
