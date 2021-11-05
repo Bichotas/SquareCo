@@ -2,30 +2,50 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import ScreenC from "../components/ScreenC";
 
+// DIseños
+import CIrclesD from "../designs/CIrclesD";
+// Import Components
+import TitleC from "../components/TitleC";
+import ButtonC from "../components/ButtonC";
 function HomeScreen(props) {
   return (
-    <ScreenC>
-      <View style={styles.headerGraphic}>
-        <View style={styles.rightCircle} />
+    <ScreenC style={styles.a}>
+      <CIrclesD></CIrclesD>
+      <View style={styles.titleContainer}>
+        <TitleC title="Bienvenido a SquareCo" />
+      </View>
+      <View style={styles.buttonsContainer}>
+        <ButtonC title="Crear cuenta" color="naranja"></ButtonC>
+        <View style={styles.separacion} />
+        <ButtonC title="Iniciar sesión" color="azul"></ButtonC>
       </View>
     </ScreenC>
   );
 }
 const styles = StyleSheet.create({
-  headerGraphic: {
-    position: "absolute",
-    width: "100%",
-    top: -50,
-    zIndex: -100,
+  a: {
+    alignItems: "center",
   },
-  rightCircle: {
-    backgroundColor: "#7022d9",
-    position: "absolute",
-    borderRadius: 200,
-    width: 400,
-    height: 400,
-    top: -100,
-    left: -150,
+  titleContainer: {
+    width: "100%",
+    marginTop: 40,
+    paddingHorizontal: 40,
+  },
+  buttonsContainer: {
+    flex: 1,
+    marginTop: -120,
+    justifyContent: "center",
+    width: "70%",
+    paddingHorizontal: 30,
+  },
+  separacion: {
+    padding: 20,
   },
 });
 export default HomeScreen;
+{/* <View style={styles.buttonsContainer}>
+
+<ButtonC title={"Crear cuenta"} color="naranja"></ButtonC>
+<ButtonC title={"Iniciar Sesión"} color="azul"></ButtonC>
+
+</View> */}

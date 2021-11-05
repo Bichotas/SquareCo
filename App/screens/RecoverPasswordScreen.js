@@ -1,21 +1,32 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 // Designs
-import LoginCirclesD from "../designs/LoginCIrclesD";
+import RegisterCirclesD from "../designs/RegisterCirclesD";
 // Components
 import ScreenC from "../components/ScreenC";
 import ButtonC from "../components/ButtonC";
 import InputFormC from "../components/InputFormC";
+
+// Colores
 import colors from "../config/colors";
-function LoginScreen(props) {
+
+function RecoverPasswordScreen(props) {
   return (
     <ScreenC style={styles.loginScreen}>
-      <LoginCirclesD></LoginCirclesD>
-      <View style={styles.container}>
+      {/* Se utiliza el mismo diseño de circulos para register */}
+      <RegisterCirclesD></RegisterCirclesD>
+      <KeyboardAvoidingView style={styles.container} enabled={true}>
         <View style={styles.textContainer}>
-          <Text style={styles.texto}>Acceso</Text>
+          <Text style={styles.texto}>Recuperar contraseña</Text>
+          <View style={styles.ada} />
         </View>
         <View style={styles.formContainer}>
+          <InputFormC
+            placeholder="Nombre"
+            icon="account-circle-outline"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
           <InputFormC
             placeholder="Email"
             icon="email"
@@ -24,28 +35,17 @@ function LoginScreen(props) {
             keyboardType="email-address"
             textContentType="emailAddress"
           />
-          <InputFormC
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="lock"
-            placeholder="Password"
-            textContentType="password"
-            secureTextEntry={true}
-          />
         </View>
         <View style={styles.buttonContainer}>
-          <ButtonC title="ACCEDER" color="white" text="dark" />
-          <TouchableOpacity>
-            <Text style={styles.link}>Olvidé mi contraseña</Text>
-          </TouchableOpacity>
+          <ButtonC title="Recuperar" color="naranja" />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </ScreenC>
   );
 }
 const styles = StyleSheet.create({
   loginScreen: {
-    backgroundColor: "#71D7F1",
+    backgroundColor: "#000",
     overflow: "hidden",
   },
   container: {
@@ -55,9 +55,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   textContainer: {
-    alignItems: "center",
+    paddingHorizontal: 30,
     width: "100%",
-    paddingBottom: 20,
+    padding: 10,
   },
   texto: {
     color: colors.white,
@@ -66,14 +66,21 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     // borderColor: colors.white,
     // borderBottomWidth: 5,
-    textDecorationLine: "underline",
+    textAlign: "center",
+  },
+  ada: {
+    height: 4,
+    backgroundColor: colors.white,
+    width: "100%",
   },
   formContainer: {
     width: "100%",
     paddingHorizontal: 30,
   },
   buttonContainer: {
-    padding: 20,
+    width: "100%",
+    paddingTop: 20,
+    paddingHorizontal: 60,
     alignItems: "center",
   },
   link: {
@@ -82,4 +89,4 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
 });
-export default LoginScreen;
+export default RecoverPasswordScreen;

@@ -1,10 +1,8 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-
-import HomeScreen from "./App/screens/HomeScreen";
-
+import AccountOptionScreen from "./App/screens/AccountOptionScreen";
 export default function App() {
-  return <HomeScreen></HomeScreen>;
+  return <AccountOptionScreen></AccountOptionScreen>;
 }
 
 const styles = StyleSheet.create({
