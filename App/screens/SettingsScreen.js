@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  NativeBaseProvider,
-  Center,
-  Button,
-  FlatList,
-  Container,
-  Box,
-  Text,
-} from "native-base";
+import { NativeBaseProvider, Button, FlatList, Box, Text } from "native-base";
 
 const confOptions = [
   { item: 1, name: "Datos de la cuenta", go: "DatosCuenta" },
@@ -25,7 +17,7 @@ export default function SettingsScreen() {
       <Box p={3}>
         <FlatList
           data={confOptions}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.item}
           renderItem={({ item }) => (
             <Button
               bg={"#D1D1D1"}

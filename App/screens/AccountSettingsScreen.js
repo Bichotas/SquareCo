@@ -32,7 +32,7 @@ function AccountSettingsScreen(props) {
     <NativeBaseProvider config={config}>
       <ScrollView>
         <KeyboardAvoidingView>
-          <Box flex={1} padding={6}>
+          <Box flex={1} padding={6} marginTop={4}>
             <Text
               fontSize={"4xl"}
               fontWeight={"bold"}
