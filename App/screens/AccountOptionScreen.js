@@ -21,6 +21,7 @@ function AccountOptionScreen(props) {
           <Image
             source={require("../assets/enredate.png")}
             resizeMode="center"
+            style={styles.image}
           ></Image>
         </View>
 
