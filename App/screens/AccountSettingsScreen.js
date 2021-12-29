@@ -16,6 +16,8 @@ import {
   KeyboardAvoidingView,
 } from "native-base";
 
+// Faltaria poner la flecha de regreso, pero eso cuando se hagan todos los stacksS
+
 // Configuracion para integrar el degradado en el cuadro
 const config = {
   dependencies: {
