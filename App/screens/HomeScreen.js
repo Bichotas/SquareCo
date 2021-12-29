@@ -39,13 +39,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
   },
   separacion: {
-    padding: 20,
+    padding: 10,
   },
 });
 export default HomeScreen;
-{/* <View style={styles.buttonsContainer}>
+{
+  /* <View style={styles.buttonsContainer}>
 
 <ButtonC title={"Crear cuenta"} color="naranja"></ButtonC>
 <ButtonC title={"Iniciar Sesión"} color="azul"></ButtonC>
 
-</View> */}
+</View> */
+}
