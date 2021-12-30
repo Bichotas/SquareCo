@@ -14,6 +14,7 @@ import {
   Pressable,
 } from "native-base";
 import SquareStoreC from "../components/SquareStoreC";
+import CategoryTitleC from "../components/CategoryTitleC";
 
 const valores = [
   { item: 1, name: "UWu" },
@@ -38,21 +39,8 @@ function CategoryViewScreen(props) {
           alignItems={"center"}
         >
           {/* Titulo de la categoria */}
-          <Box
-            bg={"gray.700"}
-            paddingX={[16, 24, 32]}
-            paddingY={[1.5, 3, 4]}
-            borderRadius={10}
-            _text={{
-              fontSize: ["lg", "xl", "2xl"],
-              fontWeight: "bold",
-              letterSpacing: 1,
-            }}
-          >
-            [Categoria]
-          </Box>
+          <CategoryTitleC name={"Categoria"} backgroundColor={"gray.700"} />
 
-          {/* Fin del Titulo */}
           <Divider marginTop={5} width={"90%"} />
 
           {/* Tiendas con un ScrolLvIEW */}
