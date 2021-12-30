@@ -40,7 +40,7 @@ const DrawerNavigator = () => (
     <Drawer.Screen name="Carrito" component={RegisterScreen} />
     <Drawer.Screen name="Tiendas" component={LoginScreen} />
     <Drawer.Screen name="Configuracion" component={SettingsScreen} />
-    <Drawer.Screen name="Actual" component={CategoryViewScreen} />
+    <Drawer.Screen name="Actual" component={ShopCategoriesScreen} />
   </Drawer.Navigator>
 );
 
