@@ -10,6 +10,8 @@ import {
   FlatList,
   View,
   ScrollView,
+  Divider,
+  Pressable,
 } from "native-base";
 
 const valores = [
@@ -19,60 +21,65 @@ const valores = [
   { item: 4, name: "cuatr" },
   { item: 5, name: "cicio" },
   { item: 6, name: "seis" },
+  { item: 7, name: "siete" },
+  { item: 8, name: "ochco" },
+  { item: 9, name: "nueve" },
 ];
 function CategoryViewScreen(props) {
   return (
     <NativeBaseProvider>
       <ScrollView>
-        {/* Se agrego un scroll view horizontal para las personas con menos resolucion, que son de >320 */}
-        {/* Quitar si hay algun problema */}
-        <ScrollView horizontal>
-          <Center
-            flex={1}
-            padding={4}
-            justifyContent={"flex-start"}
-            alignItems={"center"}
+        <Center
+          padding={1}
+          flex={1}
+          paddingTop={3}
+          justifyContent={"flex-start"}
+          alignItems={"center"}
+        >
+          {/* Titulo de la categoria */}
+          <Box
+            bg={"gray.700"}
+            paddingX={[16, 24, 32]}
+            paddingY={[1.5, 3, 4]}
+            borderRadius={10}
+            _text={{
+              fontSize: ["lg", "xl", "2xl"],
+              fontWeight: "bold",
+              letterSpacing: 1,
+            }}
           >
-            {/* Nombre */}
-            <HStack margin={4}>
-              <Box
-                bg={"gray.700"}
-                paddingX={12}
-                paddingY={2}
-                borderRadius={10}
-                _text={{
-                  fontSize: "lg",
-                  fontWeight: "bold",
-                }}
-              >
-                [Categoria]
-              </Box>
-            </HStack>
-            {/* FinNombre */}
+            [Categoria]
+          </Box>
 
-            {/* FlatList */}
-            <VStack>
-              {/* <Container>
-            <Box bg={"gray.500"} size={135} borderRadius={21}></Box>
-            <Text fontWeight={"bold"} fontSize={16} textAlign={"center"}>
-              [Nombre de la tienda]
-            </Text>
-          </Container> */}
+          {/* Fin del Titulo */}
+          <Divider marginTop={5} width={"90%"} />
 
+          {/* Tiendas con un ScrolLvIEW */}
+          <ScrollView horizontal>
+            <VStack space={2} paddingTop={4}>
               <FlatList
                 data={valores}
+                numColumns={("3", "2")}
                 keyExtractor={({ item }) => item.item}
                 renderItem={({ item }) => (
                   <Center
                     marginBottom={5}
-                    marginX={[1, 2]}
-                    key={({ item }) => item.item}
+                    marginX={[2, 3]}
+                    key={({ item }) => item.name}
                   >
-                    <Box bg={"gray.500"} size={[125]} borderRadius={21}></Box>
+                    <Pressable
+                      bg={"gray.500"}
+                      size={[120, 170, 220]}
+                      borderRadius={[21, 40, 60]}
+                      onPress={() => console.log(item)}
+                      _pressed={{
+                        bg: "gray.600",
+                      }}
+                    ></Pressable>
                     <View width={"80%"}>
                       <Text
                         fontWeight={"bold"}
-                        fontSize={16}
+                        fontSize={[16, 22, 30]}
                         textAlign={"center"}
                       >
                         [Nombre de la tienda]
@@ -80,12 +87,10 @@ function CategoryViewScreen(props) {
                     </View>
                   </Center>
                 )}
-                numColumns={"2"}
               />
             </VStack>
-            {/* Fin FlatList */}
-          </Center>
-        </ScrollView>
+          </ScrollView>
+        </Center>
       </ScrollView>
     </NativeBaseProvider>
   );
