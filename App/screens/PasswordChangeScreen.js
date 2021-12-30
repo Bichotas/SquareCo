@@ -16,7 +16,7 @@ import {
   KeyboardAvoidingView,
 } from "native-base";
 
-function ShippingDataScreen(props) {
+function PasswordChangeScreen(props) {
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -92,4 +92,4 @@ function ShippingDataScreen(props) {
   );
 }
 
-export default ShippingDataScreen;
+export default PasswordChangeScreen;
