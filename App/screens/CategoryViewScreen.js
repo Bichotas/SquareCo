@@ -13,6 +13,8 @@ import {
   Divider,
   Pressable,
 } from "native-base";
+import SquareStoreC from "../components/SquareStoreC";
+import CategoryTitleC from "../components/CategoryTitleC";
 
 const valores = [
   { item: 1, name: "UWu" },
@@ -37,21 +39,8 @@ function CategoryViewScreen(props) {
           alignItems={"center"}
         >
           {/* Titulo de la categoria */}
-          <Box
-            bg={"gray.700"}
-            paddingX={[16, 24, 32]}
-            paddingY={[1.5, 3, 4]}
-            borderRadius={10}
-            _text={{
-              fontSize: ["lg", "xl", "2xl"],
-              fontWeight: "bold",
-              letterSpacing: 1,
-            }}
-          >
-            [Categoria]
-          </Box>
+          <CategoryTitleC name={"Categoria"} backgroundColor={"gray.700"} />
 
-          {/* Fin del Titulo */}
           <Divider marginTop={5} width={"90%"} />
 
           {/* Tiendas con un ScrolLvIEW */}
@@ -62,30 +51,7 @@ function CategoryViewScreen(props) {
                 numColumns={("3", "2")}
                 keyExtractor={({ item }) => item.item}
                 renderItem={({ item }) => (
-                  <Center
-                    marginBottom={5}
-                    marginX={[2, 3]}
-                    key={({ item }) => item.name}
-                  >
-                    <Pressable
-                      bg={"gray.500"}
-                      size={[120, 170, 220]}
-                      borderRadius={[21, 40, 60]}
-                      onPress={() => console.log(item)}
-                      _pressed={{
-                        bg: "gray.600",
-                      }}
-                    ></Pressable>
-                    <View width={"80%"}>
-                      <Text
-                        fontWeight={"bold"}
-                        fontSize={[16, 22, 30]}
-                        textAlign={"center"}
-                      >
-                        [Nombre de la tienda]
-                      </Text>
-                    </View>
-                  </Center>
+                  <SquareStoreC name={item.name} key={item.value} />
                 )}
               />
             </VStack>

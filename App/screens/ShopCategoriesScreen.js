@@ -1,9 +1,13 @@
 import React from "react";
 import { NativeBaseProvider } from "native-base";
-import { Pressable } from "react-native";
+import SquareStoreC from "../components/SquareStoreC";
 
 function ShopCategoriesScreen(props) {
-  return <NativeBaseProvider></NativeBaseProvider>;
+  return (
+    <NativeBaseProvider>
+      <SquareStoreC name={"Tienda Pete"} />
+    </NativeBaseProvider>
+  );
 }
 
 export default ShopCategoriesScreen;
