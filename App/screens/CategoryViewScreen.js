@@ -16,9 +16,9 @@ const valores = [
   { item: 1, name: "UWu" },
   { item: 2, name: "DOs" },
   { item: 3, name: "tres" },
-  { item: 4, name: "tres" },
-  { item: 5, name: "tres" },
-  { item: 6, name: "tres" },
+  { item: 4, name: "cuatr" },
+  { item: 5, name: "cicio" },
+  { item: 6, name: "seis" },
 ];
 function CategoryViewScreen(props) {
   return (
@@ -63,7 +63,11 @@ function CategoryViewScreen(props) {
                 data={valores}
                 keyExtractor={({ item }) => item.item}
                 renderItem={({ item }) => (
-                  <Center marginBottom={5} marginX={[1, 2]}>
+                  <Center
+                    marginBottom={5}
+                    marginX={[1, 2]}
+                    key={({ item }) => item.item}
+                  >
                     <Box bg={"gray.500"} size={[125]} borderRadius={21}></Box>
                     <View width={"80%"}>
                       <Text
