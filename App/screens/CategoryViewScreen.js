@@ -27,7 +27,12 @@ function CategoryViewScreen(props) {
         {/* Se agrego un scroll view horizontal para las personas con menos resolucion, que son de >320 */}
         {/* Quitar si hay algun problema */}
         <ScrollView horizontal>
-          <Center flex={1} padding={4} justifyContent={"flex-start"}>
+          <Center
+            flex={1}
+            padding={4}
+            justifyContent={"flex-start"}
+            alignItems={"center"}
+          >
             {/* Nombre */}
             <HStack margin={4}>
               <Box
