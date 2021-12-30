@@ -10,7 +10,7 @@ import RegisterScreen from "./App/screens/RegisterScreen";
 import SettingsScreen from "./App/screens/SettingsScreen";
 
 // Actual
-import PasswordChangeScreen from "./App/screens/PasswordChangeScreen";
+import CategoryViewScreen from "./App/screens/CategoryViewScreen";
 
 import colors from "./App/config/colors";
 const Drawer = createDrawerNavigator();
@@ -39,7 +39,7 @@ const DrawerNavigator = () => (
     <Drawer.Screen name="Carrito" component={RegisterScreen} />
     <Drawer.Screen name="Tiendas" component={LoginScreen} />
     <Drawer.Screen name="Configuracion" component={SettingsScreen} />
-    <Drawer.Screen name="Actual" component={PasswordChangeScreen} />
+    <Drawer.Screen name="Actual" component={CategoryViewScreen} />
   </Drawer.Navigator>
 );
 
