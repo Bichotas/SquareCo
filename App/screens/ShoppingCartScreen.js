@@ -21,21 +21,7 @@ function ShoppingCartScreen(props) {
       <HeaderScreenC title={"Carrito"} />
 
       <Center justifyContent={"flex-start"} flex={1}>
-        <ScrollView padding={(4, 4, 4)} marginBottom={3}>
-          {/* <VStack space={5}>
-            <Box width={340} height={90} bg={"gray.400"} borderRadius={15}>
-              <HStack space={2}>
-                <Box size={60} bg={"gray.800"} borderRadius={12} />
-              </HStack>
-            </Box>
-            <Box
-              width={340}
-              height={90}
-              bg={"gray.400"}
-              borderRadius={15}
-            ></Box>
-          </VStack> */}
-          {/* Este es para el componente del RPODUCTO */}
+        <ScrollView marginBottom={3}>
           <VStack space={4}>
             <HStack
               space={3}
@@ -303,10 +289,34 @@ function ShoppingCartScreen(props) {
             </HStack>
           </VStack>
         </ScrollView>
-        <Divider height={2} bg={"black"}></Divider>
-        <Text>HOLA</Text>
-        <Text>HOLA</Text>
-        <Text>HOLA</Text>
+        <Divider height={1} bg={"black"} width={"90%"} margin={2}></Divider>
+      </Center>
+
+      <Box paddingX={4}>
+        <VStack padding={3}>
+          <HStack justifyContent={"space-between"}>
+            <Text fontSize={20} fontWeight={"bold"}>
+              Total:
+            </Text>
+            <Text>[TOTAL]</Text>
+          </HStack>
+          <HStack justifyContent={"space-between"}>
+            <Text fontSize={15}>Cantidad:</Text>
+            <Text>[Cantidad]</Text>
+          </HStack>
+        </VStack>
+      </Box>
+      <Center padding={2}>
+        <Button
+          _text={{
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
+          borderRadius={20}
+          py={1}
+        >
+          Proceder al pago
+        </Button>
       </Center>
     </NativeBaseProvider>
   );
