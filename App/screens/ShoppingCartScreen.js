@@ -59,8 +59,7 @@ function ShoppingCartScreen(props) {
                 >
                   [Nombre del producto]
                 </Text>
-                <Text color={"white"} marginBottom={3}>
-                  {" "}
+                <Text color={"white"} marginBottom={4}>
                   Precio
                 </Text>
               </VStack>
@@ -68,10 +67,9 @@ function ShoppingCartScreen(props) {
                 <Button
                   borderRadius={7}
                   py={1.2}
-                  px={3}
+                  px={2}
                   marginBottom={3}
                   marginRight={3}
-                  background={"gray.300"}
                 >
                   Eliminar
                 </Button>
