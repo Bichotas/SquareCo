@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Center,
+  Container,
   HStack,
   NativeBaseProvider,
   ScrollView,
@@ -51,17 +52,21 @@ function ShoppingCartScreen(props) {
                 borderRadius={10}
               />
               <VStack justifyContent={"space-between"}>
-                <Text
-                  color={"white"}
-                  marginTop={3}
-                  fontSize={16}
-                  fontWeight={"bold"}
-                >
-                  [Nombre del producto]
-                </Text>
-                <Text color={"white"} marginBottom={4}>
-                  Precio
-                </Text>
+                <Container width={168} height={"100%"}>
+                  <Text
+                    color={"white"}
+                    marginTop={3}
+                    fontSize={16}
+                    fontWeight={"bold"}
+                    numberOfLines={2}
+                  >
+                    [Nombre del productoadsfadsfs]
+                  </Text>
+
+                  <Text color={"white"} marginBottom={4} fontSize={15} italic>
+                    Precio
+                  </Text>
+                </Container>
               </VStack>
               <Center justifyContent={"flex-end"}>
                 <Button
