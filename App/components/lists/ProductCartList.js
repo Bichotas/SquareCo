@@ -5,6 +5,7 @@ import {
   ScrollView,
   VStack,
   Center,
+  Divider,
 } from "native-base";
 import ProductoInShippingCart from "../ProductoInShippingCart";
 function ProductCartList({ lista }) {
@@ -12,11 +13,13 @@ function ProductCartList({ lista }) {
     <NativeBaseProvider>
       <Center justifyContent={"flex-start"} flex={1}>
         <ScrollView marginBottom={3}>
-          <VStack space={4}>
+          <VStack space={2}>
             <FlatList
               data={lista}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => <ProductCartList />}
+              renderItem={({ item }) => (
+                <ProductoInShippingCart name={item.name} price={item.price} />
+              )}
             />
           </VStack>
         </ScrollView>

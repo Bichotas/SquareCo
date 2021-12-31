@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, VStack, Text, HStack } from "native-base";
-function DetailsShippingCart(props) {
+function DetailsShippingCart({ total, cantidad }) {
   return (
     <Box paddingX={4}>
       <VStack padding={3}>
@@ -8,11 +8,11 @@ function DetailsShippingCart(props) {
           <Text fontSize={20} fontWeight={"bold"}>
             Total:
           </Text>
-          <Text>[TOTAL]</Text>
+          <Text>{total}</Text>
         </HStack>
         <HStack justifyContent={"space-between"}>
           <Text fontSize={15}>Cantidad:</Text>
-          <Text>[Cantidad]</Text>
+          <Text>{cantidad}</Text>
         </HStack>
       </VStack>
     </Box>

@@ -9,7 +9,7 @@ import {
   Button,
   NativeBaseProvider,
 } from "native-base";
-function ProductoInShippingCart(props) {
+function ProductoInShippingCart({ name, price }) {
   return (
     <NativeBaseProvider>
       <HStack
@@ -17,6 +17,8 @@ function ProductoInShippingCart(props) {
         bg={"gray.800"}
         height={100}
         width={350}
+        marginTop={2}
+        marginBottom={2}
         borderRadius={12}
       >
         <Box
@@ -36,11 +38,11 @@ function ProductoInShippingCart(props) {
               fontWeight={"bold"}
               numberOfLines={2}
             >
-              [Nombre del productoadsfadsfs]
+              {name}
             </Text>
 
             <Text color={"white"} marginBottom={4} fontSize={15} italic>
-              Precio
+              {price}
             </Text>
           </Container>
         </VStack>
