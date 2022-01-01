@@ -8,24 +8,31 @@ import {
   Center,
   Select,
   Button,
+  Container,
 } from "native-base";
 import InputStoreC from "../components/forms/InputStoreC";
 import HeaderScreenC from "../components/HeaderScreenC";
-function CreatingStoreScreen(props) {
+function CreatingProductScreen(props) {
   return (
     <NativeBaseProvider>
       <ScrollView>
-        <HeaderScreenC title={"Creacion de la tienda"} />
+        {/* Si es necesario, quitar el encabezado */}
+        <HeaderScreenC title={"Publicacion del producto"} />
         <KeyboardAvoidingView>
           <Box flex={1} padding={6} marginTop={10}>
             <VStack space={2} mt="3">
               <InputStoreC
-                title={"Nombre de tu tienda"}
+                title={"Nombre del producto"}
                 placeholder={"Escribe aqui"}
               />
               <InputStoreC title={"Descripción"} placeholder={"Escribe algo"} />
+              <InputStoreC title={"Precio"} placeholder={"Escribe algo"} />
 
               {/* Aqui poner el picker */}
+              <InputStoreC title={"Picker"} />
+              <Container>
+                <Button>Añadir Fotos</Button>
+              </Container>
             </VStack>
 
             <Center marginTop={4}>
@@ -46,4 +53,4 @@ function CreatingStoreScreen(props) {
   );
 }
 
-export default CreatingStoreScreen;
+export default CreatingProductScreen;
