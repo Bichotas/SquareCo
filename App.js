@@ -10,8 +10,9 @@ import RegisterScreen from "./App/screens/RegisterScreen";
 import SettingsScreen from "./App/screens/SettingsScreen";
 
 // Actual
-import CreatingProductScreen from "./App/screens/CreatingProductScreen";
+
 import colors from "./App/config/colors";
+import ViewProductScreen from "./App/screens/ViewProductScreen";
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => (
   <Drawer.Navigator
@@ -38,7 +39,7 @@ const DrawerNavigator = () => (
     <Drawer.Screen name="Carrito" component={RegisterScreen} />
     <Drawer.Screen name="Tiendas" component={LoginScreen} />
     <Drawer.Screen name="Configuracion" component={SettingsScreen} />
-    <Drawer.Screen name="Actual" component={CreatingProductScreen} />
+    <Drawer.Screen name="Actual" component={ViewProductScreen} />
   </Drawer.Navigator>
 );
 
