@@ -12,7 +12,8 @@ function ImageProductC({ backgroundColor = "blue.300", name, onPress }) {
     <Center marginBottom={5} padding={4}>
       <Pressable
         bg={backgroundColor}
-        size={[78, 108, 138]}
+        size={[78, 108, 138, 190]}
+        margin={[1, 10, 20, 32]}
         borderRadius={[12, 16, 20]}
         onPress={onPress}
         _pressed={{

@@ -6,7 +6,7 @@ import ImageProductC from "./ImageProductC";
 function FeedListC({ list }) {
   return (
     <Center>
-      <VStack paddingTop={10}>
+      <VStack>
         <FlatList
           numColumns={3}
           data={list}
@@ -14,7 +14,6 @@ function FeedListC({ list }) {
           renderItem={({ item }) => (
             <ImageProductC
               name={item.name}
-              backgroundColor="gray.600"
               onPress={({ item }) => console.log(item)}
             />
           )}
