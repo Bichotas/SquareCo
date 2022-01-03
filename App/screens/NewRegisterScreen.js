@@ -16,6 +16,7 @@ import * as Yup from "yup";
 // Diseños
 import RegisterCirclesD from "../designs/RegisterCirclesD";
 import ErrorMessage from "../components/ErrorMessage";
+import AppFormFIeld from "../components/AppFormFIeld";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -51,42 +52,32 @@ function NewRegisterScreen(props) {
                 <TitleForm title={"REGISTRO"} />
 
                 {/* Formularios */}
-
-                <InputFormC
+                <AppFormFIeld
+                  name={"name"}
                   placeholder="Nombre"
                   icon="account-circle-outline"
                   autoCapitalize="none"
                   autoCorrect={false}
-                  onBlur={() => setFieldTouched("name")}
-                  onChangeText={handleChange("name")}
                 />
-
-                <ErrorMessage error={errors.name} visible={touched.name} />
-                <InputFormC
+                <AppFormFIeld
+                  name={"email"}
                   placeholder="Email"
                   icon="email"
                   autoCapitalize="none"
                   autoCorrect={false}
                   keyboardType="email-address"
                   textContentType="emailAddress"
-                  onBlur={() => setFieldTouched("email")}
-                  onChangeText={handleChange("email")}
                 />
-                <ErrorMessage error={errors.email} visible={touched.email} />
-                <InputFormC
+                <AppFormFIeld
+                  name={"password"}
                   autoCapitalize="none"
                   autoCorrect={false}
                   icon="lock"
                   placeholder="Password"
-                  onBlur={() => setFieldTouched("password")}
                   textContentType="password"
                   secureTextEntry={true}
-                  onChangeText={handleChange("password")}
                 />
-                <ErrorMessage
-                  error={errors.password}
-                  visible={touched.password}
-                />
+
                 {/* Fin del formulario */}
                 <Container>
                   <ButtonC

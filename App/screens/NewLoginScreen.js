@@ -8,7 +8,6 @@ import {
 } from "native-base";
 
 // Componentes
-import AppTextC from "../components/AppTextC";
 import TitleForm from "../components/TitleForm";
 import ButtonC from "../components/ButtonC";
 // Diseños
@@ -19,6 +18,7 @@ import InputFormC from "../components/InputFormC";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import ErrorMessage from "../components/ErrorMessage";
+import AppFormFIeld from "../components/AppFormFIeld";
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
@@ -54,30 +54,24 @@ function NewLoginScreen(props) {
 
                   {/* Formularios */}
 
-                  <InputFormC
+                  <AppFormFIeld
+                    name={"email"}
                     placeholder="Email"
                     icon="email"
                     autoCapitalize="none"
                     autoCorrect={false}
                     keyboardType="email-address"
                     textContentType="emailAddress"
-                    onBlur={() => setFieldTouched("email")}
-                    onChangeText={handleChange("email")}
                   />
-                  <ErrorMessage error={errors.email} visible={touched.email} />
-                  <InputFormC
+
+                  <AppFormFIeld
+                    name={"password"}
                     autoCapitalize="none"
                     autoCorrect={false}
                     icon="lock"
                     placeholder="Password"
                     textContentType="password"
                     secureTextEntry={true}
-                    onBlur={() => setFieldTouched("password")}
-                    onChangeText={handleChange("password")}
-                  />
-                  <ErrorMessage
-                    error={errors.password}
-                    visible={touched.password}
                   />
                   {/* Fin del formulario */}
                   <Container>
