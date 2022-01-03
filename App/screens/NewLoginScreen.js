@@ -8,6 +8,9 @@ import ButtonC from "../components/ButtonC";
 // Diseños
 import LoginCirclesD from "../designs/LoginCIrclesD";
 import InputFormC from "../components/InputFormC";
+
+// Formik
+import {Formik} from 'formik'
 function NewLoginScreen(props) {
   return (
     <NativeBaseProvider>
@@ -16,11 +19,16 @@ function NewLoginScreen(props) {
         <LoginCirclesD></LoginCirclesD>
 
         {/* Contenedor */}
+        <Formik initialValues={{email: "", password: ""}} onSubmit={values => console.log(values)}>
+            {({handleSubmit, handleChange})=>(<>
+            
+            
         <Center padding={4}>
           <TitleForm title={"ACCESO"} />
 
           {/* Formularios */}
           <Container margin={30} />
+
           <InputFormC
             placeholder="Email"
             icon="email"
@@ -28,6 +36,7 @@ function NewLoginScreen(props) {
             autoCorrect={false}
             keyboardType="email-address"
             textContentType="emailAddress"
+            onChangeText={handleChange("email")}
           />
           <InputFormC
             autoCapitalize="none"
@@ -36,13 +45,16 @@ function NewLoginScreen(props) {
             placeholder="Password"
             textContentType="password"
             secureTextEntry={true}
+            onChangeText={handleChange("password")}
           />
 
           {/* Fin del formulario */}
           <Container>
-            <ButtonC title="ACCEDER" color="white" text="dark" />
+            <ButtonC title="ACCEDER" color="white" text="dark" onPress={handleSubmit}/>
           </Container>
         </Center>
+            </>)}
+        </Formik>
         {/* Fin del contenedor */}
       </ScreenC>
       {/* Fin */}

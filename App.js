@@ -14,6 +14,7 @@ import SettingsScreen from "./App/screens/SettingsScreen";
 import colors from "./App/config/colors";
 import ViewProductScreen from "./App/screens/ViewProductScreen";
 import NewLoginScreen from "./App/screens/NewLoginScreen";
+import NewRegisterScreen from "./App/screens/NewRegisterScreen";
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => (
   <Drawer.Navigator
