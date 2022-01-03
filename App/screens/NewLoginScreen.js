@@ -4,39 +4,49 @@ import {
   NativeBaseProvider,
   Container,
   KeyboardAvoidingView,
+  ScrollView,
 } from "native-base";
 
 // Componentes
-import ScreenC from "../components/ScreenC";
+import AppTextC from "../components/AppTextC";
 import TitleForm from "../components/TitleForm";
 import ButtonC from "../components/ButtonC";
 // Diseños
 import LoginCirclesD from "../designs/LoginCIrclesD";
 import InputFormC from "../components/InputFormC";
 
-// Formik
+// Formik and Yup
+import * as Yup from "yup";
 import { Formik } from "formik";
-
+import ErrorMessage from "../components/ErrorMessage";
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(4).label("Password"),
+});
 function NewLoginScreen(props) {
   return (
     <NativeBaseProvider>
       {/* Cosillas */}
-      <ScreenC style={{ backgroundColor: "#71D7F1", overflow: "hidden" }}>
-        <LoginCirclesD></LoginCirclesD>
 
-        {/* Contenedor */}
-        <Formik
-          initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
-        >
-          {({ handleSubmit, handleChange }) => (
-            <>
-              <Center padding={4}>
-                <KeyboardAvoidingView>
+      <KeyboardAvoidingView
+        width={"100%"}
+        height={"100%"}
+        backgroundColor={"#71D7F1"}
+      >
+        <ScrollView>
+          <LoginCirclesD></LoginCirclesD>
+          {/* Contenedor */}
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            onSubmit={(values) => console.log(values)}
+            validationSchema={validationSchema}
+          >
+            {({ handleSubmit, handleChange, errors }) => (
+              <>
+                <Center padding={4}>
                   <TitleForm title={"ACCESO"} />
 
                   {/* Formularios */}
-                  <Container margin={30} />
 
                   <InputFormC
                     placeholder="Email"
@@ -47,6 +57,7 @@ function NewLoginScreen(props) {
                     textContentType="emailAddress"
                     onChangeText={handleChange("email")}
                   />
+                  <ErrorMessage error={errors.email} />
                   <InputFormC
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -56,7 +67,7 @@ function NewLoginScreen(props) {
                     secureTextEntry={true}
                     onChangeText={handleChange("password")}
                   />
-
+                  <ErrorMessage error={errors.password} />
                   {/* Fin del formulario */}
                   <Container>
                     <ButtonC
@@ -66,13 +77,14 @@ function NewLoginScreen(props) {
                       onPress={handleSubmit}
                     />
                   </Container>
-                </KeyboardAvoidingView>
-              </Center>
-            </>
-          )}
-        </Formik>
-        {/* Fin del contenedor */}
-      </ScreenC>
+                </Center>
+              </>
+            )}
+          </Formik>
+          {/* Fin del contenedor */}
+        </ScrollView>
+      </KeyboardAvoidingView>
+
       {/* Fin */}
     </NativeBaseProvider>
   );
