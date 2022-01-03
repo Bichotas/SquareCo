@@ -9,14 +9,14 @@ import {
 import { Formik } from "formik";
 // Componentes
 import ScreenC from "../components/ScreenC";
-import TitleForm from "../components/TitleForm";
-import ButtonC from "../components/ButtonC";
-import InputFormC from "../components/InputFormC";
+import TitleForm from "../components/forms/TitleForm";
+import SubmitButton from "../components/forms/SubmitButton";
 import * as Yup from "yup";
 // Diseños
 import RegisterCirclesD from "../designs/RegisterCirclesD";
-import ErrorMessage from "../components/ErrorMessage";
-import AppFormFIeld from "../components/AppFormFIeld";
+import ErrorMessage from "../components/forms/ErrorMessage";
+import { AppFormField } from "../components/forms";
+import AppForm from "../components/forms/AppForm";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -34,63 +34,47 @@ function NewRegisterScreen(props) {
       >
         <RegisterCirclesD></RegisterCirclesD>
 
-        <Formik
+        <AppForm
           initialValues={{ name: "", email: "", password: "" }}
           onSubmit={(values) => console.log(values)}
           validationSchema={validationSchema}
         >
-          {({
-            handleChange,
-            handleSubmit,
-            errors,
-            setFieldTouched,
-            touched,
-          }) => (
-            <>
-              {/* Contenedor */}
-              <Center padding={4}>
-                <TitleForm title={"REGISTRO"} />
+          {/* Contenedor */}
+          <Center padding={4}>
+            <TitleForm title={"REGISTRO"} />
 
-                {/* Formularios */}
-                <AppFormFIeld
-                  name={"name"}
-                  placeholder="Nombre"
-                  icon="account-circle-outline"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                />
-                <AppFormFIeld
-                  name={"email"}
-                  placeholder="Email"
-                  icon="email"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  keyboardType="email-address"
-                  textContentType="emailAddress"
-                />
-                <AppFormFIeld
-                  name={"password"}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  icon="lock"
-                  placeholder="Password"
-                  textContentType="password"
-                  secureTextEntry={true}
-                />
+            {/* Formularios */}
+            <AppFormField
+              name={"name"}
+              placeholder="Nombre"
+              icon="account-circle-outline"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            <AppFormField
+              name={"email"}
+              placeholder="Email"
+              icon="email"
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              textContentType="emailAddress"
+            />
+            <AppFormField
+              name={"password"}
+              autoCapitalize="none"
+              autoCorrect={false}
+              icon="lock"
+              placeholder="Password"
+              textContentType="password"
+              secureTextEntry={true}
+            />
 
-                {/* Fin del formulario */}
-                <Container>
-                  <ButtonC
-                    title="Registrarse"
-                    color="white"
-                    text="dark"
-                    onPress={handleSubmit}
-                  />
-                </Container>
-              </Center>
-            </>
-          )}
-        </Formik>
+            {/* Fin del formulario */}
+
+            <SubmitButton title={"Registrarse"} />
+          </Center>
+        </AppForm>
         {/* Fin del contenedor */}
       </KeyboardAvoidingView>
       {/* Fin */}

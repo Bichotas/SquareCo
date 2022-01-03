@@ -8,17 +8,23 @@ import {
 } from "native-base";
 
 // Componentes
-import TitleForm from "../components/TitleForm";
+import TitleForm from "../components/forms/TitleForm";
 import ButtonC from "../components/ButtonC";
 // Diseños
 import LoginCirclesD from "../designs/LoginCIrclesD";
-import InputFormC from "../components/InputFormC";
+import InputFormC from "../components/forms/InputFormC";
 
 // Formik and Yup
 import * as Yup from "yup";
 import { Formik } from "formik";
-import ErrorMessage from "../components/ErrorMessage";
-import AppFormFIeld from "../components/AppFormFIeld";
+
+import {
+  AppFormField,
+  ErrorMessage,
+  SubmitButton,
+  AppForm,
+} from "../components/forms";
+
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
@@ -36,56 +42,38 @@ function NewLoginScreen(props) {
         <ScrollView>
           <LoginCirclesD></LoginCirclesD>
           {/* Contenedor */}
-          <Formik
+          <AppForm
             initialValues={{ email: "", password: "" }}
             onSubmit={(values) => console.log(values)}
             validationSchema={validationSchema}
           >
-            {({
-              handleSubmit,
-              handleChange,
-              errors,
-              setFieldTouched,
-              touched,
-            }) => (
-              <>
-                <Center padding={4}>
-                  <TitleForm title={"ACCESO"} />
+            <Center padding={4}>
+              <TitleForm title={"ACCESO"} />
 
-                  {/* Formularios */}
+              {/* Formularios */}
 
-                  <AppFormFIeld
-                    name={"email"}
-                    placeholder="Email"
-                    icon="email"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    keyboardType="email-address"
-                    textContentType="emailAddress"
-                  />
+              <AppFormField
+                name={"email"}
+                placeholder="Email"
+                icon="email"
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                textContentType="emailAddress"
+              />
 
-                  <AppFormFIeld
-                    name={"password"}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    icon="lock"
-                    placeholder="Password"
-                    textContentType="password"
-                    secureTextEntry={true}
-                  />
-                  {/* Fin del formulario */}
-                  <Container>
-                    <ButtonC
-                      title="ACCEDER"
-                      color="white"
-                      text="dark"
-                      onPress={handleSubmit}
-                    />
-                  </Container>
-                </Center>
-              </>
-            )}
-          </Formik>
+              <AppFormField
+                name={"password"}
+                autoCapitalize="none"
+                autoCorrect={false}
+                icon="lock"
+                placeholder="Password"
+                textContentType="password"
+                secureTextEntry={true}
+              />
+              <SubmitButton title={"ACCEDER"} />
+            </Center>
+          </AppForm>
           {/* Fin del contenedor */}
         </ScrollView>
       </KeyboardAvoidingView>

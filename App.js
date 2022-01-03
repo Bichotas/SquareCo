@@ -5,15 +5,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 // Pantallas
 import HomeScreen from "./App/screens/HomeScreen";
-
+import NewLoginScreen from "./App/screens/NewLoginScreen";
+import NewRegisterScreen from "./App/screens/NewRegisterScreen";
 import SettingsScreen from "./App/screens/SettingsScreen";
 
 // Actual
 
 import colors from "./App/config/colors";
-import ViewProductScreen from "./App/screens/ViewProductScreen";
-import NewLoginScreen from "./App/screens/NewLoginScreen";
-import NewRegisterScreen from "./App/screens/NewRegisterScreen";
+import ListingEditScreen from "./App/screens/ListingEditScreen";
+
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => (
   <Drawer.Navigator
@@ -40,7 +40,7 @@ const DrawerNavigator = () => (
     <Drawer.Screen name="Carrito" component={NewRegisterScreen} />
     <Drawer.Screen name="Tiendas" component={NewLoginScreen} />
     <Drawer.Screen name="Configuracion" component={SettingsScreen} />
-    <Drawer.Screen name="Actual" component={ViewProductScreen} />
+    <Drawer.Screen name="Actual" component={ListingEditScreen} />
   </Drawer.Navigator>
 );
 

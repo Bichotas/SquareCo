@@ -2,9 +2,9 @@ import React from "react";
 import { View, StyleSheet, TextInput, Platform } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import defaultStyles from "../config/stylesGlobal";
+import defaultStyles from "../../config/stylesGlobal";
 
-import colors from "../config/colors";
+import colors from "../../config/colors";
 function InputFormC({ icon, ...otherProps }) {
   return (
     <View style={styles.container}>
