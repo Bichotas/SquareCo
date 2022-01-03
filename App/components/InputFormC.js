@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/stylesGlobal";
 
 import colors from "../config/colors";
-function InputFormC({ icon, ...others }) {
+function InputFormC({ icon, ...otherProps }) {
   return (
     <View style={styles.container}>
       {icon && (
@@ -16,7 +16,7 @@ function InputFormC({ icon, ...others }) {
           style={styles.icon}
         />
       )}
-      <TextInput style={defaultStyles.text} {...others} />
+      <TextInput style={defaultStyles.text} {...otherProps} />
     </View>
   );
 }
