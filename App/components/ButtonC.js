@@ -5,6 +5,7 @@ function ButtonC({ title, onPress, color = "primary", text = "white" }) {
   return (
     <TouchableOpacity
       style={[styles.button, { backgroundColor: colors[color] }]}
+      onPress={onPress}
     >
       <Text style={[styles.text, { color: colors[text] }]}>{title}</Text>
     </TouchableOpacity>

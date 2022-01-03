@@ -52,16 +52,14 @@ function NewLoginScreen(props) {
                 />
 
                 {/* Fin del formulario */}
-                {/* <Container>
+                <Container>
                   <ButtonC
                     title="ACCEDER"
                     color="white"
                     text="dark"
                     onPress={handleSubmit}
                   />
-                </Container> */}
-
-                <Button onPress={handleSubmit}>ACCEDER</Button>
+                </Container>
               </Center>
             </>
           )}
