@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Center, NativeBaseProvider, Container, Button } from "native-base";
+import {
+  Center,
+  NativeBaseProvider,
+  Container,
+  KeyboardAvoidingView,
+} from "native-base";
 
 // Componentes
 import ScreenC from "../components/ScreenC";
@@ -27,39 +32,41 @@ function NewLoginScreen(props) {
           {({ handleSubmit, handleChange }) => (
             <>
               <Center padding={4}>
-                <TitleForm title={"ACCESO"} />
+                <KeyboardAvoidingView>
+                  <TitleForm title={"ACCESO"} />
 
-                {/* Formularios */}
-                <Container margin={30} />
+                  {/* Formularios */}
+                  <Container margin={30} />
 
-                <InputFormC
-                  placeholder="Email"
-                  icon="email"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  keyboardType="email-address"
-                  textContentType="emailAddress"
-                  onChangeText={handleChange("email")}
-                />
-                <InputFormC
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  icon="lock"
-                  placeholder="Password"
-                  textContentType="password"
-                  secureTextEntry={true}
-                  onChangeText={handleChange("password")}
-                />
-
-                {/* Fin del formulario */}
-                <Container>
-                  <ButtonC
-                    title="ACCEDER"
-                    color="white"
-                    text="dark"
-                    onPress={handleSubmit}
+                  <InputFormC
+                    placeholder="Email"
+                    icon="email"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    keyboardType="email-address"
+                    textContentType="emailAddress"
+                    onChangeText={handleChange("email")}
                   />
-                </Container>
+                  <InputFormC
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    icon="lock"
+                    placeholder="Password"
+                    textContentType="password"
+                    secureTextEntry={true}
+                    onChangeText={handleChange("password")}
+                  />
+
+                  {/* Fin del formulario */}
+                  <Container>
+                    <ButtonC
+                      title="ACCEDER"
+                      color="white"
+                      text="dark"
+                      onPress={handleSubmit}
+                    />
+                  </Container>
+                </KeyboardAvoidingView>
               </Center>
             </>
           )}

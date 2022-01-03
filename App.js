@@ -5,8 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 // Pantallas
 import HomeScreen from "./App/screens/HomeScreen";
-import LoginScreen from "../SquareCo/App/screens/LoginScreen";
-import RegisterScreen from "./App/screens/RegisterScreen";
+
 import SettingsScreen from "./App/screens/SettingsScreen";
 
 // Actual
@@ -38,10 +37,10 @@ const DrawerNavigator = () => (
     }}
   >
     <Drawer.Screen name="Home" component={HomeScreen} />
-    <Drawer.Screen name="Carrito" component={RegisterScreen} />
-    <Drawer.Screen name="Tiendas" component={LoginScreen} />
+    <Drawer.Screen name="Carrito" component={NewRegisterScreen} />
+    <Drawer.Screen name="Tiendas" component={NewLoginScreen} />
     <Drawer.Screen name="Configuracion" component={SettingsScreen} />
-    <Drawer.Screen name="Actual" component={NewLoginScreen} />
+    <Drawer.Screen name="Actual" component={ViewProductScreen} />
   </Drawer.Navigator>
 );
 
