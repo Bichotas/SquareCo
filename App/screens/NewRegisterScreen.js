@@ -38,7 +38,13 @@ function NewRegisterScreen(props) {
           onSubmit={(values) => console.log(values)}
           validationSchema={validationSchema}
         >
-          {({ handleChange, handleSubmit, errors }) => (
+          {({
+            handleChange,
+            handleSubmit,
+            errors,
+            setFieldTouched,
+            touched,
+          }) => (
             <>
               {/* Contenedor */}
               <Center padding={4}>
@@ -51,10 +57,11 @@ function NewRegisterScreen(props) {
                   icon="account-circle-outline"
                   autoCapitalize="none"
                   autoCorrect={false}
+                  onBlur={() => setFieldTouched("name")}
                   onChangeText={handleChange("name")}
                 />
 
-                <ErrorMessage error={errors.name} />
+                <ErrorMessage error={errors.name} visible={touched.name} />
                 <InputFormC
                   placeholder="Email"
                   icon="email"
@@ -62,19 +69,24 @@ function NewRegisterScreen(props) {
                   autoCorrect={false}
                   keyboardType="email-address"
                   textContentType="emailAddress"
+                  onBlur={() => setFieldTouched("email")}
                   onChangeText={handleChange("email")}
                 />
-                <ErrorMessage error={errors.email} />
+                <ErrorMessage error={errors.email} visible={touched.email} />
                 <InputFormC
                   autoCapitalize="none"
                   autoCorrect={false}
                   icon="lock"
                   placeholder="Password"
+                  onBlur={() => setFieldTouched("password")}
                   textContentType="password"
                   secureTextEntry={true}
                   onChangeText={handleChange("password")}
                 />
-                <ErrorMessage error={errors.password} />
+                <ErrorMessage
+                  error={errors.password}
+                  visible={touched.password}
+                />
                 {/* Fin del formulario */}
                 <Container>
                   <ButtonC

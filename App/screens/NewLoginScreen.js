@@ -41,7 +41,13 @@ function NewLoginScreen(props) {
             onSubmit={(values) => console.log(values)}
             validationSchema={validationSchema}
           >
-            {({ handleSubmit, handleChange, errors }) => (
+            {({
+              handleSubmit,
+              handleChange,
+              errors,
+              setFieldTouched,
+              touched,
+            }) => (
               <>
                 <Center padding={4}>
                   <TitleForm title={"ACCESO"} />
@@ -55,9 +61,10 @@ function NewLoginScreen(props) {
                     autoCorrect={false}
                     keyboardType="email-address"
                     textContentType="emailAddress"
+                    onBlur={() => setFieldTouched("email")}
                     onChangeText={handleChange("email")}
                   />
-                  <ErrorMessage error={errors.email} />
+                  <ErrorMessage error={errors.email} visible={touched.email} />
                   <InputFormC
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -65,9 +72,13 @@ function NewLoginScreen(props) {
                     placeholder="Password"
                     textContentType="password"
                     secureTextEntry={true}
+                    onBlur={() => setFieldTouched("password")}
                     onChangeText={handleChange("password")}
                   />
-                  <ErrorMessage error={errors.password} />
+                  <ErrorMessage
+                    error={errors.password}
+                    visible={touched.password}
+                  />
                   {/* Fin del formulario */}
                   <Container>
                     <ButtonC
