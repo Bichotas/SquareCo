@@ -38,7 +38,7 @@ function CreatingStoreScreen(props) {
     <NativeBaseProvider>
       <ScrollView>
         {/* Si es necesario, quitar el encabezado */}
-        <HeaderScreenC title={"Publicacion del producto"} />
+        <HeaderScreenC title={"Creación del perfil de la tienda"} />
         <KeyboardAvoidingView>
           <Form
             initialValues={{
