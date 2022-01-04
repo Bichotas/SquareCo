@@ -11,13 +11,13 @@ import {
   Container,
 } from "native-base";
 
-import HeaderScreenC from "../components/HeaderScreenC";
+import HeaderScreenC from "../../components/HeaderScreenC";
 import {
   AppForm as Form,
   AppFormField as FormField,
   AppFormPicker as Picker,
   SubmitButton,
-} from "../components/forms";
+} from "../../components/forms";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
@@ -33,16 +33,17 @@ const categories = [
   { label: "Camera", value: 3 },
 ];
 
-function CreatingStoreScreen(props) {
+function CreatingProductScreen(props) {
   return (
     <NativeBaseProvider>
       <ScrollView>
         {/* Si es necesario, quitar el encabezado */}
-        <HeaderScreenC title={"Creación del perfil de la tienda"} />
+        <HeaderScreenC title={"Publicacion del producto"} />
         <KeyboardAvoidingView>
           <Form
             initialValues={{
               title: "",
+              price: "",
               description: "",
               category: null,
             }}
@@ -50,6 +51,12 @@ function CreatingStoreScreen(props) {
             validationSchema={validationSchema}
           >
             <FormField maxLength={255} name="title" placeholder="Title" />
+            <FormField
+              keyboardType="numeric"
+              maxLength={8}
+              name="price"
+              placeholder="Price"
+            />
             <Picker items={categories} name="category" placeholder="Category" />
             <FormField
               maxLength={255}
@@ -66,4 +73,4 @@ function CreatingStoreScreen(props) {
   );
 }
 
-export default CreatingStoreScreen;
+export default CreatingProductScreen;

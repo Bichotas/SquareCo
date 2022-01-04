@@ -13,7 +13,7 @@ import {
 } from "../screens/AuthScreens";
 import colors from "../config/colors";
 import SettingsScreen from "../screens/ConfigScreens/SettingsScreen";
-import CreatingStoreScreen from "../screens/CreatingStoreScreen";
+
 
 // Stacks
 import MyConfigStack from "./ConfigNavigator";
@@ -48,7 +48,7 @@ const DrawerNavigator = () => (
     <Drawer.Screen name="Carrito" component={MyCartStack} />
     <Drawer.Screen name="Tiendas" component={MyCategStack} />
     <Drawer.Screen name="Configuracion" component={MyConfigStack} />
-    <Drawer.Screen name="Actual" component={CreatingStoreScreen} />
+    {/* <Drawer.Screen name="Actual" component={CreatingStoreScreen} /> */}
   </Drawer.Navigator>
 );
 

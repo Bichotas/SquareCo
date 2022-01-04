@@ -7,7 +7,7 @@ import {
   Text,
   Divider,
 } from "native-base";
-import AppText from "../components/AppText";
+import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
 export default function ProfileStore() {
   return (

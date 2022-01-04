@@ -7,8 +7,8 @@ import {
   AppFormField as FormField,
   AppFormPicker as Picker,
   SubmitButton,
-} from "../components/forms";
-import ScreenC from "../components/ScreenC";
+} from "../../components/forms";
+import ScreenC from "../../components/ScreenC";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),

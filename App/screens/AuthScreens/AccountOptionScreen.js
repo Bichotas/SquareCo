@@ -1,15 +1,15 @@
 import React from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
-import AppButton from "../components/AppButton";
+import AppButton from "../../components/AppButton";
 
 // Componentes
-import ScreenC from "../components/ScreenC";
+import ScreenC from "../../components/ScreenC";
 
 // Configuraciones
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
 // Diseños
-import AccountOptionsCircle from "../designs/AccountOptionsCirclesD";
+import AccountOptionsCircle from "../../designs/AccountOptionsCirclesD";
 function AccountOptionScreen(props) {
   return (
     <ScreenC style={styles.optionScreen}>
