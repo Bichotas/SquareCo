@@ -14,9 +14,9 @@ import {
 } from "native-base";
 
 // Componentes
-import HeaderScreenC from "../components/HeaderScreenC";
-import ProductCartList from "../components/lists/ProductCartList";
-import DetailsShippingCart from "../components/DetailsShippingCart";
+import HeaderScreenC from "../../components/HeaderScreenC";
+import ProductCartList from "../../components/lists/ProductCartList";
+import DetailsShippingCart from "../../components/DetailsShippingCart";
 const lista = [
   { id: 1, name: "Item uno", price: 99 },
   { id: 2, name: "Item dos", price: 100 },

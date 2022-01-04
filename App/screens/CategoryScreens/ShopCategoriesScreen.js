@@ -1,7 +1,7 @@
 import React from "react";
 import { NativeBaseProvider, Box, Text } from "native-base";
-import CategoriesList from "../components/lists/CategoriesList";
-import HeaderScreenC from "../components/HeaderScreenC";
+import CategoriesList from "../../components/lists/CategoriesList";
+import HeaderScreenC from "../../components/HeaderScreenC";
 const categories = [
   {
     backgroundColor: "#fc5c65",

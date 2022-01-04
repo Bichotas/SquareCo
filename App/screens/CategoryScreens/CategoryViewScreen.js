@@ -7,8 +7,8 @@ import {
   ScrollView,
   Divider,
 } from "native-base";
-import SquareStoreC from "../components/SquareStoreC";
-import CategoryTitle from "../components/CategoryTitle";
+import SquareStoreC from "../../components/SquareStoreC";
+import CategoryTitle from "../../components/CategoryTitle";
 
 const valores = [
   { item: 1, name: "UWu" },

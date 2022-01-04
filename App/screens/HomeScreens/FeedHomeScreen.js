@@ -6,8 +6,8 @@ import {
   Box,
   Divider,
 } from "native-base";
-import ImageProductC from "../components/feed/ImageProductC";
-import FeedListC from "../components/feed/FeedListC";
+import ImageProductC from "../../components/feed/ImageProductC";
+import FeedListC from "../../components/feed/FeedListC";
 
 const valores = [
   { value: 1, name: "UWu" },

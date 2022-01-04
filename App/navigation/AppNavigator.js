@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, Image } from "react-native";
+import { StyleSheet, Text, Image, Pressable } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -15,7 +15,11 @@ import colors from "../config/colors";
 import SettingsScreen from "../screens/ConfigScreens/SettingsScreen";
 import CreatingStoreScreen from "../screens/CreatingStoreScreen";
 
+// Stacks
 import MyConfigStack from "./ConfigNavigator";
+import MyHomeStack from "./HomeNavigator";
+import MyCartStack from "./ShippingCartNavigator";
+import MyCategStack from "./CategoriesNavigator";
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => (
   <Drawer.Navigator
@@ -25,22 +29,24 @@ const DrawerNavigator = () => (
 
       headerTitleAlign: "center",
       headerTitle: () => (
-        <Image
-          style={{
-            width: 48,
-            height: 48,
-            borderColor: colors.white,
-            borderWidth: 2,
-            borderRadius: 8,
-          }}
-          source={require("../assets/logo-squareco.jpeg")}
-        />
+        <Pressable>
+          <Image
+            style={{
+              width: 48,
+              height: 48,
+              borderColor: colors.white,
+              borderWidth: 2,
+              borderRadius: 8,
+            }}
+            source={require("../assets/logo-squareco.jpeg")}
+          />
+        </Pressable>
       ),
     }}
   >
-    <Drawer.Screen name="Home" component={WelcomeScreen} />
-    <Drawer.Screen name="Carrito" component={RegisterScreen} />
-    <Drawer.Screen name="Tiendas" component={LoginScreen} />
+    <Drawer.Screen name="Home" component={MyHomeStack} />
+    <Drawer.Screen name="Carrito" component={MyCartStack} />
+    <Drawer.Screen name="Tiendas" component={MyCategStack} />
     <Drawer.Screen name="Configuracion" component={MyConfigStack} />
     <Drawer.Screen name="Actual" component={CreatingStoreScreen} />
   </Drawer.Navigator>
