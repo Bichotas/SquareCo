@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import RegisterCirclesD from "../designs/RegisterCirclesD";
 // Components
 import ScreenC from "../components/ScreenC";
-import ButtonC from "../components/ButtonC";
-import InputFormC from "../components/InputFormC";
+import AppButton from "../components/AppButton";
+import AppTextInput from "../components/AppTextInput";
 
 // Colores
 import colors from "../config/colors";
@@ -21,13 +21,13 @@ function RecoverPasswordScreen(props) {
           <View style={styles.ada} />
         </View>
         <View style={styles.formContainer}>
-          <InputFormC
+          <AppTextInput
             placeholder="Nombre"
             icon="account-circle-outline"
             autoCapitalize="none"
             autoCorrect={false}
           />
-          <InputFormC
+          <AppTextInput
             placeholder="Email"
             icon="email"
             autoCapitalize="none"
@@ -37,7 +37,7 @@ function RecoverPasswordScreen(props) {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <ButtonC title="Recuperar" color="naranja" />
+          <AppButton title="Recuperar" color="naranja" />
         </View>
       </KeyboardAvoidingView>
     </ScreenC>

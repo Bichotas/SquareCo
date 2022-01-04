@@ -14,7 +14,7 @@ import {
   Pressable,
 } from "native-base";
 import SquareStoreC from "../components/SquareStoreC";
-import CategoryTitleC from "../components/CategoryTitleC";
+import CategoryTitle from "../components/CategoryTitle";
 
 const valores = [
   { item: 1, name: "UWu" },
@@ -39,7 +39,7 @@ function CategoryViewScreen(props) {
           alignItems={"center"}
         >
           {/* Titulo de la categoria */}
-          <CategoryTitleC name={"Categoria"} backgroundColor={"gray.700"} />
+          <CategoryTitle name={"Categoria"} backgroundColor={"gray.700"} />
 
           <Divider marginTop={5} width={"90%"} />
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
-import ButtonC from "../components/ButtonC";
+import AppButton from "../components/AppButton";
 
 // Componentes
 import ScreenC from "../components/ScreenC";
@@ -31,10 +31,10 @@ function AccountOptionScreen(props) {
         {/* Botones */}
         <View style={styles.buttonsContainer}>
           <View style={styles.button1}>
-            <ButtonC title="Comprar" color="naranja" />
+            <AppButton title="Comprar" color="naranja" />
           </View>
           <View style={styles.button2}>
-            <ButtonC title="Vender" color="white" text="dark" />
+            <AppButton title="Vender" color="white" text="dark" />
           </View>
         </View>
       </View>

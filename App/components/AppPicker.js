@@ -43,22 +43,20 @@ function AppPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
         </View>
       </TouchableWithoutFeedback>
       <Modal visible={modalVisible} animationType="slide">
-        <ScreenC>
-          <Button title="Close" onPress={() => setModalVisible(false)} />
-          <FlatList
-            data={items}
-            keyExtractor={(item) => item.value.toString()}
-            renderItem={({ item }) => (
-              <PickerItem
-                label={item.label}
-                onPress={() => {
-                  setModalVisible(false);
-                  onSelectItem(item);
-                }}
-              />
-            )}
-          />
-        </ScreenC>
+        <Button title="Close" onPress={() => setModalVisible(false)} />
+        <FlatList
+          data={items}
+          keyExtractor={(item) => item.value.toString()}
+          renderItem={({ item }) => (
+            <PickerItem
+              label={item.label}
+              onPress={() => {
+                setModalVisible(false);
+                onSelectItem(item);
+              }}
+            />
+          )}
+        />
       </Modal>
     </>
   );

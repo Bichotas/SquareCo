@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "native-base";
-function CategoryTitleC({ name, backgroundColor }) {
+function CategoryTitle({ name, backgroundColor }) {
   return (
     <Box
       bg={backgroundColor}
@@ -18,4 +18,4 @@ function CategoryTitleC({ name, backgroundColor }) {
   );
 }
 
-export default CategoryTitleC;
+export default CategoryTitle;

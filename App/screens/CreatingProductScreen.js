@@ -74,29 +74,3 @@ function CreatingProductScreen(props) {
 }
 
 export default CreatingProductScreen;
-{
-  /* <InputStoreC
-                title={"Nombre del producto"}
-                placeholder={"Escribe aqui"}
-              />
-              <InputStoreC title={"Descripción"} placeholder={"Escribe algo"} />
-              <InputStoreC title={"Precio"} placeholder={"Escribe algo"} />
-
-              <InputStoreC title={"Picker"} />
-              <Container>
-                <Button>Añadir Fotos</Button>
-              </Container>
-            </VStack>
-
-            <Center marginTop={4}>
-              <Button
-                paddingY={4}
-                paddingX={10}
-                borderRadius={50}
-                marginBottom={4}
-                fontWeight={"bold"}
-              >
-                Guardar Cambios
-              </Button>
-            </Center> */
-}

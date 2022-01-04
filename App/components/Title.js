@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import colors from "../config/colors";
 import ScreenC from "./ScreenC";
 
-function TitleC({ title, style }) {
+function Title({ title, style }) {
   return (
     <View style={[styles.container, style]}>
       <Text style={styles.text}>{title}</Text>
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-export default TitleC;
+export default Title;

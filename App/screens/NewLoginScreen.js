@@ -9,21 +9,13 @@ import {
 
 // Componentes
 import TitleForm from "../components/forms/TitleForm";
-import ButtonC from "../components/ButtonC";
 // Diseños
 import LoginCirclesD from "../designs/LoginCIrclesD";
-import InputFormC from "../components/forms/InputFormC";
 
 // Formik and Yup
 import * as Yup from "yup";
-import { Formik } from "formik";
 
-import {
-  AppFormField,
-  ErrorMessage,
-  SubmitButton,
-  AppForm,
-} from "../components/forms";
+import { AppFormField, SubmitButton, AppForm } from "../components/forms";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
