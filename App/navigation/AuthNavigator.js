@@ -13,7 +13,7 @@ import {
 
 // Stack
 import AppNavigator from './AppNavigator'
-
+import MySellerStack from "./SellerNavigator";
 const AuthStack = createNativeStackNavigator();
 
 const MyAuthStack = () => {
@@ -24,7 +24,9 @@ const MyAuthStack = () => {
       <AuthStack.Screen name="ChoseAccount" component={OptionAccount} />
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="RecoverPassword" component={RecoverPassword} />
+      {/* Stacks */}
       <AuthStack.Screen name="Uwu" component={AppNavigator} />
+      <AuthStack.Screen name="Creacion" component={MySellerStack} />
     </AuthStack.Navigator>
   );
 };

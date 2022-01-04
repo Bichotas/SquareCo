@@ -5,6 +5,7 @@ import {
   Container,
   KeyboardAvoidingView,
   ScrollView,
+  Button,
 } from "native-base";
 import { Formik } from "formik";
 // Componentes
@@ -24,7 +25,10 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
-function NewRegisterScreen(props) {
+function NewRegisterScreen({ navigation }) {
+  const handleNavigation = () => {
+    navigation.navigate("ChoseAccount");
+  };
   return (
     <NativeBaseProvider>
       {/* Cosillas */}
@@ -72,7 +76,8 @@ function NewRegisterScreen(props) {
 
             {/* Fin del formulario */}
 
-            <SubmitButton title={"Registrarse"} />
+            {/* <SubmitButton title={"Registrarse"} /> */}
+            <Button onPress={handleNavigation}>Registrarse</Button>
           </Center>
         </AppForm>
         {/* Fin del contenedor */}

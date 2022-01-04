@@ -10,7 +10,13 @@ import colors from "../../config/colors";
 
 // Diseños
 import AccountOptionsCircle from "../../designs/AccountOptionsCirclesD";
-function AccountOptionScreen(props) {
+function AccountOptionScreen({ navigation }) {
+  const onBuy = () => {
+    navigation.navigate("Uwu", { screen: "Home" });
+  };
+  const onSell = () => {
+    navigation.navigate("Creacion", { screen: "CreatingStore" });
+  };
   return (
     <ScreenC style={styles.optionScreen}>
       <AccountOptionsCircle></AccountOptionsCircle>
@@ -31,10 +37,15 @@ function AccountOptionScreen(props) {
         {/* Botones */}
         <View style={styles.buttonsContainer}>
           <View style={styles.button1}>
-            <AppButton title="Comprar" color="naranja" />
+            <AppButton title="Comprar" color="naranja" onPress={onBuy} />
           </View>
           <View style={styles.button2}>
-            <AppButton title="Vender" color="white" text="dark" />
+            <AppButton
+              title="Vender"
+              color="white"
+              text="dark"
+              onPress={onSell}
+            />
           </View>
         </View>
       </View>
