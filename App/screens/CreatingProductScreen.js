@@ -10,12 +10,15 @@ import {
   Button,
   Container,
 } from "native-base";
-import InputStoreC from "../components/forms/InputStoreC";
+
 import HeaderScreenC from "../components/HeaderScreenC";
-import AppForm from "../components/forms/AppForm";
-import AppFormFIeld from "../components/forms/AppFormFIeld";
+import {
+  AppForm as Form,
+  AppFormField as FormField,
+  AppFormPicker as Picker,
+  SubmitButton,
+} from "../components/forms";
 import * as Yup from "yup";
-import SubmitButton from "../components/forms/SubmitButton";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -37,28 +40,33 @@ function CreatingProductScreen(props) {
         {/* Si es necesario, quitar el encabezado */}
         <HeaderScreenC title={"Publicacion del producto"} />
         <KeyboardAvoidingView>
-          <Box flex={1} padding={6} marginTop={10}>
-            <VStack space={2} mt="3">
-              <AppForm
-                initialValue
-                s={{
-                  title: "",
-                  price: "",
-                  description: "",
-                  category: null,
-                }}
-                onSubmit={(values) => console.log(values)}
-                validationSchema={validationSchema}
-              >
-                <AppFormFIeld
-                  maxLength={255}
-                  name="title"
-                  placeholder="Title"
-                />
-                <SubmitButton />
-              </AppForm>
-            </VStack>
-          </Box>
+          <Form
+            initialValues={{
+              title: "",
+              price: "",
+              description: "",
+              category: null,
+            }}
+            onSubmit={(values) => console.log(values)}
+            validationSchema={validationSchema}
+          >
+            <FormField maxLength={255} name="title" placeholder="Title" />
+            <FormField
+              keyboardType="numeric"
+              maxLength={8}
+              name="price"
+              placeholder="Price"
+            />
+            <Picker items={categories} name="category" placeholder="Category" />
+            <FormField
+              maxLength={255}
+              multiline
+              name="description"
+              numberOfLines={3}
+              placeholder="Description"
+            />
+            <SubmitButton title="Post" />
+          </Form>
         </KeyboardAvoidingView>
       </ScrollView>
     </NativeBaseProvider>
