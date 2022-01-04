@@ -6,7 +6,7 @@ const confOptions = [
   { item: 2, name: "Datos de envio", go: "DatosEnvio" },
   { item: 3, name: "Cambiar contraseña", go: "CambiarContraseña" },
 ];
-export default function SettingsScreen() {
+export default function SettingsScreen({ navigation }) {
   return (
     <NativeBaseProvider>
       <Box background={"purple.600"} h={12} justifyContent={"center"}>
@@ -35,7 +35,7 @@ export default function SettingsScreen() {
               }}
               shadow={(10, 5, 3, 5)}
               onPress={() => {
-                console.log(item.go);
+                navigation.navigate(item.go);
               }}
             >
               {item.name}
