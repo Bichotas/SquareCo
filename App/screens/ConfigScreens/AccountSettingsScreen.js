@@ -15,6 +15,7 @@ import {
   Switch,
   KeyboardAvoidingView,
 } from "native-base";
+import ReturnArrow from "../../components/ReturnArrow";
 
 // Faltaria poner la flecha de regreso, pero eso cuando se hagan todos los stacksS
 
@@ -27,12 +28,18 @@ const config = {
     // 'linear-gradient': require('react-native-linear-gradient').default,
   },
 };
-function AccountSettingsScreen(props) {
+
+function AccountSettingsScreen({ navigation }) {
+  const pressHandler = () => {
+    console.log("Pressing");
+    navigation.goBack();
+  };
   return (
     <NativeBaseProvider config={config}>
       <ScrollView>
+        <ReturnArrow onPress={pressHandler} />
         <KeyboardAvoidingView>
-          <Box flex={1} padding={6} marginTop={4}>
+          <Box flex={1} padding={6} marginTop={-10}>
             <Text
               fontSize={"4xl"}
               fontWeight={"bold"}
