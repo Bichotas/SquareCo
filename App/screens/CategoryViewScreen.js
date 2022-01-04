@@ -1,17 +1,11 @@
 import React from "react";
 import {
-  Box,
   Center,
-  HStack,
   NativeBaseProvider,
   VStack,
-  Text,
-  Container,
   FlatList,
-  View,
   ScrollView,
   Divider,
-  Pressable,
 } from "native-base";
 import SquareStoreC from "../components/SquareStoreC";
 import CategoryTitle from "../components/CategoryTitle";

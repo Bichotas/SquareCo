@@ -63,3 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 export default ListingEditScreen;
+// Pantalla que se uso de referencia para las pantallas de Creating[____]Screen

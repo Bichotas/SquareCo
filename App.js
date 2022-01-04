@@ -12,8 +12,8 @@ import SettingsScreen from "./App/screens/SettingsScreen";
 // Actual
 
 import colors from "./App/config/colors";
-import ListingEditScreen from "./App/screens/ListingEditScreen";
-import CreatingProductoScreen from "./App/screens/CreatingProductScreen";
+
+import CreatingStoreScreen from "./App/screens/CreatingStoreScreen";
 
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => (
@@ -41,7 +41,7 @@ const DrawerNavigator = () => (
     <Drawer.Screen name="Carrito" component={NewRegisterScreen} />
     <Drawer.Screen name="Tiendas" component={NewLoginScreen} />
     <Drawer.Screen name="Configuracion" component={SettingsScreen} />
-    <Drawer.Screen name="Actual" component={CreatingProductoScreen} />
+    <Drawer.Screen name="Actual" component={CreatingStoreScreen} />
   </Drawer.Navigator>
 );
 

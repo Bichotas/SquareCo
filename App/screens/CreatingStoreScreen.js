@@ -8,38 +8,58 @@ import {
   Center,
   Select,
   Button,
+  Container,
 } from "native-base";
-import InputStoreC from "../components/forms/InputStoreC";
+
 import HeaderScreenC from "../components/HeaderScreenC";
+import {
+  AppForm as Form,
+  AppFormField as FormField,
+  AppFormPicker as Picker,
+  SubmitButton,
+} from "../components/forms";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object().shape({
+  title: Yup.string().required().min(1).label("Title"),
+  price: Yup.number().required().min(1).max(10000).label("Price"),
+  description: Yup.string().label("Description"),
+  category: Yup.object().required().nullable().label("Category"),
+});
+
+const categories = [
+  { label: "Furniture", value: 1 },
+  { label: "Clothing", value: 2 },
+  { label: "Camera", value: 3 },
+];
+
 function CreatingStoreScreen(props) {
   return (
     <NativeBaseProvider>
       <ScrollView>
-        <HeaderScreenC title={"Creacion de la tienda"} />
+        {/* Si es necesario, quitar el encabezado */}
+        <HeaderScreenC title={"Publicacion del producto"} />
         <KeyboardAvoidingView>
-          <Box flex={1} padding={6} marginTop={10}>
-            <VStack space={2} mt="3">
-              <InputStoreC
-                title={"Nombre de tu tienda"}
-                placeholder={"Escribe aqui"}
-              />
-              <InputStoreC title={"Descripción"} placeholder={"Escribe algo"} />
-
-              {/* Aqui poner el picker */}
-            </VStack>
-
-            <Center marginTop={4}>
-              <Button
-                paddingY={4}
-                paddingX={10}
-                borderRadius={50}
-                marginBottom={4}
-                fontWeight={"bold"}
-              >
-                Guardar Cambios
-              </Button>
-            </Center>
-          </Box>
+          <Form
+            initialValues={{
+              title: "",
+              description: "",
+              category: null,
+            }}
+            onSubmit={(values) => console.log(values)}
+            validationSchema={validationSchema}
+          >
+            <FormField maxLength={255} name="title" placeholder="Title" />
+            <Picker items={categories} name="category" placeholder="Category" />
+            <FormField
+              maxLength={255}
+              multiline
+              name="description"
+              numberOfLines={3}
+              placeholder="Description"
+            />
+            <SubmitButton title="Post" />
+          </Form>
         </KeyboardAvoidingView>
       </ScrollView>
     </NativeBaseProvider>
