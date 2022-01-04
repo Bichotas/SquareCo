@@ -8,15 +8,15 @@ import {
 } from "native-base";
 import { Formik } from "formik";
 // Componentes
-import ScreenC from "../components/ScreenC";
-import TitleForm from "../components/forms/TitleForm";
-import SubmitButton from "../components/forms/SubmitButton";
+import ScreenC from "../../components/ScreenC";
+import TitleForm from "../../components/forms/TitleForm";
+import SubmitButton from "../../components/forms/SubmitButton";
 import * as Yup from "yup";
 // Diseños
-import RegisterCirclesD from "../designs/RegisterCirclesD";
-import ErrorMessage from "../components/forms/ErrorMessage";
-import { AppFormField } from "../components/forms";
-import AppForm from "../components/forms/AppForm";
+import RegisterCirclesD from "../../designs/RegisterCirclesD";
+import ErrorMessage from "../../components/forms/ErrorMessage";
+import { AppFormField } from "../../components/forms";
+import AppForm from "../../components/forms/AppForm";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),

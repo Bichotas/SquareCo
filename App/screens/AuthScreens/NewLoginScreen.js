@@ -8,14 +8,14 @@ import {
 } from "native-base";
 
 // Componentes
-import TitleForm from "../components/forms/TitleForm";
+import TitleForm from "../../components/forms/TitleForm";
 // Diseños
-import LoginCirclesD from "../designs/LoginCIrclesD";
+import LoginCirclesD from "../../designs/LoginCIrclesD";
 
 // Formik and Yup
 import * as Yup from "yup";
 
-import { AppFormField, SubmitButton, AppForm } from "../components/forms";
+import { AppFormField, SubmitButton, AppForm } from "../../components/forms";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),

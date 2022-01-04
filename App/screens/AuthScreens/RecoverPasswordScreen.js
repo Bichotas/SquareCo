@@ -1,14 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 // Designs
-import RegisterCirclesD from "../designs/RegisterCirclesD";
+import RegisterCirclesD from "../../designs/RegisterCirclesD";
 // Components
-import ScreenC from "../components/ScreenC";
-import AppButton from "../components/AppButton";
-import AppTextInput from "../components/AppTextInput";
+import ScreenC from "../../components/ScreenC";
+import AppButton from "../../components/AppButton";
+import AppTextInput from "../../components/AppTextInput";
 
 // Colores
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
 function RecoverPasswordScreen(props) {
   return (

@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import ScreenC from "../components/ScreenC";
+import ScreenC from "../../components/ScreenC";
 
 // DIseños
-import CIrclesD from "../designs/CIrclesD";
+import CIrclesD from "../../designs/CIrclesD";
 // Import Components
-import Title from "../components/Title";
-import AppButton from "../components/AppButton";
+import Title from "../../components/Title";
+import AppButton from "../../components/AppButton";
 function HomeScreen(props) {
   return (
     <ScreenC style={styles.a}>
