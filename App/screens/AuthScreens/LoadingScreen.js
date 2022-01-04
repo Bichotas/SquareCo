@@ -2,15 +2,15 @@ import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 
 // Componentes
-import ScreenC from "../components/ScreenC";
-import colors from "../config/colors";
+import ScreenC from "../../components/ScreenC";
+import colors from "../../config/colors";
 import { Entypo } from "@expo/vector-icons";
 function LoadingScreen(props) {
   return (
     <ScreenC style={styles.screenB}>
       <View style={styles.containerImage}>
         <Image
-          source={require("../assets/logo-squareco.jpeg")}
+          source={require("../../assets/logo-squareco.jpeg")}
           style={styles.imageU}
         />
         <View style={styles.loader}>

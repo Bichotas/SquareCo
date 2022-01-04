@@ -1,23 +1,38 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import ScreenC from "../components/ScreenC";
+import ScreenC from "../../components/ScreenC";
 
 // DIseños
-import CIrclesD from "../designs/CIrclesD";
+import CIrclesD from "../../designs/CIrclesD";
 // Import Components
-import TitleC from "../components/TitleC";
-import ButtonC from "../components/ButtonC";
-function HomeScreen(props) {
+import Title from "../../components/Title";
+import AppButton from "../../components/AppButton";
+
+function HomeScreen({ navigation }) {
+  const goLogin = () => {
+    navigation.navigate("Login");
+  };
+  const goRegister = () => {
+    navigation.navigate("Register");
+  };
   return (
     <ScreenC style={styles.a}>
       <CIrclesD></CIrclesD>
       <View style={styles.titleContainer}>
-        <TitleC title="Bienvenido a SquareCo" />
+        <Title title="Bienvenido a SquareCo" />
       </View>
       <View style={styles.buttonsContainer}>
-        <ButtonC title="Crear cuenta" color="naranja"></ButtonC>
+        <AppButton
+          title="Crear cuenta"
+          color="naranja"
+          onPress={goRegister}
+        ></AppButton>
         <View style={styles.separacion} />
-        <ButtonC title="Iniciar sesión" color="azul"></ButtonC>
+        <AppButton
+          title="Iniciar sesión"
+          color="azul"
+          onPress={goLogin}
+        ></AppButton>
       </View>
     </ScreenC>
   );
@@ -39,13 +54,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
   },
   separacion: {
-    padding: 20,
+    padding: 10,
   },
 });
 export default HomeScreen;
-{/* <View style={styles.buttonsContainer}>
-
-<ButtonC title={"Crear cuenta"} color="naranja"></ButtonC>
-<ButtonC title={"Iniciar Sesión"} color="azul"></ButtonC>
-
-</View> */}
