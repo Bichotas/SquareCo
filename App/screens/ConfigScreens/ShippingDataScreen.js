@@ -15,11 +15,16 @@ import {
   Switch,
   KeyboardAvoidingView,
 } from "native-base";
-
-function ShippingDataScreen(props) {
+import ReturnArrow from "../../components/ReturnArrow";
+function ShippingDataScreen({ navigation }) {
+  const pressHandler = () => {
+    console.log("Pressing");
+    navigation.goBack();
+  };
   return (
     <NativeBaseProvider>
       <ScrollView>
+        <ReturnArrow onPress={pressHandler} />
         <KeyboardAvoidingView>
           <Box flex={1} padding={6}>
             <Text
