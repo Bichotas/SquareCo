@@ -7,7 +7,14 @@ import CIrclesD from "../../designs/CIrclesD";
 // Import Components
 import Title from "../../components/Title";
 import AppButton from "../../components/AppButton";
-function HomeScreen(props) {
+
+function HomeScreen({ navigation }) {
+  const goLogin = () => {
+    navigation.navigate("Login");
+  };
+  const goRegister = () => {
+    navigation.navigate("Register");
+  };
   return (
     <ScreenC style={styles.a}>
       <CIrclesD></CIrclesD>
@@ -15,9 +22,17 @@ function HomeScreen(props) {
         <Title title="Bienvenido a SquareCo" />
       </View>
       <View style={styles.buttonsContainer}>
-        <AppButton title="Crear cuenta" color="naranja"></AppButton>
+        <AppButton
+          title="Crear cuenta"
+          color="naranja"
+          onPress={goRegister}
+        ></AppButton>
         <View style={styles.separacion} />
-        <AppButton title="Iniciar sesión" color="azul"></AppButton>
+        <AppButton
+          title="Iniciar sesión"
+          color="azul"
+          onPress={goLogin}
+        ></AppButton>
       </View>
     </ScreenC>
   );

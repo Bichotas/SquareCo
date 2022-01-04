@@ -9,6 +9,7 @@ import {
 
 // Componentes
 import TitleForm from "../../components/forms/TitleForm";
+import ReturnArrow from "../../components/ReturnArrow";
 // Diseños
 import LoginCirclesD from "../../designs/LoginCIrclesD";
 
@@ -33,6 +34,7 @@ function NewLoginScreen(props) {
       >
         <ScrollView>
           <LoginCirclesD></LoginCirclesD>
+
           {/* Contenedor */}
           <AppForm
             initialValues={{ email: "", password: "" }}

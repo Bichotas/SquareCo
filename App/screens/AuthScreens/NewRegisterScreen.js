@@ -12,6 +12,7 @@ import ScreenC from "../../components/ScreenC";
 import TitleForm from "../../components/forms/TitleForm";
 import SubmitButton from "../../components/forms/SubmitButton";
 import * as Yup from "yup";
+import ReturnArrow from "../../components/ReturnArrow";
 // Diseños
 import RegisterCirclesD from "../../designs/RegisterCirclesD";
 import ErrorMessage from "../../components/forms/ErrorMessage";
@@ -33,7 +34,6 @@ function NewRegisterScreen(props) {
         backgroundColor={"#FA8C47"}
       >
         <RegisterCirclesD></RegisterCirclesD>
-
         <AppForm
           initialValues={{ name: "", email: "", password: "" }}
           onSubmit={(values) => console.log(values)}

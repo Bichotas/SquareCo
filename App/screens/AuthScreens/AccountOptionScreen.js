@@ -19,7 +19,7 @@ function AccountOptionScreen(props) {
         {/* Imagen */}
         <View style={styles.imageContainer}>
           <Image
-            source={require("../assets/enredate.png")}
+            source={require("../../assets/enredate.png")}
             resizeMode="center"
             style={styles.image}
           ></Image>
