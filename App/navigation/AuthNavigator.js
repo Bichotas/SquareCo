@@ -11,6 +11,9 @@ import {
 } from "../screens/AuthScreens";
 // navigationTheme
 
+// Stack
+import AppNavigator from './AppNavigator'
+
 const AuthStack = createNativeStackNavigator();
 
 const MyAuthStack = () => {
@@ -21,6 +24,7 @@ const MyAuthStack = () => {
       <AuthStack.Screen name="ChoseAccount" component={OptionAccount} />
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="RecoverPassword" component={RecoverPassword} />
+      <AuthStack.Screen name="Uwu" component={AppNavigator} />
     </AuthStack.Navigator>
   );
 };

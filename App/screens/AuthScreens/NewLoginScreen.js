@@ -5,6 +5,7 @@ import {
   Container,
   KeyboardAvoidingView,
   ScrollView,
+  Button,
 } from "native-base";
 
 // Componentes
@@ -22,7 +23,10 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
-function NewLoginScreen(props) {
+function NewLoginScreen({ navigation }) {
+  const handleNavigation = () => {
+    navigation.navigate("Uwu");
+  };
   return (
     <NativeBaseProvider>
       {/* Cosillas */}
@@ -65,7 +69,8 @@ function NewLoginScreen(props) {
                 textContentType="password"
                 secureTextEntry={true}
               />
-              <SubmitButton title={"ACCEDER"} />
+              {/* <SubmitButton title={"ACCEDER"} /> */}
+              <Button onPress={handleNavigation}>Acceder</Button>
             </Center>
           </AppForm>
           {/* Fin del contenedor */}
