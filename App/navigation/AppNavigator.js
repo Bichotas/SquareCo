@@ -14,6 +14,8 @@ import {
 import colors from "../config/colors";
 import SettingsScreen from "../screens/ConfigScreens/SettingsScreen";
 
+// Custom Drawer
+import CustomDrawer from "./Drawer/CustomDrawer";
 
 // Stacks
 import MyConfigStack from "./ConfigNavigator";
@@ -43,6 +45,7 @@ const DrawerNavigator = () => (
         </Pressable>
       ),
     }}
+    drawerContent={(props) => <CustomDrawer {...props}/>}
   >
     <Drawer.Screen name="Home" component={MyHomeStack} />
     <Drawer.Screen name="Carrito" component={MyCartStack} />
