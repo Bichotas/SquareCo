@@ -22,13 +22,16 @@ import MyConfigStack from "./ConfigNavigator";
 import MyHomeStack from "./HomeNavigator";
 import MyCartStack from "./ShippingCartNavigator";
 import MyCategStack from "./CategoriesNavigator";
+
+import { Entypo, AntDesign } from "@expo/vector-icons";
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => (
   <Drawer.Navigator
     screenOptions={{
       headerStyle: { backgroundColor: colors.primary },
+      drawerActiveTintColor: colors.white,
+      drawerInactiveTintColor: colors.white,
       headerTintColor: colors.white,
-
       headerTitleAlign: "center",
       headerTitle: () => (
         <Pressable>
@@ -45,12 +48,44 @@ const DrawerNavigator = () => (
         </Pressable>
       ),
     }}
-    drawerContent={(props) => <CustomDrawer {...props}/>}
+    drawerContent={(props) => <CustomDrawer {...props} />}
   >
-    <Drawer.Screen name="Home" component={MyHomeStack} />
-    <Drawer.Screen name="Carrito" component={MyCartStack} />
-    <Drawer.Screen name="Tiendas" component={MyCategStack} />
-    <Drawer.Screen name="Configuracion" component={MyConfigStack} />
+    <Drawer.Screen
+      name="Home"
+      component={MyHomeStack}
+      options={{
+        drawerIcon: ({ color, size }) => (
+          <Entypo name="home" size={size} color={color} />
+        ),
+      }}
+    />
+    <Drawer.Screen
+      name="Carrito"
+      component={MyCartStack}
+      options={{
+        drawerIcon: ({ color, size }) => (
+          <AntDesign name="shoppingcart" color={color} size={size} />
+        ),
+      }}
+    />
+    <Drawer.Screen
+      name="Tiendas"
+      component={MyCategStack}
+      options={{
+        drawerIcon: ({ color, size }) => (
+          <Entypo name="shop" color={color} size={size} />
+        ),
+      }}
+    />
+    <Drawer.Screen
+      name="Configuracion"
+      component={MyConfigStack}
+      options={{
+        drawerIcon: ({ color, size }) => (
+          <AntDesign name="setting" color={color} size={size} />
+        ),
+      }}
+    />
     {/* <Drawer.Screen name="Actual" component={CreatingStoreScreen} /> */}
   </Drawer.Navigator>
 );

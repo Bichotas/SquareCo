@@ -6,9 +6,10 @@ function ProfilePSquare({ child }) {
     <View
       bg={"gray.500"}
       // El tamaño correcto deberia de ser 70, pero el boton de eliminar se ve mal por el espacio a su derecha
-      size={65}
-      alignSelf={"center"}
-      marginLeft={4}
+      size={[65, 90]}
+      // alignSelf={"center"}
+      marginTop={1}
+      padding={4}
       borderRadius={10}
     ></View>
   );
