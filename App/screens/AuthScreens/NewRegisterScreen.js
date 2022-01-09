@@ -20,6 +20,9 @@ import ErrorMessage from "../../components/forms/ErrorMessage";
 import { AppFormField } from "../../components/forms";
 import AppForm from "../../components/forms/AppForm";
 
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
@@ -28,6 +31,21 @@ const validationSchema = Yup.object().shape({
 function NewRegisterScreen({ navigation }) {
   const handleNavigation = () => {
     navigation.navigate("ChoseAccount");
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const handleRegister = ({ email, password }) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log("Created");
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <NativeBaseProvider>
@@ -40,7 +58,7 @@ function NewRegisterScreen({ navigation }) {
         <RegisterCirclesD></RegisterCirclesD>
         <AppForm
           initialValues={{ name: "", email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => handleRegister(values)}
           validationSchema={validationSchema}
         >
           {/* Contenedor */}
@@ -76,8 +94,8 @@ function NewRegisterScreen({ navigation }) {
 
             {/* Fin del formulario */}
 
-            {/* <SubmitButton title={"Registrarse"} /> */}
-            <Button onPress={handleNavigation}>Registrarse</Button>
+            <SubmitButton title={"Registrarse"} />
+            {/* <Button onPress={handleNavigation}>Registrarse</Button> */}
           </Center>
         </AppForm>
         {/* Fin del contenedor */}
