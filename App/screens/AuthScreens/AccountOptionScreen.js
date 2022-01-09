@@ -8,14 +8,42 @@ import ScreenC from "../../components/ScreenC";
 // Configuraciones
 import colors from "../../config/colors";
 
+// Cosaas de firebase
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateCurrentUser,
+} from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
 // Diseños
 import AccountOptionsCircle from "../../designs/AccountOptionsCirclesD";
-function AccountOptionScreen({ navigation }) {
+function AccountOptionScreen({ route, navigation }) {
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const { name, email, password } = route.params;
   const onBuy = () => {
+    createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        console.log("Created");
+        const user = userCredential.user;
+        console.log(user);
+        navigation.navigate("Uwu", { screen: "Home" });
+      }
+    );
+
+    console.log(name, email, password, "Buy");
     navigation.navigate("Uwu", { screen: "Home" });
   };
   const onSell = () => {
-    navigation.navigate("Creacion", { screen: "CreatingStore" });
+    createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        console.log("Created");
+        const user = userCredential.user;
+        console.log(user);
+        navigation.navigate("Creacion", { screen: "CreatingStore" });
+      }
+    );
   };
   return (
     <ScreenC style={styles.optionScreen}>

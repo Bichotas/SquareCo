@@ -32,27 +32,30 @@ const validationSchema = Yup.object().shape({
 });
 function NewRegisterScreen({ navigation }) {
   // Navegacion
-  const handleNavigation = () => {
-    navigation.navigate("ChoseAccount");
+  const handleNavigation = (params) => {
+    navigation.navigate("ChoseAccount", params);
   };
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
   // Funcion para autenticar
-  const handleRegister = ({ email, password }) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("Created");
-        const user = userCredential.user;
-        handleNavigation("ChoseAccount");
-        console.log(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const handleRegister = ({ name, email, password }) => {
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //     .then((userCredential) => {
+  //       console.log("Created");
+  //       const user = userCredential.user;
+  //       handleNavigation("ChoseAccount");
+  //       console.log(user);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
+  const handleRegister = (values) => {
+    handleNavigation(values);
+  };
   return (
     <NativeBaseProvider>
       {/* Cosillas */}
