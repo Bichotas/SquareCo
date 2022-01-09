@@ -20,15 +20,18 @@ import ErrorMessage from "../../components/forms/ErrorMessage";
 import { AppFormField } from "../../components/forms";
 import AppForm from "../../components/forms/AppForm";
 
+// Cosaas de firebase
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
+
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
 function NewRegisterScreen({ navigation }) {
+  // Navegacion
   const handleNavigation = () => {
     navigation.navigate("ChoseAccount");
   };
@@ -36,6 +39,7 @@ function NewRegisterScreen({ navigation }) {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
+  // Funcion para autenticar
   const handleRegister = ({ email, password }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -48,6 +52,7 @@ function NewRegisterScreen({ navigation }) {
         console.log(error);
       });
   };
+
   return (
     <NativeBaseProvider>
       {/* Cosillas */}
