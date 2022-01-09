@@ -41,6 +41,7 @@ function NewRegisterScreen({ navigation }) {
       .then((userCredential) => {
         console.log("Created");
         const user = userCredential.user;
+        handleNavigation("ChoseAccount");
         console.log(user);
       })
       .catch((error) => {
