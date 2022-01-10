@@ -13,6 +13,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateCurrentUser,
+  updateProfile,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
@@ -23,15 +24,9 @@ function AccountOptionScreen({ route, navigation }) {
   const auth = getAuth(app);
   const { name, email, password } = route.params;
   const onBuy = () => {
-    createUserWithEmailAndPassword(auth, email, password).then(
-      (userCredential) => {
-        console.log("Created");
-        const user = userCredential.user;
-        console.log(user);
-        navigation.navigate("Uwu", { screen: "Home" });
-      }
-    );
-
+    createUserWithEmailAndPassword(auth, email, password);
+    const user = auth.currentUser;
+    console.log(user);
     console.log(name, email, password, "Buy");
     navigation.navigate("Uwu", { screen: "Home" });
   };
@@ -40,6 +35,16 @@ function AccountOptionScreen({ route, navigation }) {
       (userCredential) => {
         console.log("Created");
         const user = userCredential.user;
+        updateProfile(auth, { displayName: name })
+          .then(() => {
+            // Profile updated!
+            // ...
+            console.log("Profile updated");
+          })
+          .catch((error) => {
+            // An error occurred
+            console.log(error);
+          });
         console.log(user);
         navigation.navigate("Creacion", { screen: "CreatingStore" });
       }

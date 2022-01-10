@@ -1,10 +1,12 @@
 import { View, Text, HStack, VStack, Container, Icon } from "native-base";
-import React from "react";
+import React, { useContext } from "react";
+import AuthContext from "../../auth/context";
 
 /// Componentes
 import ProfilePSquare from "../../components/ProfilePSquare";
 import colors from "../../config/colors";
 function UserView(props) {
+  const { displayName } = useContext(AuthContext);
   return (
     <View bg={colors.primary} h={150}>
       <VStack>
@@ -17,7 +19,7 @@ function UserView(props) {
             color={"white"}
             noOfLines={1}
           >
-            [Nombre]
+            {displayName}
           </Text>
         </Container>
       </VStack>

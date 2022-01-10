@@ -5,9 +5,5 @@ import Navigation from "./App/navigation/Navigation";
 useState;
 export default function App() {
   const [user, setUser] = useState();
-  return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <Navigation />
-    </AuthContext.Provider>
-  );
+  return <Navigation />;
 }

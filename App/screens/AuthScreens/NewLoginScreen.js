@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Center,
   NativeBaseProvider,
@@ -23,13 +23,15 @@ import { AppFormField, SubmitButton, AppForm } from "../../components/forms";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
+import AuthContext from "../../auth/context";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
 function NewLoginScreen({ navigation }) {
-  const context = useContext(contextValue);
+  const authContext = useContext(AuthContext);
+
   const handleNavigation = () => {
     navigation.navigate("Uwu");
   };
@@ -42,6 +44,7 @@ function NewLoginScreen({ navigation }) {
         console.log("Signed In");
         const user = userCredential.user;
         console.log(user);
+        authContext.setUser(user);
         handleNavigation();
       })
       .catch((error) => {
