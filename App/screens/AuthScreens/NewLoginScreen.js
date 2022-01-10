@@ -19,13 +19,34 @@ import * as Yup from "yup";
 
 import { AppFormField, SubmitButton, AppForm } from "../../components/forms";
 
+// Cosas de firebase
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
+
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
 function NewLoginScreen({ navigation }) {
+  const context = useContext(contextValue);
   const handleNavigation = () => {
     navigation.navigate("Uwu");
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const handleSignIn = ({ email, password }) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log("Signed In");
+        const user = userCredential.user;
+        console.log(user);
+        handleNavigation();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <NativeBaseProvider>
@@ -42,7 +63,7 @@ function NewLoginScreen({ navigation }) {
           {/* Contenedor */}
           <AppForm
             initialValues={{ email: "", password: "" }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => handleSignIn(values)}
             validationSchema={validationSchema}
           >
             <Center padding={4}>
@@ -69,8 +90,8 @@ function NewLoginScreen({ navigation }) {
                 textContentType="password"
                 secureTextEntry={true}
               />
-              {/* <SubmitButton title={"ACCEDER"} /> */}
-              <Button onPress={handleNavigation}>Acceder</Button>
+              <SubmitButton title={"ACCEDER"} />
+              {/* <Button onPress={handleNavigation}>Acceder</Button> */}
             </Center>
           </AppForm>
           {/* Fin del contenedor */}
