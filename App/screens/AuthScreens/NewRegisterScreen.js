@@ -30,6 +30,7 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
 import AuthContext from "../../auth/context";
 
+import { doc, getFirestore, setDoc } from "firebase/firestore";
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
@@ -42,20 +43,31 @@ function NewRegisterScreen({ navigation, route }) {
   const authContext = useContext(AuthContext);
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const firestore = getFirestore(app);
 
-  const handleRegister = async ({ name, email, password }, typeAccount) => {
-    await createUserWithEmailAndPassword(auth, email, password).then(
-      (credenciales) => {
-        authContext.setUser(credenciales);
-      }
-    );
+  async function handleRegister({ name, email, password }, typeAccount) {
+    const infoUsuario = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).then((usuarioFirebase) => {
+      return usuarioFirebase;
+    });
+
+    const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
+
+    await setDoc(docuRef, {
+      email: email,
+      name,
+      typeAccount: typeAccount,
+      urlProfile: "",
+    });
     if (tipoCuenta == "comprador") {
       navigation.navigate("Uwu", { screen: "Home" });
     } else {
       navigation.navigate("Creacion", { screen: "CreatingStore" });
     }
-  };
-
+  }
   const handleFak = (name) => {
     updateProfile(auth.currentUser, { displayName: name });
     return auth.currentUser;
