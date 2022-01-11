@@ -43,29 +43,23 @@ function NewRegisterScreen({ navigation, route }) {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  const handleRegister = ({ name, email, password }) => {
-    createUserWithEmailAndPassword(auth, email, password);
-    const change = getAuth();
-    updateProfile(change.currentUser, {
-      displayName: name,
-    });
-    const userChange = change.currentUser;
-    authContext.setUser(userChange);
+  const handleRegister = async ({ name, email, password }, typeAccount) => {
+    await createUserWithEmailAndPassword(auth, email, password).then(
+      (credenciales) => {
+        authContext.setUser(credenciales);
+      }
+    );
+    if (tipoCuenta == "comprador") {
+      navigation.navigate("Uwu", { screen: "Home" });
+    } else {
+      navigation.navigate("Creacion", { screen: "CreatingStore" });
+    }
   };
-  // Funcion para autenticar
-  // const handleRegister = ({ name, email, password }) => {
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then((userCredential) => {
-  //       console.log("Created");
-  //       const user = userCredential.user;
-  //       handleNavigation("ChoseAccount");
-  //       console.log(user);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
+  const handleFak = (name) => {
+    updateProfile(auth.currentUser, { displayName: name });
+    return auth.currentUser;
+  };
   return (
     <NativeBaseProvider>
       {/* Cosillas */}
@@ -77,7 +71,7 @@ function NewRegisterScreen({ navigation, route }) {
         <RegisterCirclesD></RegisterCirclesD>
         <AppForm
           initialValues={{ name: "", email: "", password: "" }}
-          onSubmit={(values) => handleRegister(values)}
+          onSubmit={(values) => handleRegister(values, tipoCuenta)}
           validationSchema={validationSchema}
         >
           {/* Contenedor */}

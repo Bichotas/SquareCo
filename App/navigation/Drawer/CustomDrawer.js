@@ -9,7 +9,6 @@ import {
 } from "@react-navigation/drawer";
 import UserView from "./UserView";
 import colors from "../../config/colors";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 function CustomDrawer(props) {
   return (
     <NativeBaseProvider>

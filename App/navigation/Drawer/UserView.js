@@ -5,9 +5,10 @@ import AuthContext from "../../auth/context";
 /// Componentes
 import ProfilePSquare from "../../components/ProfilePSquare";
 import colors from "../../config/colors";
+import { getAuth } from "firebase/auth";
+
 function UserView(props) {
-  const user = useContext(AuthContext);
-  const wea = user.user;
+  const authContext = useContext(AuthContext);
   return (
     <View bg={colors.primary} h={150}>
       <VStack>
@@ -20,7 +21,7 @@ function UserView(props) {
             color={"white"}
             noOfLines={1}
           >
-            ALORA
+            {getAuth().currentUser.email}
           </Text>
         </Container>
       </VStack>
