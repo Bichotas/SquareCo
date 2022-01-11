@@ -54,6 +54,7 @@ function NewRegisterScreen({ navigation, route }) {
       return usuarioFirebase;
     });
 
+    // Parte donde se guarda la coleccion
     const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
 
     await setDoc(docuRef, {
@@ -62,16 +63,14 @@ function NewRegisterScreen({ navigation, route }) {
       typeAccount: typeAccount,
       urlProfile: "",
     });
+
+    // Parte donde se redirije a la siguiente ventana
     if (tipoCuenta == "comprador") {
       navigation.navigate("Uwu", { screen: "Home" });
     } else {
       navigation.navigate("Creacion", { screen: "CreatingStore" });
     }
   }
-  const handleFak = (name) => {
-    updateProfile(auth.currentUser, { displayName: name });
-    return auth.currentUser;
-  };
   return (
     <NativeBaseProvider>
       {/* Cosillas */}
