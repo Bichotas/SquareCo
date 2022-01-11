@@ -9,6 +9,7 @@ import {
 } from "@react-navigation/drawer";
 import UserView from "./UserView";
 import colors from "../../config/colors";
+
 function CustomDrawer(props) {
   return (
     <NativeBaseProvider>
