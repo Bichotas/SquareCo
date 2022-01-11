@@ -13,7 +13,7 @@ function HomeScreen({ navigation }) {
     navigation.navigate("Login");
   };
   const goRegister = () => {
-    navigation.navigate("Register");
+    navigation.navigate("ChoseAccount");
   };
   return (
     <ScreenC style={styles.a}>

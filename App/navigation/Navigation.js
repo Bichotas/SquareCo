@@ -9,7 +9,8 @@ function Navigation(props) {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <NavigationContainer>
-        {user ? <AppNavigator /> : <AuthNavigator />}
+        {/* {user ? <AppNavigator /> : <AuthNavigator />} */}
+        <AuthNavigator />
       </NavigationContainer>
     </AuthContext.Provider>
   );

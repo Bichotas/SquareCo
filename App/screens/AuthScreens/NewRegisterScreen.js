@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Center,
   NativeBaseProvider,
@@ -21,24 +21,37 @@ import { AppFormField } from "../../components/forms";
 import AppForm from "../../components/forms/AppForm";
 
 // Cosaas de firebase
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
+import AuthContext from "../../auth/context";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
-function NewRegisterScreen({ navigation }) {
+function NewRegisterScreen({ navigation, route }) {
   // Navegacion
-  const handleNavigation = (params) => {
-    navigation.navigate("ChoseAccount", params);
-  };
 
+  const { tipoCuenta } = route.params;
+  const authContext = useContext(AuthContext);
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
+  const handleRegister = ({ name, email, password }) => {
+    createUserWithEmailAndPassword(auth, email, password);
+    const change = getAuth();
+    updateProfile(change.currentUser, {
+      displayName: name,
+    });
+    const userChange = change.currentUser;
+    authContext.setUser(userChange);
+  };
   // Funcion para autenticar
   // const handleRegister = ({ name, email, password }) => {
   //   createUserWithEmailAndPassword(auth, email, password)
@@ -53,9 +66,6 @@ function NewRegisterScreen({ navigation }) {
   //     });
   // };
 
-  const handleRegister = (values) => {
-    handleNavigation(values);
-  };
   return (
     <NativeBaseProvider>
       {/* Cosillas */}

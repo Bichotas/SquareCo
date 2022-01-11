@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import AppButton from "../../components/AppButton";
 
@@ -7,49 +7,31 @@ import ScreenC from "../../components/ScreenC";
 
 // Configuraciones
 import colors from "../../config/colors";
-
+import AuthContext from "../../auth/context";
 // Cosaas de firebase
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  updateCurrentUser,
+  onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
 // Diseños
 import AccountOptionsCircle from "../../designs/AccountOptionsCirclesD";
-function AccountOptionScreen({ route, navigation }) {
+function AccountOptionScreen({ navigation }) {
+  const [chose, setChose] = useState("");
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
-  const { name, email, password } = route.params;
-  const onBuy = () => {
-    createUserWithEmailAndPassword(auth, email, password);
-    const user = auth.currentUser;
-    console.log(user);
-    console.log(name, email, password, "Buy");
-    navigation.navigate("Uwu", { screen: "Home" });
+  const authContext = useContext(AuthContext);
+
+  const vendedor = () => {
+    navigation.navigate("Register", { tipoCuenta: "vendedor" });
   };
-  const onSell = () => {
-    createUserWithEmailAndPassword(auth, email, password).then(
-      (userCredential) => {
-        console.log("Created");
-        const user = userCredential.user;
-        updateProfile(auth, { displayName: name })
-          .then(() => {
-            // Profile updated!
-            // ...
-            console.log("Profile updated");
-          })
-          .catch((error) => {
-            // An error occurred
-            console.log(error);
-          });
-        console.log(user);
-        navigation.navigate("Creacion", { screen: "CreatingStore" });
-      }
-    );
+  const comprador = () => {
+    navigation.navigate("Register", { tipoCuenta: "comprador" });
   };
+
   return (
     <ScreenC style={styles.optionScreen}>
       <AccountOptionsCircle></AccountOptionsCircle>
@@ -70,14 +52,14 @@ function AccountOptionScreen({ route, navigation }) {
         {/* Botones */}
         <View style={styles.buttonsContainer}>
           <View style={styles.button1}>
-            <AppButton title="Comprar" color="naranja" onPress={onBuy} />
+            <AppButton title="Comprar" color="naranja" onPress={comprador} />
           </View>
           <View style={styles.button2}>
             <AppButton
               title="Vender"
               color="white"
               text="dark"
-              onPress={onSell}
+              onPress={vendedor}
             />
           </View>
         </View>

@@ -6,7 +6,8 @@ import AuthContext from "../../auth/context";
 import ProfilePSquare from "../../components/ProfilePSquare";
 import colors from "../../config/colors";
 function UserView(props) {
-  const { displayName } = useContext(AuthContext);
+  const user = useContext(AuthContext);
+  const wea = user.user;
   return (
     <View bg={colors.primary} h={150}>
       <VStack>
@@ -19,7 +20,7 @@ function UserView(props) {
             color={"white"}
             noOfLines={1}
           >
-            {displayName}
+            ALORA
           </Text>
         </Container>
       </VStack>
