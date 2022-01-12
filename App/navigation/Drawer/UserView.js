@@ -11,6 +11,9 @@ import { ProfileContext, AuthContext } from "../../auth/context";
 function UserView(props) {
   const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
+
+  // Se uso de referencia para el useContext el siguiente articulo:
+  // https://www.freecodecamp.org/news/react-context-for-beginners/
   return (
     <ProfileContext.Consumer>
       {({ profile, setProfile }) => (
