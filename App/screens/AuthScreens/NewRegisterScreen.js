@@ -28,7 +28,7 @@ import {
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
-import { AuthContext } from "../../auth/context";
+import { AuthContext, ProfileContext } from "../../auth/context";
 
 import {
   doc,
@@ -48,7 +48,7 @@ function NewRegisterScreen({ navigation, route }) {
 
   const { tipoCuenta } = route.params;
   const authContext = useContext(AuthContext);
-
+  const profileContext = useContext(ProfileContext);
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const firestore = getFirestore(app);
@@ -64,7 +64,6 @@ function NewRegisterScreen({ navigation, route }) {
     authContext.setUser(infoUsuario.user);
     // Parte donde se guarda la coleccion
     const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
-
     await setDoc(docuRef, {
       email: email,
       name: name,
@@ -72,8 +71,6 @@ function NewRegisterScreen({ navigation, route }) {
       typeAccount: typeAccount,
       urlProfile: "",
     });
-    const docSnap = await getDoc(docuRef);
-    console.log(docSnap);
     // Parte donde se redirije a la siguiente ventana
     if (tipoCuenta == "comprador") {
       navigation.navigate("Uwu", { screen: "Home" });
