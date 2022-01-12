@@ -75,7 +75,6 @@ function NewRegisterScreen({ navigation, route }) {
     // Recibir los datos
 
     const docSnap = await getDoc(docuRef);
-
     profileContext.setProfile({ ...docSnap.data() });
     // Parte donde se redirije a la siguiente ventana
     if (tipoCuenta == "comprador") {

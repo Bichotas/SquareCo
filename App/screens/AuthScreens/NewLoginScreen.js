@@ -23,34 +23,39 @@ import { AppFormField, SubmitButton, AppForm } from "../../components/forms";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
-import { AuthContext } from "../../auth/context";
+import { AuthContext, ProfileContext } from "../../auth/context";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
 function NewLoginScreen({ navigation }) {
-  const authContext = useContext(AuthContext);
-
   const handleNavigation = () => {
     navigation.navigate("Uwu");
   };
+  const authContext = useContext(AuthContext);
+  const profileContext = useContext(ProfileContext);
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const firestore = getFirestore(app);
 
-  const handleSignIn = ({ email, password }) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("Signed In");
-        const user = userCredential.user;
-        console.log(user);
-        authContext.setUser(user);
-        handleNavigation();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  async function handleSignIn({ email, password }) {
+    const infoUsuario = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).then((usuarioFirebase) => {
+      return usuarioFirebase;
+    });
+    authContext.setUser(infoUsuario.user);
+    const docRef = doc(firestore, `users/${infoUsuario.user.uid}`);
+    const docSnap = await getDoc(docRef);
+    profileContext.setProfile({ ...docSnap.data() });
+
+    // React navigation
+    handleNavigation();
+  }
   return (
     <NativeBaseProvider>
       {/* Cosillas */}
