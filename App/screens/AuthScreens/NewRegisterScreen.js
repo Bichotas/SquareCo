@@ -28,7 +28,7 @@ import {
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
-import AuthContext from "../../auth/context";
+import AuthContext, { ProfileContext } from "../../auth/context";
 
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 const validationSchema = Yup.object().shape({
@@ -41,6 +41,7 @@ function NewRegisterScreen({ navigation, route }) {
 
   const { tipoCuenta } = route.params;
   const authContext = useContext(AuthContext);
+  const profileContext = useContext(ProfileContext);
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const firestore = getFirestore(app);
@@ -53,13 +54,15 @@ function NewRegisterScreen({ navigation, route }) {
     ).then((usuarioFirebase) => {
       return usuarioFirebase;
     });
-
+    authContext.setUser(infoUsuario.user);
+    profileContext.setProfile(doc.call(infoUsuario.user.uid));
     // Parte donde se guarda la coleccion
     const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
 
     await setDoc(docuRef, {
       email: email,
-      name,
+      name: name,
+      uid: infoUsuario.user.uid,
       typeAccount: typeAccount,
       urlProfile: "",
     });

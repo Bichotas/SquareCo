@@ -7,8 +7,10 @@ import ProfilePSquare from "../../components/ProfilePSquare";
 import colors from "../../config/colors";
 import { getAuth } from "firebase/auth";
 
+import { ProfileContext, AuthContext } from "../../auth/context";
 function UserView(props) {
   const authContext = useContext(AuthContext);
+  const profileContext = useContext(ProfileContext);
   return (
     <View bg={colors.primary} h={150}>
       <VStack>

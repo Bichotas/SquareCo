@@ -23,6 +23,8 @@ import MyHomeStack from "./HomeNavigator";
 import MyCartStack from "./ShippingCartNavigator";
 import MyCategStack from "./CategoriesNavigator";
 
+// Context
+import ProfileContext from "../auth/context";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => (
