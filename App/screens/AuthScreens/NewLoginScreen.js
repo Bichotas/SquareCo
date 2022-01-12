@@ -23,7 +23,7 @@ import { AppFormField, SubmitButton, AppForm } from "../../components/forms";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
-import AuthContext from "../../auth/context";
+import { AuthContext } from "../../auth/context";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),

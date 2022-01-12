@@ -7,7 +7,7 @@ import ScreenC from "../../components/ScreenC";
 
 // Configuraciones
 import colors from "../../config/colors";
-import AuthContext from "../../auth/context";
+import { AuthContext } from "../../auth/context";
 // Cosaas de firebase
 import {
   getAuth,
@@ -20,7 +20,6 @@ import firebaseConfig from "../../database/firebaseConfig";
 // Diseños
 import AccountOptionsCircle from "../../designs/AccountOptionsCirclesD";
 function AccountOptionScreen({ navigation }) {
-  const [chose, setChose] = useState("");
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const authContext = useContext(AuthContext);

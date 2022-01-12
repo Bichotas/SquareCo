@@ -28,20 +28,27 @@ import {
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
-import AuthContext, { ProfileContext } from "../../auth/context";
+import { AuthContext } from "../../auth/context";
 
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  doc,
+  getFirestore,
+  setDoc,
+  collection,
+  getDoc,
+} from "firebase/firestore";
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
+
 function NewRegisterScreen({ navigation, route }) {
   // Navegacion
 
   const { tipoCuenta } = route.params;
   const authContext = useContext(AuthContext);
-  const profileContext = useContext(ProfileContext);
+
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const firestore = getFirestore(app);
@@ -55,7 +62,6 @@ function NewRegisterScreen({ navigation, route }) {
       return usuarioFirebase;
     });
     authContext.setUser(infoUsuario.user);
-    profileContext.setProfile(doc.call(infoUsuario.user.uid));
     // Parte donde se guarda la coleccion
     const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
 
@@ -66,7 +72,8 @@ function NewRegisterScreen({ navigation, route }) {
       typeAccount: typeAccount,
       urlProfile: "",
     });
-
+    const docSnap = await getDoc(docuRef);
+    console.log(docSnap);
     // Parte donde se redirije a la siguiente ventana
     if (tipoCuenta == "comprador") {
       navigation.navigate("Uwu", { screen: "Home" });

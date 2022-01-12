@@ -7,14 +7,12 @@ import { ProfileContext, AuthContext } from "../auth/context";
 import AppNavigator from "./AppNavigator";
 function Navigation(props) {
   const [user, setUser] = useState();
-  const [profile, setProfile] = useState(initialState);
+
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <ProfileContext.Provider value={{ profile, setProfile }}>
-        <NavigationContainer>
-          {user ? <AppNavigator /> : <AuthNavigator />}
-        </NavigationContainer>
-      </ProfileContext.Provider>
+      <NavigationContainer>
+        {user ? <AppNavigator /> : <AuthNavigator />}
+      </NavigationContainer>
     </AuthContext.Provider>
   );
 }
