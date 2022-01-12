@@ -71,6 +71,12 @@ function NewRegisterScreen({ navigation, route }) {
       typeAccount: typeAccount,
       urlProfile: "",
     });
+
+    // Recibir los datos
+
+    const docSnap = await getDoc(docuRef);
+
+    profileContext.setProfile({ ...docSnap.data() });
     // Parte donde se redirije a la siguiente ventana
     if (tipoCuenta == "comprador") {
       navigation.navigate("Uwu", { screen: "Home" });

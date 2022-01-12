@@ -12,8 +12,8 @@ function UserView(props) {
   const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
   return (
-    <AuthContext.Consumer>
-      {({ user, setUser }) => (
+    <ProfileContext.Consumer>
+      {({ profile, setProfile }) => (
         <View bg={colors.primary} h={150}>
           <VStack>
             <Container margin={5} width={"70%"} marginTop={9}>
@@ -25,13 +25,13 @@ function UserView(props) {
                 color={"white"}
                 noOfLines={1}
               >
-                {user.uid}
+                {profile.name}
               </Text>
             </Container>
           </VStack>
         </View>
       )}
-    </AuthContext.Consumer>
+    </ProfileContext.Consumer>
   );
 }
 
