@@ -16,6 +16,7 @@ import {
   KeyboardAvoidingView,
 } from "native-base";
 import ReturnArrow from "../../components/ReturnArrow";
+import TextInput from "../../components/forms2/TextInput";
 
 // Faltaria poner la flecha de regreso, pero eso cuando se hagan todos los stacksS
 
@@ -75,13 +76,15 @@ function AccountSettingsScreen({ navigation }) {
                 <Text fontWeight={"bold"} fontSize={16} padding={2}>
                   Nombre de la cuenta
                 </Text>
-                <Input
+                {/* <Input
+                  value=""
                   padding={4}
                   backgroundColor={"gray.300"}
                   placeholder="Nombre de la cuenta"
                   borderRadius={15}
                   fontSize={15}
-                />
+                /> */}
+                <TextInput placeholder={"Nombre de la cuenta"} />
               </FormControl>
               <FormControl>
                 <Text fontWeight={"bold"} fontSize={16} padding={2}>
