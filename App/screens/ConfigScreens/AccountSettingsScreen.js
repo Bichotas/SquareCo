@@ -14,13 +14,13 @@ import {
   HStack,
   Switch,
   KeyboardAvoidingView,
+  View,
 } from "native-base";
 import ReturnArrow from "../../components/ReturnArrow";
 import TextInput from "../../components/forms2/TextInput";
 
-
 // Formik y yup
-import * as Yup from 'yup'
+import * as Yup from "yup";
 // Faltaria poner la flecha de regreso, pero eso cuando se hagan todos los stacksS
 
 // Configuracion para integrar el degradado en el cuadro
@@ -33,10 +33,13 @@ const config = {
   },
 };
 
-// Cosas de formik 
+// Cosas de formik
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required().email().label("Email ")
-})
+  url: Yup.string().required().url().label("Image"),
+  name: Yup.string().required().min(4).label("Name"),
+  email: Yup.string().required().email().label("Email "),
+  typeAccount: Yup.boolean().required(),
+});
 
 function AccountSettingsScreen({ navigation }) {
   const pressHandler = () => {
@@ -44,11 +47,27 @@ function AccountSettingsScreen({ navigation }) {
     navigation.goBack();
   };
   return (
-      <NativeBaseProvider>
-        <ScrollView>
-          <Box size={50} bg={"purple.100"}>asdf</Box>
-        </ScrollView>
-      </NativeBaseProvider>
+    <NativeBaseProvider>
+      <ScrollView>
+        <ReturnArrow onPress={pressHandler} />
+
+        {/* Keyboard Avoiding View */}
+        <KeyboardAvoidingView>
+          <View flex={1} padding={6} marginTop={-10}>
+            <Text
+              fontSize={"4xl"}
+              fontWeight={"bold"}
+              color={"black"}
+              textAlign={"center"}
+              padding={2}
+            >
+              Cuenta
+            </Text>
+            <Divider bg={"black"} h={1} />
+          </View>
+        </KeyboardAvoidingView>
+      </ScrollView>
+    </NativeBaseProvider>
   );
 }
 
