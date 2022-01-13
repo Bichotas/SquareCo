@@ -20,9 +20,13 @@ import {
 import ReturnArrow from "../../components/ReturnArrow";
 import TextInput from "../../components/forms2/TextInput";
 
+// Segmented control
+import SegmentedControl from "rn-segmented-control";
+
+
 // Formik y yup
 import * as Yup from "yup";
-import { Form, FormField } from "../../components/forms2";
+import { Form, FormField, SubmitButton } from "../../components/forms2";
 
 // Configuracion para integrar el degradado en el cuadro
 const config = {
@@ -43,6 +47,13 @@ const validationSchema = Yup.object().shape({
 });
 
 function AccountSettingsScreen({ navigation }) {
+  const [tabIndex, setTabIndex] = React.useState(1);
+  const [theme, setTheme] = React.useState("LIGHT");
+  const toggleTheme = () =>
+    theme === "LIGHT" ? setTheme("DARK") : setTheme("LIGHT");
+  const handleTabsChange = (index) => {
+    setTabIndex(index);
+  };
   const pressHandler = () => {
     console.log("Pressing");
     navigation.goBack();
@@ -109,10 +120,19 @@ function AccountSettingsScreen({ navigation }) {
               <Text fontWeight={"bold"} fontSize={16} padding={2}>
                 Tipo de cuenta
               </Text>
-
-              <Button borderRadius={45} px={5} margin={10} fontWeight={"bold"}>
-                Guardar cambios
-              </Button>
+              <SegmentedControl
+        tabs={["Label", "Label"]}
+        onChange={() => {}}
+        paddingVertical={6}
+        containerStyle={{
+          marginVertical: 20,
+        }}
+        currentIndex={tabIndex}
+        onChange={handleTabsChange}
+        theme={theme}
+        
+      />
+              <SubmitButton title={"Guardar cambios"} />
             </Form>
           </View>
         </KeyboardAvoidingView>

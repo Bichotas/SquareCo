@@ -19,6 +19,7 @@
     "moti": "^0.17.1",
     "native-base": "^3.2.2",
     "package.json": "^2.0.1",
+    "prop-types": "^15.8.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
@@ -27,6 +28,7 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
     "react-native-web": "0.17.1",
+    "rn-segmented-control": "^0.2.9",
     "sharp-cli": "^1.15.0",
     "yup": "^0.32.11"
   },
