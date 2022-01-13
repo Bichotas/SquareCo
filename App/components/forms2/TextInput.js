@@ -5,6 +5,7 @@ function TextInput({ placeholder, ...otherProps }) {
   return (
     <NativeBaseProvider>
       <Input
+
         width={"100%"}
         borderWidth={3}
         variant={"filled"}

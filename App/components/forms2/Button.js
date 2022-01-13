@@ -1,10 +1,10 @@
 import React from "react";
-import { NativeBaseProvider, Button } from "native-base";
+import { NativeBaseProvider, Pressable } from "native-base";
 import colors from "../../config/colors";
 function Button({ title, onPress, color = "primary" }) {
   return (
     <NativeBaseProvider>
-      <Button
+      <Pressable
         size={"sm"}
         onPress={onPress}
         bg={colors[color]}
@@ -13,7 +13,7 @@ function Button({ title, onPress, color = "primary" }) {
         textAlign={"center"}
       >
         {title}
-      </Button>
+      </Pressable>
     </NativeBaseProvider>
   );
 }

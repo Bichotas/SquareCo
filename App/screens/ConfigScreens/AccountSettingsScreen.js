@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Box,
   Text,
@@ -21,7 +22,7 @@ import TextInput from "../../components/forms2/TextInput";
 
 // Formik y yup
 import * as Yup from "yup";
-// Faltaria poner la flecha de regreso, pero eso cuando se hagan todos los stacksS
+import { Form, FormField } from "../../components/forms2";
 
 // Configuracion para integrar el degradado en el cuadro
 const config = {
@@ -47,7 +48,7 @@ function AccountSettingsScreen({ navigation }) {
     navigation.goBack();
   };
   return (
-    <NativeBaseProvider>
+    <NativeBaseProvider config={config}>
       <ScrollView>
         <ReturnArrow onPress={pressHandler} />
 
@@ -63,7 +64,56 @@ function AccountSettingsScreen({ navigation }) {
             >
               Cuenta
             </Text>
-            <Divider bg={"black"} h={1} />
+            <Divider bg={"black"} h={1} marginBottom={5} />
+
+            {/* Formulario con los componentes de la carpeta forms2 */}
+            <Form>
+              {/* Fotografia */}
+              {/* Investigar como poner uno para la url de la fotografia */}
+              <Center>
+                <Box
+                  size={[120, 150]}
+                  bg={{
+                    linearGradient: {
+                      colors: ["violet.100", "violet.800"],
+                      start: [0, 0],
+                      end: [0, 1],
+                    },
+                  }}
+                  borderRadius={20}
+                ></Box>
+                {/* Boton para cambiar la fotografia */}
+                <Button borderRadius={50} px={7} margin={5} fontWeight={"bold"}>
+                  Cambiar foto
+                </Button>
+              </Center>
+              {/* Fin-Fotografia */}
+              <Text fontWeight={"bold"} fontSize={16} padding={2}>
+                Nombre de la cuenta
+              </Text>
+              <FormField
+                name={"name"}
+                placeholder="Nombre de la cuenta"
+                autoCapitalize="none"
+              />
+              <Text fontWeight={"bold"} fontSize={16} padding={2}>
+                Correo Electronico
+              </Text>
+              <FormField
+                name={"email"}
+                placeholder="Correo Electronico"
+                autoCapitalize="none"
+                keyboardType="email-address"
+                textContentType="emailAddress"
+              />
+              <Text fontWeight={"bold"} fontSize={16} padding={2}>
+                Tipo de cuenta
+              </Text>
+
+              <Button borderRadius={45} px={5} margin={10} fontWeight={"bold"}>
+                Guardar cambios
+              </Button>
+            </Form>
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
