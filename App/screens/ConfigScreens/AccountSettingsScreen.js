@@ -110,6 +110,7 @@ function AccountSettingsScreen({ navigation }) {
               <Text fontWeight={"bold"} fontSize={16} padding={2}>
                 Correo Electronico
               </Text>
+
               <FormField
                 name={"email"}
                 placeholder="Correo Electronico"
@@ -120,18 +121,19 @@ function AccountSettingsScreen({ navigation }) {
               <Text fontWeight={"bold"} fontSize={16} padding={2}>
                 Tipo de cuenta
               </Text>
-              <SegmentedControl
-        tabs={["Label", "Label"]}
-        onChange={() => {}}
-        paddingVertical={6}
-        containerStyle={{
-          marginVertical: 20,
-        }}
-        currentIndex={tabIndex}
-        onChange={handleTabsChange}
-        theme={theme}
-        
-      />
+              <Center>
+                <SegmentedControl
+                  tabs={["Comprador", "Vendedor"]}
+                  onChange={() => {}}
+                  paddingVertical={6}
+                  containerStyle={{
+                    marginVertical: 10,
+                  }}
+                  currentIndex={tabIndex}
+                  onChange={handleTabsChange}
+                  theme={theme}
+                />
+              </Center>
               <SubmitButton title={"Guardar cambios"} />
             </Form>
           </View>
