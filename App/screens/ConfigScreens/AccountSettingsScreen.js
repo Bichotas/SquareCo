@@ -27,6 +27,7 @@ import SegmentedControl from "rn-segmented-control";
 // Formik y yup
 import * as Yup from "yup";
 import { Form, FormField, SubmitButton } from "../../components/forms2";
+import ImageProfile from "../../components/forms2/ImageProfile";
 
 // Configuracion para integrar el degradado en el cuadro
 const config = {
@@ -81,7 +82,9 @@ function AccountSettingsScreen({ navigation }) {
             <Form>
               {/* Fotografia */}
               {/* Investigar como poner uno para la url de la fotografia */}
-              <Center>
+
+              {/*  Se comento esta parte ya que se va hacer un componente y otro para formik */}
+              {/* <Center>
                 <Box
                   size={[120, 150]}
                   bg={{
@@ -93,11 +96,14 @@ function AccountSettingsScreen({ navigation }) {
                   }}
                   borderRadius={20}
                 ></Box>
-                {/* Boton para cambiar la fotografia */}
+
                 <Button borderRadius={50} px={7} margin={5} fontWeight={"bold"}>
                   Cambiar foto
                 </Button>
               </Center>
+
+               */}
+              <ImageProfile />
               {/* Fin-Fotografia */}
               <Text fontWeight={"bold"} fontSize={16} padding={2}>
                 Nombre de la cuenta
