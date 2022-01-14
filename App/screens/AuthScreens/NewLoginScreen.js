@@ -56,6 +56,9 @@ function NewLoginScreen({ navigation }) {
     // React navigation
     handleNavigation();
   }
+
+  const user = auth.currentUser;
+  console.log(user);
   return (
     <NativeBaseProvider>
       {/* Cosillas */}

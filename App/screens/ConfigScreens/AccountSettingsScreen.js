@@ -25,6 +25,17 @@ import SegmentedControl from "rn-segmented-control";
 // Formik y yup
 import * as Yup from "yup";
 import { Form, FormField, SubmitButton } from "../../components/forms2";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
+import { AuthContext, ProfileContext } from "../../auth/context";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+// Cositas de firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const firestore = getFirestore(app);
+
+
 
 // Configuracion para integrar el degradado en el cuadro
 const config = {
