@@ -18,15 +18,13 @@ import {
   View,
 } from "native-base";
 import ReturnArrow from "../../components/ReturnArrow";
-import TextInput from "../../components/forms2/TextInput";
-
+import ImageF from "../../components/forms2/ImageF";
 // Segmented control
 import SegmentedControl from "rn-segmented-control";
 
 // Formik y yup
 import * as Yup from "yup";
 import { Form, FormField, SubmitButton } from "../../components/forms2";
-import ImageProfile from "../../components/forms2/ImageProfile";
 
 // Configuracion para integrar el degradado en el cuadro
 const config = {
@@ -59,6 +57,8 @@ function AccountSettingsScreen({ navigation }) {
     console.log("Pressing");
     navigation.goBack();
   };
+  console.log(imageUri);
+
   return (
     <NativeBaseProvider config={config}>
       <ScrollView>
@@ -79,31 +79,16 @@ function AccountSettingsScreen({ navigation }) {
             <Divider bg={"black"} h={1} marginBottom={5} />
 
             {/* Formulario con los componentes de la carpeta forms2 */}
-            <Form>
+            <Form
+              initialValues={{
+                name: "",
+                email: "",
+                typeAccount: false,
+              }}
+              onSubmit={(values) => console.log(values)}
+            >
               {/* Fotografia */}
-              {/* Investigar como poner uno para la url de la fotografia */}
-
-              {/*  Se comento esta parte ya que se va hacer un componente y otro para formik */}
-              {/* <Center>
-                <Box
-                  size={[120, 150]}
-                  bg={{
-                    linearGradient: {
-                      colors: ["violet.100", "violet.800"],
-                      start: [0, 0],
-                      end: [0, 1],
-                    },
-                  }}
-                  borderRadius={20}
-                ></Box>
-
-                <Button borderRadius={50} px={7} margin={5} fontWeight={"bold"}>
-                  Cambiar foto
-                </Button>
-              </Center>
-
-               */}
-              <ImageProfile
+              <ImageF
                 imageUri={imageUri}
                 onChangeImage={(uri) => setImageUri(uri)}
               />

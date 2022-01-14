@@ -80,7 +80,7 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
             />
           )}
         </View>
-        <Text>{imageUri}</Text>
+        <Text {...otherProps}>{imageUri}</Text>
         <Button
           borderRadius={50}
           px={7}
