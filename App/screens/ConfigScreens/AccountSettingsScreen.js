@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Box,
@@ -22,7 +22,6 @@ import TextInput from "../../components/forms2/TextInput";
 
 // Segmented control
 import SegmentedControl from "rn-segmented-control";
-
 
 // Formik y yup
 import * as Yup from "yup";
@@ -48,6 +47,7 @@ const validationSchema = Yup.object().shape({
 });
 
 function AccountSettingsScreen({ navigation }) {
+  const [imageUri, setImageUri] = useState();
   const [tabIndex, setTabIndex] = React.useState(1);
   const [theme, setTheme] = React.useState("LIGHT");
   const toggleTheme = () =>
@@ -103,7 +103,10 @@ function AccountSettingsScreen({ navigation }) {
               </Center>
 
                */}
-              <ImageProfile />
+              <ImageProfile
+                imageUri={imageUri}
+                onChangeImage={(uri) => setImageUri(uri)}
+              />
               {/* Fin-Fotografia */}
               <Text fontWeight={"bold"} fontSize={16} padding={2}>
                 Nombre de la cuenta
