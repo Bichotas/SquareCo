@@ -21,8 +21,6 @@ import firebaseConfig from "../../database/firebaseConfig";
 import AccountOptionsCircle from "../../designs/AccountOptionsCirclesD";
 function AccountOptionScreen({ navigation }) {
   const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const authContext = useContext(AuthContext);
 
   const vendedor = () => {
     navigation.navigate("Register", { tipoCuenta: "vendedor" });

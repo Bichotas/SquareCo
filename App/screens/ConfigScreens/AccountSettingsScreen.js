@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import {
   Box,
@@ -35,8 +35,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
 
-
-
 // Configuracion para integrar el degradado en el cuadro
 const config = {
   dependencies: {
@@ -56,8 +54,18 @@ const validationSchema = Yup.object().shape({
 });
 
 function AccountSettingsScreen({ navigation }) {
+  const profileContext = useContext(ProfileContext);
+  const { typeAccount } = profileContext.profile;
+  console.log(typeAccount);
+  function check(typeAccount) {
+    if (typeAccount == "comprador") {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
   const [imageUri, setImageUri] = useState();
-  const [tabIndex, setTabIndex] = React.useState(1);
+  const [tabIndex, setTabIndex] = React.useState(check(typeAccount));
   const [theme, setTheme] = React.useState("LIGHT");
   const toggleTheme = () =>
     theme === "LIGHT" ? setTheme("DARK") : setTheme("LIGHT");
@@ -68,81 +76,86 @@ function AccountSettingsScreen({ navigation }) {
     console.log("Pressing");
     navigation.goBack();
   };
-  console.log(imageUri);
-
+  const handleValues = (values) => {
+    console.log(values, imageUri, tabIndex);
+  };
   return (
     <NativeBaseProvider config={config}>
       <ScrollView>
         <ReturnArrow onPress={pressHandler} />
+        <ProfileContext.Consumer>
+          {({ profile, setProfile }) => (
+            <KeyboardAvoidingView>
+              <View flex={1} padding={6} marginTop={-10}>
+                <Text
+                  fontSize={"4xl"}
+                  fontWeight={"bold"}
+                  color={"black"}
+                  textAlign={"center"}
+                  padding={2}
+                >
+                  Cuenta
+                </Text>
+                <Divider bg={"black"} h={1} marginBottom={5} />
 
-        {/* Keyboard Avoiding View */}
-        <KeyboardAvoidingView>
-          <View flex={1} padding={6} marginTop={-10}>
-            <Text
-              fontSize={"4xl"}
-              fontWeight={"bold"}
-              color={"black"}
-              textAlign={"center"}
-              padding={2}
-            >
-              Cuenta
-            </Text>
-            <Divider bg={"black"} h={1} marginBottom={5} />
-
-            {/* Formulario con los componentes de la carpeta forms2 */}
-            <Form
-              initialValues={{
-                name: "",
-                email: "",
-                typeAccount: false,
-              }}
-              onSubmit={(values) => console.log(values)}
-            >
-              {/* Fotografia */}
-              <ImageF
-                imageUri={imageUri}
-                onChangeImage={(uri) => setImageUri(uri)}
-              />
-              {/* Fin-Fotografia */}
-              <Text fontWeight={"bold"} fontSize={16} padding={2}>
-                Nombre de la cuenta
-              </Text>
-              <FormField
-                name={"name"}
-                placeholder="Nombre de la cuenta"
-                autoCapitalize="none"
-              />
-              <Text fontWeight={"bold"} fontSize={16} padding={2}>
-                Correo Electronico
-              </Text>
-
-              <FormField
-                name={"email"}
-                placeholder="Correo Electronico"
-                autoCapitalize="none"
-                keyboardType="email-address"
-                textContentType="emailAddress"
-              />
-              <Text fontWeight={"bold"} fontSize={16} padding={2}>
-                Tipo de cuenta
-              </Text>
-              <Center>
-                <SegmentedControl
-                  tabs={["Comprador", "Vendedor"]}
-                  onChange={() => {}}
-                  paddingVertical={6}
-                  containerStyle={{
-                    marginVertical: 10,
+                {/* Formulario con los componentes de la carpeta forms2 */}
+                <Form
+                  initialValues={{
+                    name: profile.name,
+                    email: profile.email,
                   }}
-                  currentIndex={tabIndex}
-                  onChange={handleTabsChange}
-                  theme={theme}
-                />
-              </Center>
-              <SubmitButton title={"Guardar cambios"} />
-            </Form>
-          </View>
-        </KeyboardAvoidingView>
+                  onSubmit={(values) => handleValues(values)}
+                >
+                  {/* Fotografia */}
+                  <ImageF
+                    imageUri={imageUri}
+                    onChangeImage={(uri) => setImageUri(uri)}
+                  />
+                  {/* Fin-Fotografia */}
+                  <Text fontWeight={"bold"} fontSize={16} padding={2}>
+                    Nombre de la cuenta
+                  </Text>
+                  <FormField
+                    value={profile.name}
+                    name={"name"}
+                    placeholder="Nombre de la cuenta"
+                    autoCapitalize="none"
+                  />
+                  <Text fontWeight={"bold"} fontSize={16} padding={2}>
+                    Correo Electronico
+                  </Text>
+
+                  <FormField
+                    value={profile.email}
+                    name={"email"}
+                    placeholder="Correo Electronico"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    textContentType="emailAddress"
+                  />
+                  <Text fontWeight={"bold"} fontSize={16} padding={2}>
+                    Tipo de cuenta
+                  </Text>
+                  <Center>
+                    <SegmentedControl
+                      tabs={["Comprador", "Vendedor"]}
+                      onChange={() => {}}
+                      paddingVertical={6}
+                      containerStyle={{
+                        marginVertical: 10,
+                      }}
+                      currentIndex={tabIndex}
+                      onChange={handleTabsChange}
+                      theme={theme}
+                    />
+                  </Center>
+                  <SubmitButton title={"Guardar cambios"} />
+                </Form>
+              </View>
+            </KeyboardAvoidingView>
+          )}
+          {/* Keyboard Avoiding View */}
+        </ProfileContext.Consumer>
       </ScrollView>
     </NativeBaseProvider>
   );
