@@ -19,7 +19,7 @@ const config = {
     // 'linear-gradient': require('react-native-linear-gradient').default,
   },
 };
-function ImageProfile({ imageUri, onChangeImage }) {
+function ImageProfile({ imageUri, onChangeImage, ...otherProps }) {
   useEffect(() => {
     requestPermission();
   }, []);
