@@ -57,7 +57,7 @@ const validationSchema = Yup.object().shape({
 function AccountSettingsScreen({ navigation }) {
   // States
   const [imageUri, setImageUri] = useState();
-  const [tabIndex, setTabIndex] = React.useState(check(typeAccount));
+  const [tabIndex, setTabIndex] = useState(check(typeAccount));
   const [theme, setTheme] = React.useState("LIGHT");
 
   // Contexts
@@ -84,6 +84,12 @@ function AccountSettingsScreen({ navigation }) {
     uploadBytes(imageRef, blob).then((snapshot) => {
       console.log("Uploaded a blob or file");
     });
+    const image = ref(
+      storage,
+      // Poner el lugar en donde va almacenado
+      `users/${uid}`
+    );
+    return imageRef;
   }
 
   // ChecktypeAccount
@@ -111,6 +117,10 @@ function AccountSettingsScreen({ navigation }) {
   };
 
   // Funcion handleSaveChanges
+
+  // Esta funcion se necesita volver a logearse para recargar los datos, en dado caso
+  // que quisieramos hacer que se actualizaran los datos, deberíamos de hacer una coleccion en
+  // realtimedatabase
   const handleSaveChanges = (valuesFormik, contexValues) => {
     const typeAccountForm = () => {
       if (tabIndex == 0) {
@@ -134,8 +144,22 @@ function AccountSettingsScreen({ navigation }) {
     ) {
       console.log("Not change int the image");
     } else {
-      console.log("Cambio en el aimagen");
+      console.log("Cambio en algo");
+      const functionS = () => {
+        if (form.urlProfile != contexValues.urlProfile) {
+          uploadImage(form.urlProfile);
+        }
+      };
+      setDoc(docuRef, {
+        email: form.email,
+        name: form.name,
+        uid: uid,
+        typeAccount: form.typeAccount,
+        urlProfile: functionS,
+      });
     }
+    const docSnap = getDoc(docuRef);
+    profileContext.setProfile({ ...docSnap.data() });
   };
   return (
     <NativeBaseProvider config={config}>
