@@ -30,11 +30,12 @@ import firebaseConfig from "../../database/firebaseConfig";
 import { AuthContext, ProfileContext } from "../../auth/context";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 // Cositas de firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
-
+const storage = getStorage(app);
 // Configuracion para integrar el degradado en el cuadro
 const config = {
   dependencies: {
@@ -54,8 +55,17 @@ const validationSchema = Yup.object().shape({
 });
 
 function AccountSettingsScreen({ navigation }) {
+  async function uploadImage(uri) {
+    const imageRef = ref(storage, `users/${uid}`);
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    uploadBytes(imageRef, blob).then((snapshot) => {
+      console.log("Uploaded a blob or file");
+    });
+  }
   const profileContext = useContext(ProfileContext);
-  const { typeAccount } = profileContext.profile;
+  const { typeAccount, uid } = profileContext.profile;
   console.log(typeAccount);
   function check(typeAccount) {
     if (typeAccount == "comprador") {
@@ -79,6 +89,7 @@ function AccountSettingsScreen({ navigation }) {
   const handleValues = (values) => {
     console.log(values, imageUri, tabIndex);
   };
+
   return (
     <NativeBaseProvider config={config}>
       <ScrollView>
@@ -104,7 +115,7 @@ function AccountSettingsScreen({ navigation }) {
                     name: profile.name,
                     email: profile.email,
                   }}
-                  onSubmit={(values) => handleValues(values)}
+                  onSubmit={() => uploadImage(imageUri)}
                 >
                   {/* Fotografia */}
                   <ImageF
