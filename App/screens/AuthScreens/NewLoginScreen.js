@@ -57,8 +57,8 @@ function NewLoginScreen({ navigation }) {
     handleNavigation();
   }
 
-  const user = auth.currentUser;
-  console.log(user);
+  // const user = auth.currentUser;
+  // console.log(user);
   return (
     <NativeBaseProvider>
       {/* Cosillas */}
