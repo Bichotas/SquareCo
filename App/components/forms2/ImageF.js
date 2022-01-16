@@ -86,12 +86,28 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
     <NativeBaseProvider config={config}>
       <Center>
         <View size={[120, 150]} overflow={"hidden"}>
-          <Image
-            source={{
-              uri: imageUri,
-            }}
-            style={{ width: "100%", height: "100%", borderRadius: 20 }}
-          />
+          {!imageUri && (
+            <Box
+              width={"100%"}
+              height={"100%"}
+              borderRadius={20}
+              bg={{
+                linearGradient: {
+                  colors: ["violet.100", "violet.800"],
+                  start: [0, 0],
+                  end: [0, 1],
+                },
+              }}
+            />
+          )}
+          {imageUri && (
+            <Image
+              source={{
+                uri: imageUri,
+              }}
+              style={{ width: "100%", height: "100%", borderRadius: 20 }}
+            />
+          )}
         </View>
         <Button
           borderRadius={50}
