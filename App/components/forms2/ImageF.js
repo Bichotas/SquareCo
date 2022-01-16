@@ -93,7 +93,7 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
         <View size={[120, 150]} overflow={"hidden"}>
           <Image
             source={{
-              uri: "https://firebasestorage.googleapis.com/v0/b/pruebaauth-57328.appspot.com/o/users%2F0rpICfsQ6SeCY8LjuS94b84HBzg2?alt=media&token=15713fd0-d74a-451f-aae1-60f1f74ba6d4",
+              uri: imageUri,
             }}
             style={{ width: "100%", height: "100%", borderRadius: 20 }}
           />
