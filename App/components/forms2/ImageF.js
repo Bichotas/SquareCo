@@ -72,7 +72,9 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
           {/* Pero si existe, entonces vamos a mostrar una imagen */}
           {imageUri && (
             <Image
-              source={{ uri: imageUri }}
+              source={{
+                uri: urlImage,
+              }}
               width={"100%"}
               height={"100%"}
               borderRadius={20}

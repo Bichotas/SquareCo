@@ -95,7 +95,7 @@ function AccountSettingsScreen({ navigation }) {
   }
 
   function check(typeAccount) {
-    if (typeAccount == "comprador") {
+    if (typeAccount === "comprador") {
       return 0;
     } else {
       return 1;
@@ -124,7 +124,7 @@ function AccountSettingsScreen({ navigation }) {
   // realtimedatabase
   const handleSaveChanges = (valuesFormik, contexValues) => {
     const typeAccountForm = () => {
-      if (tabIndex == 0) {
+      if (tabIndex === 0) {
         return "comprador";
       } else {
         return "vendedor";
