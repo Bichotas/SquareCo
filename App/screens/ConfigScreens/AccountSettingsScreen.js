@@ -56,10 +56,11 @@ const validationSchema = Yup.object().shape({
 
 function AccountSettingsScreen({ navigation }) {
   // States
-  const [imageUri, setImageUri] = useState();
+  const [imageUri, setImageUri] = useState(null);
   const [tabIndex, setTabIndex] = useState(check(typeAccount));
   const [theme, setTheme] = React.useState("LIGHT");
 
+  const [urlImage, setUrlImage] = useState(``);
   // Contexts
   const profileContext = useContext(ProfileContext);
 
@@ -80,19 +81,19 @@ function AccountSettingsScreen({ navigation }) {
     const imageRef = ref(storage, `users/${uid}`);
     const response = await fetch(uri);
     const blob = await response.blob();
+    if (uri == null) {
+      return null;
+    } else {
+      const infoImage = uploadBytes(imageRef, blob).then((snapshot) => {
+        console.log(snapshot.ref.toString());
+        setUrlImage(snapshot.ref.toString());
+        console.log("State url", urlImage);
+      });
 
-    uploadBytes(imageRef, blob).then((snapshot) => {
-      console.log("Uploaded a blob or file");
-    });
-    const image = ref(
-      storage,
-      // Poner el lugar en donde va almacenado
-      `users/${uid}`
-    );
-    return imageRef;
+      // return (await infoImage).toString();
+    }
   }
 
-  // ChecktypeAccount
   function check(typeAccount) {
     if (typeAccount == "comprador") {
       return 0;
@@ -145,17 +146,13 @@ function AccountSettingsScreen({ navigation }) {
       console.log("Not change int the image");
     } else {
       console.log("Cambio en algo");
-      const functionS = () => {
-        if (form.urlProfile != contexValues.urlProfile) {
-          uploadImage(form.urlProfile);
-        }
-      };
+      uploadImage(imageUri);
       setDoc(docuRef, {
         email: form.email,
         name: form.name,
         uid: uid,
         typeAccount: form.typeAccount,
-        urlProfile: functionS,
+        urlProfile: urlImage,
       });
     }
     const docSnap = getDoc(docuRef);
@@ -186,8 +183,9 @@ function AccountSettingsScreen({ navigation }) {
                     name: profile.name,
                     email: profile.email,
                   }}
-                  onSubmit={(values) =>
-                    handleSaveChanges(values, valoresContext)
+                  onSubmit={
+                    (values) => handleSaveChanges(values, valoresContext)
+                    // uploadImage(imageUri)
                   }
                 >
                   {/* Fotografia */}
