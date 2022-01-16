@@ -55,27 +55,19 @@ const validationSchema = Yup.object().shape({
 });
 
 function AccountSettingsScreen({ navigation }) {
+  // Contexts
+  const profileContext = useContext(ProfileContext);
+  // Variables de objetos
+  const { name, email, typeAccount, uid, urlProfile } = profileContext.profile;
   // States
   const [imageUri, setImageUri] = useState(urlProfile);
   const [tabIndex, setTabIndex] = useState(check(typeAccount));
-  const [theme, setTheme] = React.useState("LIGHT");
-
-  const [urlImage, setUrlImage] = useState(``);
-  // Contexts
-  const profileContext = useContext(ProfileContext);
-
-  // Variables de objetos
-  const { name, email, typeAccount, uid, urlProfile } = profileContext.profile;
 
   // Objetos
   const valoresContext = { name, email, typeAccount, uid, urlProfile };
   // Referencias
   // En el segundo valor hay que definir como lo va a representar, ya que cualquier cambio de foto va a ser un cambio
   const docuRef = doc(firestore, `users/${uid}`);
-
-  // En vez de llamar al documento, nos basamos en los valores del objeto del contexto
-  // const result = await getDoc(docuRef);
-
   // UploadFunction
   function check(typeAccount) {
     if (typeAccount === "comprador") {
@@ -88,16 +80,6 @@ function AccountSettingsScreen({ navigation }) {
   const pressHandler = () => {
     console.log("Pressing");
     navigation.goBack();
-  };
-  // submitForm - Funcion
-  const handleValues = (values) => {
-    console.log(values, imageUri, tabIndex);
-  };
-  // Funciones del segmented control
-  const toggleTheme = () =>
-    theme === "LIGHT" ? setTheme("DARK") : setTheme("LIGHT");
-  const handleTabsChange = (index) => {
-    setTabIndex(index);
   };
 
   // Funcion handleSaveChanges
@@ -200,19 +182,6 @@ function AccountSettingsScreen({ navigation }) {
                   <Text fontWeight={"bold"} fontSize={16} padding={2}>
                     Tipo de cuenta
                   </Text>
-                  <Center>
-                    <SegmentedControl
-                      tabs={["Comprador", "Vendedor"]}
-                      onChange={() => {}}
-                      paddingVertical={6}
-                      containerStyle={{
-                        marginVertical: 10,
-                      }}
-                      currentIndex={tabIndex}
-                      onChange={handleTabsChange}
-                      theme={theme}
-                    />
-                  </Center>
                   <SubmitButton title={"Guardar cambios"} />
                 </Form>
               </View>

@@ -28,6 +28,7 @@ const config = {
 function ImageF({ imageUri, onChangeImage, ...otherProps }) {
   const profileContext = useContext(ProfileContext);
   const { uid } = profileContext.profile;
+
   useEffect(() => {
     requestPermission();
   }, []);
@@ -55,7 +56,6 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
       });
       if (!result.cancelled) {
         uploadImage(result.uri);
-        onChangeImage(result.uri);
       }
     } catch (error) {
       console.log("Error reading an image", error);
@@ -70,11 +70,6 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
     if (uri == null) {
       return null;
     } else {
-      const infoImage = uploadBytes(imageRef, blob).then((snapshot) => {
-        console.log(snapshot.ref.toString());
-        console.log("State url", urlImage);
-      });
-
       uploadBytes(imageRef, blob).then((snapshot) => {
         snapshot.ref.toString();
         getDownloadURL(imageRef).then((url) => {
@@ -82,7 +77,7 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
           console.log("Url get download", url);
         });
       });
-
+      console.log(imageUri);
       // return (await infoImage).toString();
     }
   }
