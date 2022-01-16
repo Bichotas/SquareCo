@@ -14,8 +14,10 @@ import {
   HStack,
   Switch,
   KeyboardAvoidingView,
+  View,
 } from "native-base";
 import ReturnArrow from "../../components/ReturnArrow";
+import { Form, FormField, SubmitButton } from "../../components/forms2";
 function PasswordChangeScreen({ navigation }) {
   const pressHandler = () => {
     console.log("Pressing");
@@ -26,7 +28,7 @@ function PasswordChangeScreen({ navigation }) {
       <ScrollView>
         <ReturnArrow onPress={pressHandler} />
         <KeyboardAvoidingView>
-          <Box flex={1} padding={6}>
+          <View flex={1} padding={6}>
             <Text
               fontSize={"4xl"}
               fontWeight={"bold"}
@@ -36,61 +38,38 @@ function PasswordChangeScreen({ navigation }) {
             >
               Cambiar contraseña
             </Text>
-            <Divider bg={"black"} h={1} />
+            <Divider bg={"black"} h={1} marginBottom={6} />
 
-            {/* Checar la documentacion de como estan los formularios
-        Se cambio su forma original, antes en vez de un Text Habia un Form.Label */}
-            <VStack space={2} mt="3">
-              <FormControl>
-                <Text fontWeight={"bold"} fontSize={16} padding={2}>
-                  Correo Electronico
-                </Text>
-                <Input
-                  padding={4}
-                  backgroundColor={"gray.300"}
-                  placeholder="Correo Electronico"
-                  borderRadius={15}
-                  fontSize={15}
-                />
-              </FormControl>
-              <FormControl>
-                <Text fontWeight={"bold"} fontSize={16} padding={2}>
-                  Nueva contraseña
-                </Text>
-                <Input
-                  padding={4}
-                  backgroundColor={"gray.300"}
-                  placeholder="Nueva contraseña"
-                  borderRadius={15}
-                  fontSize={15}
-                />
-              </FormControl>
-              <FormControl>
-                <Text fontWeight={"bold"} fontSize={16} padding={2}>
-                  Confirmar contraseña
-                </Text>
-                <Input
-                  padding={4}
-                  backgroundColor={"gray.300"}
-                  placeholder="Confirmar contraseña"
-                  borderRadius={15}
-                  fontSize={15}
-                />
-              </FormControl>
-            </VStack>
-
-            <Center marginTop={4}>
-              <Button
-                paddingY={4}
-                paddingX={10}
-                borderRadius={50}
-                marginBottom={4}
-                fontWeight={"bold"}
-              >
-                Guardar Cambios
-              </Button>
-            </Center>
-          </Box>
+            <Form
+              initialValues={{
+                changePassword: "",
+                confirmPassword: "",
+              }}
+              onSubmit={(values) => console.log(values)}
+            >
+              <Text fontWeight={"bold"} fontSize={16} padding={2}>
+                Nueva contraseña
+              </Text>
+              <FormField
+                name={"changePassword"}
+                placeholder="Nombre de la cuenta"
+                textContentType="password"
+                secureTextEntry={true}
+                autoCapitalize="none"
+              />
+              <Text fontWeight={"bold"} fontSize={16} padding={2}>
+                Confirmar contraseña
+              </Text>
+              <FormField
+                name={"confirmPassword"}
+                textContentType="password"
+                secureTextEntry={true}
+                placeholder="Confirmar contraseña"
+                autoCapitalize="none"
+              />
+              <SubmitButton bg={"orange.400"} title={"Cambiar contraseña"} />
+            </Form>
+          </View>
         </KeyboardAvoidingView>
       </ScrollView>
     </NativeBaseProvider>
