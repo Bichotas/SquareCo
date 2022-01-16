@@ -51,6 +51,7 @@ function PasswordChangeScreen({ navigation }) {
                 Nueva contraseña
               </Text>
               <FormField
+                showPassword={true}
                 name={"changePassword"}
                 placeholder="Nombre de la cuenta"
                 textContentType="password"
@@ -61,6 +62,7 @@ function PasswordChangeScreen({ navigation }) {
                 Confirmar contraseña
               </Text>
               <FormField
+                showPassword={true}
                 name={"confirmPassword"}
                 textContentType="password"
                 secureTextEntry={true}
