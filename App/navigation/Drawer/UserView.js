@@ -1,9 +1,8 @@
 import { View, Text, HStack, VStack, Container, Icon } from "native-base";
 import React, { useContext } from "react";
 
-
 /// Componentes
-import ProfilePSquare from "../../components/ProfilePSquare";
+import ImageSquare from "../../components/ImageSquare";
 import colors from "../../config/colors";
 import { getAuth } from "firebase/auth";
 
@@ -18,19 +17,17 @@ function UserView(props) {
     <ProfileContext.Consumer>
       {({ profile, setProfile }) => (
         <View bg={colors.primary} h={150}>
-          <VStack>
-            <Container margin={5} width={"70%"} marginTop={9}>
-              <ProfilePSquare></ProfilePSquare>
-              <Text
-                fontSize={[18, 25]}
-                fontWeight={"bold"}
-                mt={[4, 8]}
-                color={"white"}
-                noOfLines={1}
-              >
-                {profile.name}
-              </Text>
-            </Container>
+          <VStack space={16} marginTop={5} padding={4}>
+            <ImageSquare imageUri={profile.urlProfile}></ImageSquare>
+            <Text
+              fontSize={[18, 25]}
+              fontWeight={"bold"}
+              mt={[4, 8]}
+              color={"white"}
+              noOfLines={1}
+            >
+              {profile.name}
+            </Text>
           </VStack>
         </View>
       )}
