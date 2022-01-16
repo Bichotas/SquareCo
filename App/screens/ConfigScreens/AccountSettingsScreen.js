@@ -56,7 +56,7 @@ const validationSchema = Yup.object().shape({
 
 function AccountSettingsScreen({ navigation }) {
   // States
-  const [imageUri, setImageUri] = useState(null);
+  const [imageUri, setImageUri] = useState(urlProfile);
   const [tabIndex, setTabIndex] = useState(check(typeAccount));
   const [theme, setTheme] = React.useState("LIGHT");
 
@@ -77,23 +77,6 @@ function AccountSettingsScreen({ navigation }) {
   // const result = await getDoc(docuRef);
 
   // UploadFunction
-  async function uploadImage(uri) {
-    const imageRef = ref(storage, `users/${uid}`);
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    if (uri == null) {
-      return null;
-    } else {
-      const infoImage = uploadBytes(imageRef, blob).then((snapshot) => {
-        console.log(snapshot.ref.toString());
-        setUrlImage(snapshot.ref.toString());
-        console.log("State url", urlImage);
-      });
-
-      // return (await infoImage).toString();
-    }
-  }
-
   function check(typeAccount) {
     if (typeAccount === "comprador") {
       return 0;
@@ -146,13 +129,12 @@ function AccountSettingsScreen({ navigation }) {
       console.log("Not change int the image");
     } else {
       console.log("Cambio en algo");
-      uploadImage(imageUri);
       setDoc(docuRef, {
         email: form.email,
         name: form.name,
         uid: uid,
         typeAccount: form.typeAccount,
-        urlProfile: urlImage,
+        urlProfile: imageUri,
       });
     }
     const docSnap = getDoc(docuRef);
