@@ -73,7 +73,7 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
           {imageUri && (
             <Image
               source={{
-                uri: urlImage,
+                uri: imageUri,
               }}
               width={"100%"}
               height={"100%"}
