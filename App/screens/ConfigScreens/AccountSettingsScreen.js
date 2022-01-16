@@ -6,16 +6,15 @@ import {
   Divider,
   Center,
   ScrollView,
-  Switch,
+  Badge,
   KeyboardAvoidingView,
   View,
   HStack,
+  Button,
+  VStack,
 } from "native-base";
 import ReturnArrow from "../../components/ReturnArrow";
 import ImageF from "../../components/forms2/ImageF";
-// Segmented control
-import SegmentedControl from "rn-segmented-control";
-
 // Formik y yup
 import * as Yup from "yup";
 import { Form, FormField, SubmitButton } from "../../components/forms2";
@@ -25,6 +24,7 @@ import { AuthContext, ProfileContext } from "../../auth/context";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { any } from "prop-types";
 // Cositas de firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -55,6 +55,9 @@ function AccountSettingsScreen({ navigation }) {
   const { name, email, typeAccount, uid, urlProfile } = profileContext.profile;
   // States
   const [imageUri, setImageUri] = useState(urlProfile);
+  const [typeA, setTypeAccount] = useState(typeAccount);
+
+  // Cosa vieja para el tipo de cuenta
   const [tabIndex, setTabIndex] = useState(check(typeAccount));
 
   // Objetos
@@ -82,17 +85,10 @@ function AccountSettingsScreen({ navigation }) {
   // que quisieramos hacer que se actualizaran los datos, deberíamos de hacer una coleccion en
   // realtimedatabase
   const handleSaveChanges = (valuesFormik, contexValues) => {
-    const typeAccountForm = () => {
-      if (tabIndex === 0) {
-        return "comprador";
-      } else {
-        return "vendedor";
-      }
-    };
     const form = {
       name: valuesFormik.name,
       email: valuesFormik.email,
-      typeAccount: typeAccountForm(),
+      typeAccount: typeA,
       urlProfile: imageUri,
     };
     console.log(form.typeAccount, form.urlProfile);
@@ -116,6 +112,7 @@ function AccountSettingsScreen({ navigation }) {
     const docSnap = getDoc(docuRef);
     profileContext.setProfile({ ...docSnap.data() });
   };
+
   return (
     <NativeBaseProvider config={config}>
       <ScrollView>
@@ -176,13 +173,37 @@ function AccountSettingsScreen({ navigation }) {
                   <Text fontWeight={"bold"} fontSize={16} padding={2}>
                     Tipo de cuenta
                   </Text>
-                  <Center>
-                    <HStack alignItems="center" space={4}>
-                      <Text fontSize={18}>Comprador</Text>
-                      <Switch size="lg" />
-                      <Text fontSize={18}>Vendedor</Text>
-                    </HStack>
-                  </Center>
+                  <HStack space={2}>
+                    <Badge
+                      justifyContent={"center"}
+                      marginLeft={2}
+                      width={"25%"}
+                      borderRadius={10}
+                      padding={2}
+                      colorScheme={typeA == "vendedor" ? "danger" : "success"}
+                    >
+                      {typeA}
+                    </Badge>
+                    <VStack>
+                      <Text>¿Quierés cambiar el tipo de cuenta?</Text>
+                      <Center>
+                        <Button
+                          width={"50%"}
+                          onPress={() => {
+                            if (typeA === "vendedor") {
+                              setTypeAccount("comprador");
+                            } else if (typeA === "comprador") {
+                              setTypeAccount("vendedor");
+                            }
+                            console.log(typeA);
+                          }}
+                        >
+                          Cambiar
+                        </Button>
+                      </Center>
+                    </VStack>
+                  </HStack>
+
                   <SubmitButton title={"Guardar cambios"} />
                 </Form>
               </View>
