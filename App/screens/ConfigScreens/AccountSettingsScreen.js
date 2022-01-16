@@ -1,21 +1,15 @@
 import React, { useState, useContext } from "react";
 
 import {
-  Box,
   Text,
   NativeBaseProvider,
   Divider,
   Center,
   ScrollView,
-  VStack,
-  FormControl,
-  Link,
-  Input,
-  Button,
-  HStack,
   Switch,
   KeyboardAvoidingView,
   View,
+  HStack,
 } from "native-base";
 import ReturnArrow from "../../components/ReturnArrow";
 import ImageF from "../../components/forms2/ImageF";
@@ -182,6 +176,13 @@ function AccountSettingsScreen({ navigation }) {
                   <Text fontWeight={"bold"} fontSize={16} padding={2}>
                     Tipo de cuenta
                   </Text>
+                  <Center>
+                    <HStack alignItems="center" space={4}>
+                      <Text fontSize={18}>Comprador</Text>
+                      <Switch size="lg" />
+                      <Text fontSize={18}>Vendedor</Text>
+                    </HStack>
+                  </Center>
                   <SubmitButton title={"Guardar cambios"} />
                 </Form>
               </View>
