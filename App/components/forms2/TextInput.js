@@ -7,7 +7,7 @@ function TextInput({ value, showPassword, placeholder, ...otherProps }) {
   const handleClick = () => setShow(!show);
   return (
     <NativeBaseProvider>
-      {showPassword && (
+      {/* {showPassword && (
         <Input
           // Diseñito
           value={value}
@@ -35,19 +35,18 @@ function TextInput({ value, showPassword, placeholder, ...otherProps }) {
             )
           }
         />
-      )}
-      {!showPassword && (
-        <Input
-          width={"100%"}
-          value={value}
-          variant={"filled"}
-          borderRadius={15}
-          padding={4}
-          fontSize={16}
-          placeholder={placeholder}
-          {...otherProps}
-        />
-      )}
+      )} */}
+
+      <Input
+        width={"100%"}
+        value={value}
+        variant={"filled"}
+        borderRadius={15}
+        padding={4}
+        fontSize={16}
+        placeholder={placeholder}
+        {...otherProps}
+      />
     </NativeBaseProvider>
   );
 }

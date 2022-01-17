@@ -18,6 +18,15 @@ import {
 } from "native-base";
 import ReturnArrow from "../../components/ReturnArrow";
 import { Form, FormField, SubmitButton } from "../../components/forms2";
+//Yup
+import { useFormikContext } from "formik";
+import * as Yup from 'yup'
+// Validation Schema
+const validationSchema = Yup.object().shape({
+  changePassword: Yup.string().required().min(4).label("Change Password"),
+  confirmPassword: Yup.string().required().min(4).label("Confirm Password")
+})
+
 function PasswordChangeScreen({ navigation }) {
   const pressHandler = () => {
     console.log("Pressing");
@@ -53,7 +62,7 @@ function PasswordChangeScreen({ navigation }) {
               <FormField
                 showPassword={true}
                 name={"changePassword"}
-                placeholder="Nombre de la cuenta"
+                placeholder="Nueva contraseña"
                 textContentType="password"
                 secureTextEntry={true}
                 autoCapitalize="none"
