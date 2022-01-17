@@ -24,7 +24,6 @@ import { AuthContext, ProfileContext } from "../../auth/context";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { any } from "prop-types";
 // Cositas de firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
