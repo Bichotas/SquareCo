@@ -10,8 +10,8 @@ function FormField({ value, name, ...otherProps }) {
   return (
     <>
       <TextInput
-        showPassword={showPassword}
         value={value}
+        showPassword={showPassword}
         onBlur={() => setFieldTouched(name)}
         onChangeText={handleChange(name)}
         {...otherProps}

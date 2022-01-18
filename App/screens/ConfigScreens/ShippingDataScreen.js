@@ -15,6 +15,19 @@ import {
   Switch,
   KeyboardAvoidingView,
 } from "native-base";
+import * as Yup from "yup";
+import { Form, FormField, SubmitButton } from "../../components/forms2";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
+import { AuthContext, ProfileContext } from "../../auth/context";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+// Cositas de firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const firestore = getFirestore(app);
+const storage = getStorage(app);
 import ReturnArrow from "../../components/ReturnArrow";
 function ShippingDataScreen({ navigation }) {
   const pressHandler = () => {
@@ -40,47 +53,34 @@ function ShippingDataScreen({ navigation }) {
 
             {/* Checar la documentacion de como estan los formularios
         Se cambio su forma original, antes en vez de un Text Habia un Form.Label */}
-            <VStack space={2} mt="0">
-              <FormControl>
+            <Form
+              initialValues={{
+                streetName: "",
+                postalCode: "",
+                phoneNumber: "",
+              }}
+            >
+              <VStack space={2} mt="0">
                 <Text fontWeight={"bold"} fontSize={16} padding={2}>
                   Nombre de la calle
                 </Text>
-                <Input
-                  padding={4}
-                  backgroundColor={"gray.300"}
-                  placeholder="Nombre de la calle"
-                  borderRadius={15}
-                  fontSize={15}
-                />
-              </FormControl>
-              <HStack flex={1} space={3} alignItems={"center"}>
-                <FormControl width={"40%"}>
-                  <Text fontWeight={"bold"} fontSize={16} padding={2}>
-                    Codigo Postal
-                  </Text>
-                  <Input
-                    padding={4}
-                    backgroundColor={"gray.300"}
-                    placeholder="Codigo Postal"
-                    borderRadius={15}
-                    fontSize={15}
-                  />
-                </FormControl>
-                <FormControl width={"49%"}>
-                  <Text fontWeight={"bold"} fontSize={16} padding={2}>
-                    Número telefonico
-                  </Text>
-                  <Input
-                    padding={4}
-                    backgroundColor={"gray.300"}
-                    placeholder="Nombre de la calle"
-                    borderRadius={15}
-                    fontSize={15}
-                  />
-                </FormControl>
-              </HStack>
-            </VStack>
-
+                <FormField name={"streetName"} />
+                <HStack space={5}>
+                  <VStack>
+                    <Text fontWeight={"bold"} fontSize={16} padding={2}>
+                      Nombre de la cuenta
+                    </Text>
+                    <FormField name={"postalCode"} />
+                  </VStack>
+                  <VStack>
+                    <Text fontWeight={"bold"} fontSize={16} padding={2}>
+                      Número telefonico
+                    </Text>
+                    <FormField name={"phoneNumber"} />
+                  </VStack>
+                </HStack>
+              </VStack>
+            </Form>
             {/* En vez de un switch - Se debe de usar un Segment Component o un Tab View */}
           </Box>
           <Center>
