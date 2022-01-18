@@ -28,6 +28,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
 const storage = getStorage(app);
+const validationSchema = Yup.object().shape({
+  streetName: Yup.string().required().label("Dirección"),
+  postalCode: Yup.number().required().max(5).label("Código postal"),
+  phoneNumber: Yup.number().required().max(10).label("Número telefonico"),
+});
 import ReturnArrow from "../../components/ReturnArrow";
 function ShippingDataScreen({ navigation }) {
   const pressHandler = () => {
@@ -56,12 +61,16 @@ function ShippingDataScreen({ navigation }) {
                 postalCode: "",
                 phoneNumber: "",
               }}
+              onSubmit={(values) => console.log(values)}
             >
               <VStack space={2} mt="0">
                 <Text fontWeight={"bold"} fontSize={16} padding={2}>
                   Nombre de la calle
                 </Text>
-                <FormField name={"streetName"} />
+                <FormField
+                  name={"streetName"}
+                  placeholder={"Dirección de envío"}
+                />
                 <HStack space={5}>
                   <VStack>
                     <Text fontWeight={"bold"} fontSize={16} padding={2}>
@@ -70,30 +79,29 @@ function ShippingDataScreen({ navigation }) {
                     <FormField
                       name={"postalCode"}
                       placeholder={"Código postal"}
+                      keyboardType="numeric"
+                      maxLength={5}
                     />
                   </VStack>
                   <VStack>
                     <Text fontWeight={"bold"} fontSize={16} padding={2}>
                       Número telefonico
                     </Text>
-                    <FormField name={"phoneNumber"} />
+                    <FormField
+                      name={"phoneNumber"}
+                      keyboardType="numeric"
+                      maxLength={10}
+                      placeholder={"Número telefonico"}
+                    />
                   </VStack>
                 </HStack>
               </VStack>
+              <Center>
+                <SubmitButton title={"Guardar cambios"} />
+              </Center>
             </Form>
             {/* En vez de un switch - Se debe de usar un Segment Component o un Tab View */}
           </Box>
-          <Center>
-            <Button
-              paddingY={4}
-              paddingX={10}
-              borderRadius={50}
-              marginBottom={4}
-              fontWeight={"bold"}
-            >
-              Guardar Cambios
-            </Button>
-          </Center>
         </KeyboardAvoidingView>
       </ScrollView>
     </NativeBaseProvider>
