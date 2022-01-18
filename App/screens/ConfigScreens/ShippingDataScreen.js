@@ -50,9 +50,6 @@ function ShippingDataScreen({ navigation }) {
               Datos de envio
             </Text>
             <Divider bg={"black"} h={1} />
-
-            {/* Checar la documentacion de como estan los formularios
-        Se cambio su forma original, antes en vez de un Text Habia un Form.Label */}
             <Form
               initialValues={{
                 streetName: "",
@@ -70,7 +67,10 @@ function ShippingDataScreen({ navigation }) {
                     <Text fontWeight={"bold"} fontSize={16} padding={2}>
                       Nombre de la cuenta
                     </Text>
-                    <FormField name={"postalCode"} />
+                    <FormField
+                      name={"postalCode"}
+                      placeholder={"Código postal"}
+                    />
                   </VStack>
                   <VStack>
                     <Text fontWeight={"bold"} fontSize={16} padding={2}>
