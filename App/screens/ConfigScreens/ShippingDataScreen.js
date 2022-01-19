@@ -7,12 +7,7 @@ import {
   Center,
   ScrollView,
   VStack,
-  FormControl,
-  Link,
-  Input,
-  Button,
   HStack,
-  Switch,
   KeyboardAvoidingView,
 } from "native-base";
 import * as Yup from "yup";
@@ -21,28 +16,49 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
 import { AuthContext, ProfileContext } from "../../auth/context";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 // Cositas de firebase
 const validationSchema = Yup.object().shape({
   streetName: Yup.string().required().label("Dirección"),
-  postalCode: Yup.number().required().max(5).label("Código postal"),
-  phoneNumber: Yup.number().required().max(10).label("Número telefonico"),
+  postalCode: Yup.number().required().min(5).label("Código postal"),
+  phoneNumber: Yup.number().required().min(10).label("Número telefonico"),
 });
 import ReturnArrow from "../../components/ReturnArrow";
 function ShippingDataScreen({ navigation }) {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const firestore = getFirestore(app);
-  const storage = getStorage(app);
   const profileContext = useContext(ProfileContext);
   const { uid } = profileContext.profile;
 
-  const docRef = doc(firestore, "users", `${uid}`, "shippingData", `${uid}`);
-  setDoc(docRef, {
-    prueba: "prueba",
-  });
+  // Por el momento solo abra un documento con una dirección, la cual esta en una subcoleccion
 
+  // Después habra unalista de direcciones para elegir, la cual van a hacer varios documentos con los valores de las direcciones
+  // Ejemplo:
+  //       - direcciónN (randomString){
+  // streetName
+  // postalCode
+  // phoneNumber
+  // outdoorNumber (sSiguientes versiones)
+  // indoorNumber (siguientes versiones y Opcional)
+  //          }
+
+  async function lecturaYredaccion(values) {
+    const docRef = doc(firestore, "users", `${uid}`, "shippingData", `${uid}`);
+    await setDoc(docRef, {
+      streetName: values.streetName,
+      postalCode: values.postalCode,
+      phoneNumber: values.phoneNumber,
+    });
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }
   const pressHandler = () => {
     console.log("Pressing");
     navigation.goBack();
@@ -71,7 +87,7 @@ function ShippingDataScreen({ navigation }) {
                     postalCode: "",
                     phoneNumber: "",
                   }}
-                  onSubmit={(values) => console.log(values)}
+                  onSubmit={(values) => lecturaYredaccion(values)}
                 >
                   <VStack space={2} mt="0">
                     <Text fontWeight={"bold"} fontSize={16} padding={2}>
