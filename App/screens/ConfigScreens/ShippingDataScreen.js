@@ -44,7 +44,7 @@ function ShippingDataScreen({ navigation }) {
   // indoorNumber (siguientes versiones y Opcional)
   //          }
 
-  async function lecturaYredaccion(values) {
+  async function makeDocumentSubCollection(values) {
     const docRef = doc(firestore, "users", `${uid}`, "shippingData", `${uid}`);
     await setDoc(docRef, {
       streetName: values.streetName,
@@ -87,7 +87,7 @@ function ShippingDataScreen({ navigation }) {
                     postalCode: "",
                     phoneNumber: "",
                   }}
-                  onSubmit={(values) => lecturaYredaccion(values)}
+                  onSubmit={(values) => makeDocumentSubCollection(values)}
                 >
                   <VStack space={2} mt="0">
                     <Text fontWeight={"bold"} fontSize={16} padding={2}>

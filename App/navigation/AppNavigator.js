@@ -28,7 +28,7 @@ import MyCategStack from "./CategoriesNavigator";
 
 import { ProfileContext } from "../auth/context";
 
-import { Entypo, AntDesign } from "@expo/vector-icons";
+import { Entypo, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => (
   <ProfileContext.Consumer>
@@ -72,7 +72,11 @@ const DrawerNavigator = () => (
             component={MiTiendaScreen}
             options={{
               drawerIcon: ({ color, size }) => (
-                <Entypo name="account" size={size} color={color} />
+                <MaterialCommunityIcons
+                  name="account"
+                  size={size}
+                  color={color}
+                />
               ),
             }}
           />
