@@ -1,5 +1,5 @@
 import { NativeBaseProvider, View } from "native-base";
-import React from "react";
+import React, { useContext } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 // Drawer things
 import {
@@ -13,40 +13,30 @@ import { signOut, getAuth } from "firebase/auth";
 import { ProfileContext, AuthContext } from "../../auth/context";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
+
+import MyAuthStack from "../AuthNavigator";
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // Quitar las cosas del onPress y de ahi resetear todo en el contexto y el signOut, pasar luego al Stack de autenticacion
 function CustomDrawer(props) {
+  const { user, setUser } = useContext(AuthContext);
   return (
     <NativeBaseProvider>
-      <AuthContext.Consumer>
-        {({ user, setUser }) => (
-          <View flex={1} bg={colors.primary}>
-            <UserView />
-            <DrawerContentScrollView>
-              <DrawerItemList {...props} />
-            </DrawerContentScrollView>
-            <DrawerItem
-              onPress={() => {
-                console.log(user);
-                signOut(auth);
-                setUser(null);
-              }}
-              key={"LogOut"}
-              inactiveTintColor="white"
-              label={"Logout"}
-              icon={({ size, color }) => (
-                <MaterialCommunityIcons
-                  name="logout"
-                  size={size}
-                  color={color}
-                />
-              )}
-            />
-          </View>
-        )}
-      </AuthContext.Consumer>
+      <View flex={1} bg={colors.primary}>
+        <UserView />
+        <DrawerContentScrollView>
+          <DrawerItemList {...props} />
+        </DrawerContentScrollView>
+        <DrawerItem
+          onPress={() => setUser(null)}
+          inactiveTintColor="white"
+          label={"Logout"}
+          icon={({ size, color }) => (
+            <MaterialCommunityIcons name="logout" size={size} color={color} />
+          )}
+        />
+      </View>
     </NativeBaseProvider>
   );
 }

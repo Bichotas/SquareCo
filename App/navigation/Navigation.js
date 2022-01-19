@@ -6,13 +6,13 @@ import { AuthContext, ProfileContext } from "../auth/context";
 
 import AppNavigator from "./AppNavigator";
 function Navigation(props) {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState();
   const [profile, setProfile] = useState("");
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <ProfileContext.Provider value={{ profile, setProfile }}>
         <NavigationContainer>
-          {user == null ? <AppNavigator /> : <AuthNavigator />}
+          {user ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </ProfileContext.Provider>
     </AuthContext.Provider>
