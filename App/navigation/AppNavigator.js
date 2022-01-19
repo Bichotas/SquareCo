@@ -23,7 +23,7 @@ import MyConfigStack from "./ConfigNavigator";
 import MyHomeStack from "./HomeNavigator";
 import MyCartStack from "./ShippingCartNavigator";
 import MyCategStack from "./CategoriesNavigator";
-
+import MySellerStack from "./SellerNavigator";
 // Context
 
 import { ProfileContext } from "../auth/context";
@@ -69,7 +69,7 @@ const DrawerNavigator = () => (
         {profile.typeAccount == "vendedor" && (
           <Drawer.Screen
             name="Mi tienda"
-            component={MiTiendaScreen}
+            component={MySellerStack}
             options={{
               drawerIcon: ({ color, size }) => (
                 <MaterialCommunityIcons
