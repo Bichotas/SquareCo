@@ -12,7 +12,7 @@ function Navigation(props) {
     <AuthContext.Provider value={{ user, setUser }}>
       <ProfileContext.Provider value={{ profile, setProfile }}>
         <NavigationContainer>
-          {user ? <AppNavigator /> : <AuthNavigator />}
+          {user == null ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </ProfileContext.Provider>
     </AuthContext.Provider>

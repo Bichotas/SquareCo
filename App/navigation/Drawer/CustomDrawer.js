@@ -9,20 +9,31 @@ import {
 } from "@react-navigation/drawer";
 import UserView from "./UserView";
 import colors from "../../config/colors";
+import { signOut, getAuth } from "firebase/auth";
+import { ProfileContext, AuthContext } from "../../auth/context";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-import { ProfileContext } from "../../auth/context";
+// Quitar las cosas del onPress y de ahi resetear todo en el contexto y el signOut, pasar luego al Stack de autenticacion
 function CustomDrawer(props) {
   return (
     <NativeBaseProvider>
-      <ProfileContext.Consumer>
-        {({ profile, setProfile }) => (
+      <AuthContext.Consumer>
+        {({ user, setUser }) => (
           <View flex={1} bg={colors.primary}>
             <UserView />
             <DrawerContentScrollView>
               <DrawerItemList {...props} />
             </DrawerContentScrollView>
             <DrawerItem
-              onPress={setProfile("")}
+              onPress={() => {
+                console.log(user);
+                signOut(auth);
+                setUser(null);
+              }}
+              key={"LogOut"}
               inactiveTintColor="white"
               label={"Logout"}
               icon={({ size, color }) => (
@@ -35,7 +46,7 @@ function CustomDrawer(props) {
             />
           </View>
         )}
-      </ProfileContext.Consumer>
+      </AuthContext.Consumer>
     </NativeBaseProvider>
   );
 }
