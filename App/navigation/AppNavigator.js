@@ -24,11 +24,20 @@ import MyHomeStack from "./HomeNavigator";
 import MyCartStack from "./ShippingCartNavigator";
 import MyCategStack from "./CategoriesNavigator";
 import MySellerStack from "./SellerNavigator";
+
+//Screen
+import PedidosScreen from "../screens/PedidosScreen";
+
 // Context
 
 import { ProfileContext } from "../auth/context";
 
-import { Entypo, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  Entypo,
+  AntDesign,
+  MaterialCommunityIcons,
+  Feather,
+} from "@expo/vector-icons";
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => (
   <ProfileContext.Consumer>
@@ -90,6 +99,15 @@ const DrawerNavigator = () => (
             ),
           }}
         />
+{profile.typeAccount == "vendedor" &&        <Drawer.Screen
+          name="Pedidos"
+          component={PedidosScreen}
+          options={{
+            drawerIcon: ({ color, size }) => (
+              <Feather name="package" color={color} size={size} />
+            ),
+          }}
+        />}
         <Drawer.Screen
           name="Tiendas"
           component={MyCategStack}

@@ -21,6 +21,7 @@ const auth = getAuth(app);
 // Quitar las cosas del onPress y de ahi resetear todo en el contexto y el signOut, pasar luego al Stack de autenticacion
 function CustomDrawer(props) {
   const { user, setUser } = useContext(AuthContext);
+  const { profile, setProfile } = useContext(ProfileContext);
   return (
     <NativeBaseProvider>
       <View flex={1} bg={colors.primary}>
@@ -29,7 +30,10 @@ function CustomDrawer(props) {
           <DrawerItemList {...props} />
         </DrawerContentScrollView>
         <DrawerItem
-          onPress={() => setUser(null)}
+          onPress={() => {
+            setUser(null);
+            setProfile("");
+          }}
           inactiveTintColor="white"
           label={"Logout"}
           icon={({ size, color }) => (
