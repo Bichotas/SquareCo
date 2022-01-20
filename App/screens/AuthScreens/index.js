@@ -5,3 +5,5 @@ export { default as RecoverPassword } from "./RecoverPasswordScreen";
 export { default as OptionAccount } from "./AccountOptionScreen";
 // Creo que no va a aqui pero seria la de loading screen
 export { default as LoadingScreen } from "./LoadingScreen";
+
+export { default as CreatingStoreAuth } from "./CreatingStoreAuth";

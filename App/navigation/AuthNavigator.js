@@ -8,9 +8,9 @@ import {
   RegisterScreen,
   RecoverPassword,
   OptionAccount,
+  CreatingStoreAuth,
 } from "../screens/AuthScreens";
 
-import CreatingStoreScreen from "../screens/SellerScreen/CreatingStoreScreen";
 // navigationTheme
 
 // Stack
@@ -27,7 +27,10 @@ const MyAuthStack = () => {
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="RecoverPassword" component={RecoverPassword} />
       {/* Stacks */}
-      <AuthStack.Screen name="CreatingStore" component={CreatingStoreScreen} />
+      <AuthStack.Screen
+        name="CreatingStoreAuth"
+        component={CreatingStoreAuth}
+      />
     </AuthStack.Navigator>
   );
 };

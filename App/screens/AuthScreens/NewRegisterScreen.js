@@ -78,6 +78,7 @@ function NewRegisterScreen({ navigation, route }) {
     const docSnap = await getDoc(docuRef);
     profileContext.setProfile({ ...docSnap.data() });
     // Parte donde se redirije a la siguiente
+
   }
   return (
     <NativeBaseProvider>
