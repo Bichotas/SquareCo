@@ -11,12 +11,23 @@ import {
   Select,
   VStack,
   CheckIcon,
+  Container,
 } from "native-base";
 import ImageProductC from "../../components/feed/ImageProductC";
 import FeedListC from "../../components/feed/FeedListC";
-import { ProfileContext } from "../../auth/context";
 import CreatingStoreScreen from "../../screens/SellerScreen/CreatingStoreScreen";
-import { Form, FormField } from "../../components/forms2";
+import { Form, FormField, SubmitButton } from "../../components/forms2";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
+
+// Cosaas de firebase
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
+import { AuthContext, ProfileContext } from "../../auth/context";
 const valores = [
   { value: 1, name: "UWu" },
   { value: 2, name: "DOs" },
@@ -28,11 +39,24 @@ const valores = [
   { value: 8, name: "ochco" },
   { value: 9, name: "nueve" },
 ];
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const firestore = getFirestore(app);
 function FeedHomeScreen({ navigation }) {
   const { profile } = useContext(ProfileContext);
   let [service, setService] = React.useState("");
   const [button, setbutton] = useState(true);
   const [showModal, setShowModal] = useState(true);
+
+  async function handleStore(values, category) {
+    const docRef = collection(firestore, "stores");
+    await addDoc(docRef, {
+      nameStore: values.nameStore,
+      description: values.description,
+      category: category,
+      userId: profile.uid,
+    }).then((snapshot) => console.log(snapshot.id));
+  }
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -59,6 +83,7 @@ function FeedHomeScreen({ navigation }) {
                 description: "",
                 category: "",
               }}
+              onSubmit={(values) => handleStore(values, service)}
             >
               <Modal
                 isOpen={showModal}
@@ -112,24 +137,7 @@ function FeedHomeScreen({ navigation }) {
                     </VStack>
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button.Group space={2}>
-                      <Button
-                        variant="ghost"
-                        colorScheme="blueGray"
-                        onPress={() => {
-                          setShowModal(false);
-                        }}
-                      >
-                        No
-                      </Button>
-                      <Button
-                        onPress={() => {
-                          navigation.navigate("CreatingStore");
-                        }}
-                      >
-                        Si
-                      </Button>
-                    </Button.Group>
+                    <SubmitButton title={"Si"} />
                   </Modal.Footer>
                 </Modal.Content>
               </Modal>
