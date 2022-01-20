@@ -70,18 +70,14 @@ function NewRegisterScreen({ navigation, route }) {
       uid: infoUsuario.user.uid,
       typeAccount: typeAccount,
       urlProfile: null,
+      storeProfile: null,
     });
 
     // Recibir los datos
 
     const docSnap = await getDoc(docuRef);
     profileContext.setProfile({ ...docSnap.data() });
-    // Parte donde se redirije a la siguiente ventana
-    if (tipoCuenta == "comprador") {
-      navigation.navigate("Uwu", { screen: "Home" });
-    } else {
-      navigation.navigate("Creacion", { screen: "CreatingStore" });
-    }
+    // Parte donde se redirije a la siguiente
   }
   return (
     <NativeBaseProvider>
@@ -94,7 +90,9 @@ function NewRegisterScreen({ navigation, route }) {
         <RegisterCirclesD></RegisterCirclesD>
         <AppForm
           initialValues={{ name: "", email: "", password: "" }}
-          onSubmit={(values) => handleRegister(values, tipoCuenta)}
+          onSubmit={(values) => {
+            handleRegister(values, tipoCuenta);
+          }}
           validationSchema={validationSchema}
         >
           {/* Contenedor */}
