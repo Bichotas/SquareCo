@@ -51,7 +51,7 @@ function FeedHomeScreen({ navigation }) {
           <Divider py={1} margin={4} />
           <FeedListC list={valores} />
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
-
+          {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
           {profile.storeProfile == null && profile.typeAccount == "vendedor" && (
             <Modal
               isOpen={showModal}
@@ -85,6 +85,7 @@ function FeedHomeScreen({ navigation }) {
                     />
                     <Text>Categoría</Text>
                     <VStack alignItems="center" space={4}>
+                      {/* Hacer luego un componente picker para tenerlo y que use una Flatlist para terminarlo */}
                       <Select
                         selectedValue={service}
                         width={"100%"}
@@ -98,17 +99,15 @@ function FeedHomeScreen({ navigation }) {
                         mt={1}
                         onValueChange={(itemValue) => setService(itemValue)}
                       >
-                        <Select.Item label="UX Research" value="ux" />
-                        <Select.Item label="Web Development" value="web" />
-                        <Select.Item
-                          label="Cross Platform Development"
-                          value="cross"
-                        />
-                        <Select.Item label="UI Designing" value="ui" />
-                        <Select.Item
-                          label="Backend Development"
-                          value="backend"
-                        />
+                        <Select.Item label="Furniture" value="furniture" />
+                        <Select.Item label="Cars" value="cars" />
+                        <Select.Item label="Cameras" value="cameras" />
+                        <Select.Item label="Games" value="games" />
+                        <Select.Item label="Clothes" value="clothes" />
+                        <Select.Item label="Sports" value="sports" />
+                        <Select.Item label="Movies" value="movies" />
+                        <Select.Item label="Books" value="books" />
+                        <Select.Item label="Others" value="others" />
                       </Select>
                     </VStack>
                   </Form>
