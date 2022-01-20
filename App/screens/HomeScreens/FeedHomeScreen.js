@@ -17,7 +17,13 @@ import ImageProductC from "../../components/feed/ImageProductC";
 import FeedListC from "../../components/feed/FeedListC";
 import CreatingStoreScreen from "../../screens/SellerScreen/CreatingStoreScreen";
 import { Form, FormField, SubmitButton } from "../../components/forms2";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getFirestore,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 // Cosaas de firebase
 import {
@@ -51,11 +57,20 @@ function FeedHomeScreen({ navigation }) {
   async function handleStore(values, category) {
     const docRef = collection(firestore, "stores");
     await addDoc(docRef, {
+      // Hacemos un documento en la colección stores
       nameStore: values.nameStore,
       description: values.description,
       category: category,
       userId: profile.uid,
-    }).then((snapshot) => console.log(snapshot.id));
+    }).then((snapshot) => {
+      // Con el id del documento que agregamos vamos a agregar este mismo id
+      // al campo del documento del usuario en la parte de storeId
+      let docUserRef = doc(firestore, `users/${profile.uid}`);
+      updateDoc(docUserRef, {
+        storeProfileId: snapshot.id,
+      });
+      console.log(snapshot.id);
+    });
   }
   return (
     <NativeBaseProvider>
@@ -76,7 +91,7 @@ function FeedHomeScreen({ navigation }) {
           <FeedListC list={valores} />
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
           {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
-          {profile.storeProfile == null && profile.typeAccount == "vendedor" && (
+          {profile.storeProfileId == null && profile.typeAccount == "vendedor" && (
             <Form
               initialValues={{
                 nameStore: "",

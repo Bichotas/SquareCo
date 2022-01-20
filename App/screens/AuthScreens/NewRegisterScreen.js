@@ -70,7 +70,7 @@ function NewRegisterScreen({ navigation, route }) {
       uid: infoUsuario.user.uid,
       typeAccount: typeAccount,
       urlProfile: null,
-      storeProfile: null,
+      storeProfileId: null,
     });
 
     // Recibir los datos
