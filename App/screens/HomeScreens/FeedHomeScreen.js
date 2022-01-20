@@ -69,7 +69,7 @@ function FeedHomeScreen({ navigation }) {
       updateDoc(docUserRef, {
         storeProfileId: snapshot.id,
       });
-      console.log(snapshot.id);
+      navigation.navigate("Mi tienda");
     });
   }
   return (
