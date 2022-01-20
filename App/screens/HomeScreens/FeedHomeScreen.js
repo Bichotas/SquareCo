@@ -53,26 +53,26 @@ function FeedHomeScreen({ navigation }) {
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
           {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
           {profile.storeProfile == null && profile.typeAccount == "vendedor" && (
-            <Modal
-              isOpen={showModal}
-              onClose={() => setShowModal(false)}
-              size={"xl"}
+            <Form
+              initialValues={{
+                nameStore: "",
+                description: "",
+                category: "",
+              }}
             >
-              <Modal.Content>
-                <Modal.CloseButton />
-                <Modal.Header fontWeight={"bold"} fontSize={20}>
-                  <Text fontWeight={"bold"} fontSize={20}>
-                    Crea tu tienda
-                  </Text>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form
-                    initialValues={{
-                      nameStore: "",
-                      description: "",
-                      category: "",
-                    }}
-                  >
+              <Modal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                size={"xl"}
+              >
+                <Modal.Content>
+                  <Modal.CloseButton />
+                  <Modal.Header fontWeight={"bold"} fontSize={20}>
+                    <Text fontWeight={"bold"} fontSize={20}>
+                      Crea tu tienda
+                    </Text>
+                  </Modal.Header>
+                  <Modal.Body>
                     <Text>Nombre de la tienda</Text>
                     <FormField
                       name={"nameStore"}
@@ -110,30 +110,30 @@ function FeedHomeScreen({ navigation }) {
                         <Select.Item label="Others" value="others" />
                       </Select>
                     </VStack>
-                  </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button.Group space={2}>
-                    <Button
-                      variant="ghost"
-                      colorScheme="blueGray"
-                      onPress={() => {
-                        setShowModal(false);
-                      }}
-                    >
-                      No
-                    </Button>
-                    <Button
-                      onPress={() => {
-                        navigation.navigate("CreatingStore");
-                      }}
-                    >
-                      Si
-                    </Button>
-                  </Button.Group>
-                </Modal.Footer>
-              </Modal.Content>
-            </Modal>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button.Group space={2}>
+                      <Button
+                        variant="ghost"
+                        colorScheme="blueGray"
+                        onPress={() => {
+                          setShowModal(false);
+                        }}
+                      >
+                        No
+                      </Button>
+                      <Button
+                        onPress={() => {
+                          navigation.navigate("CreatingStore");
+                        }}
+                      >
+                        Si
+                      </Button>
+                    </Button.Group>
+                  </Modal.Footer>
+                </Modal.Content>
+              </Modal>
+            </Form>
           )}
         </Center>
       </ScrollView>
