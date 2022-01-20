@@ -12,6 +12,7 @@ import {
 import ImageProductC from "../../components/feed/ImageProductC";
 import FeedListC from "../../components/feed/FeedListC";
 import { ProfileContext } from "../../auth/context";
+import CreatingStoreScreen from "../../screens/SellerScreen/CreatingStoreScreen";
 const valores = [
   { value: 1, name: "UWu" },
   { value: 2, name: "DOs" },
@@ -23,7 +24,7 @@ const valores = [
   { value: 8, name: "ochco" },
   { value: 9, name: "nueve" },
 ];
-function FeedHomeScreen(props) {
+function FeedHomeScreen({ navigation }) {
   const { profile } = useContext(ProfileContext);
   const [button, setbutton] = useState(true);
   const [showModal, setShowModal] = useState(true);
@@ -44,6 +45,8 @@ function FeedHomeScreen(props) {
           ></Box>
           <Divider py={1} margin={4} />
           <FeedListC list={valores} />
+          {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
+
           {profile.storeProfile == null && profile.typeAccount == "vendedor" && (
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
               <Modal.Content maxWidth="400px">
@@ -73,7 +76,7 @@ function FeedHomeScreen(props) {
                     </Button>
                     <Button
                       onPress={() => {
-                        setShowModal(false);
+                        navigation.navigate("CreatingStore");
                       }}
                     >
                       Si
