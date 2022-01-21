@@ -46,13 +46,20 @@ const valores = [
   { value: 9, name: "nueve" },
 ];
 function FeedHomeScreen({ navigation }) {
+  // Cosas de firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const firestore = getFirestore(app);
+
+  // Contexto
   const { profile } = useContext(ProfileContext);
+
+  // UseState
   let [service, setService] = React.useState("");
   const [button, setbutton] = useState(true);
   const [showModal, setShowModal] = useState(true);
+
+  // Funcion para crear documento de la tienda
   async function handleStore(values, category) {
     const docRef = collection(firestore, "stores");
     await addDoc(docRef, {
