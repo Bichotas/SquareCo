@@ -45,15 +45,14 @@ const valores = [
   { value: 8, name: "ochco" },
   { value: 9, name: "nueve" },
 ];
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const firestore = getFirestore(app);
 function FeedHomeScreen({ navigation }) {
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const firestore = getFirestore(app);
   const { profile } = useContext(ProfileContext);
   let [service, setService] = React.useState("");
   const [button, setbutton] = useState(true);
   const [showModal, setShowModal] = useState(true);
-
   async function handleStore(values, category) {
     const docRef = collection(firestore, "stores");
     await addDoc(docRef, {

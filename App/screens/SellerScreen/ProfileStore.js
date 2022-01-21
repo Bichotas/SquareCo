@@ -9,7 +9,9 @@ import {
 } from "native-base";
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
-export default function ProfileStore() {
+export default function ProfileStore({ route }) {
+  const { prueba } = route.params;
+  console.log(prueba);
   return (
     <NativeBaseProvider>
       <ScrollView>

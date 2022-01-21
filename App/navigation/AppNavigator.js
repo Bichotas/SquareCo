@@ -78,6 +78,7 @@ const DrawerNavigator = () => (
         {profile.typeAccount == "vendedor" && (
           <Drawer.Screen
             name="Mi tienda"
+            initialParams={{ prueba: "32" }}
             component={MySellerStack}
             options={{
               drawerIcon: ({ color, size }) => (
@@ -99,15 +100,17 @@ const DrawerNavigator = () => (
             ),
           }}
         />
-{profile.typeAccount == "vendedor" &&        <Drawer.Screen
-          name="Pedidos"
-          component={PedidosScreen}
-          options={{
-            drawerIcon: ({ color, size }) => (
-              <Feather name="package" color={color} size={size} />
-            ),
-          }}
-        />}
+        {profile.typeAccount == "vendedor" && (
+          <Drawer.Screen
+            name="Pedidos"
+            component={PedidosScreen}
+            options={{
+              drawerIcon: ({ color, size }) => (
+                <Feather name="package" color={color} size={size} />
+              ),
+            }}
+          />
+        )}
         <Drawer.Screen
           name="Tiendas"
           component={MyCategStack}
