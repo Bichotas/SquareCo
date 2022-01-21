@@ -78,7 +78,7 @@ const DrawerNavigator = () => (
         {profile.typeAccount == "vendedor" && (
           <Drawer.Screen
             name="Mi tienda"
-            initialParams={{ prueba: "32" }}
+            initialParams={{ storeId: profile.storeProfileId }}
             component={MySellerStack}
             options={{
               drawerIcon: ({ color, size }) => (

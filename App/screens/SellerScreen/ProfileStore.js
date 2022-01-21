@@ -11,26 +11,24 @@ import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
 
 // Firebase things
-import {
-  addDoc,
-  collection,
-  getFirestore,
-  updateDoc,
-  doc,
-} from "firebase/firestore";
+import { getDoc, getFirestore, doc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
 
 // Context
 import { AuthContext, ProfileContext } from "../../auth/context";
 export default function ProfileStore({ route }) {
-  const { prueba } = route.params;
+  const { storeId } = route.params;
   const { profile } = useContext(ProfileContext);
   console.log(profile.storeProfileId);
   const app = initializeApp(firebaseConfig);
-
   const firestore = getFirestore(app);
-  console.log(prueba);
+  async function gettinData() {
+    const docRef = doc(firestore, `stores/${storeId}`);
+    const docSnap = await getDoc(docRef);
+  }
+  gettinData();
+  console.log(storeId);
   return (
     <NativeBaseProvider>
       <ScrollView>
