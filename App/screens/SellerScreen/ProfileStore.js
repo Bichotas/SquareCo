@@ -18,17 +18,17 @@ import firebaseConfig from "../../database/firebaseConfig";
 // Context
 import { AuthContext, ProfileContext } from "../../auth/context";
 export default function ProfileStore({ route }) {
-  const { storeId } = route.params;
-  const { profile } = useContext(ProfileContext);
-  console.log(profile.storeProfileId);
   const app = initializeApp(firebaseConfig);
   const firestore = getFirestore(app);
+
   async function gettinData() {
-    const docRef = doc(firestore, `stores/${storeId}`);
-    const docSnap = await getDoc(docRef);
+    if (!route.params) {
+      const profileContext = useContext(ProfileContext);
+      console.log(profileContext.profile.profileStoreId);
+    }
   }
+
   gettinData();
-  console.log(storeId);
   return (
     <NativeBaseProvider>
       <ScrollView>

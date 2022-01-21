@@ -31,9 +31,6 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 });
 function NewLoginScreen({ navigation }) {
-  const handleNavigation = () => {
-    navigation.navigate("Uwu");
-  };
   const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
   const app = initializeApp(firebaseConfig);
@@ -52,9 +49,6 @@ function NewLoginScreen({ navigation }) {
     const docRef = doc(firestore, `users/${infoUsuario.user.uid}`);
     const docSnap = await getDoc(docRef);
     profileContext.setProfile({ ...docSnap.data() });
-
-    // React navigation
-    handleNavigation();
   }
 
   // const user = auth.currentUser;
