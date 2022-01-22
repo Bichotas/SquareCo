@@ -44,8 +44,8 @@ export default function ProfileStore({ route }) {
   }, []);
 
   // Con la función, los valores que se llaman se guardan en la variable waa y se guardan
-  const waa = { ...valores };
-  console.log(waa);
+  const valoresVariable = { ...valores };
+  console.log(valoresVariable);
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -75,10 +75,10 @@ export default function ProfileStore({ route }) {
           {/* Texto */}
           <Box alignItems={"center"} marginTop={-10}>
             <AppText style={{ fontWeight: "bold" }}>
-              [NOMBRE DE LA TIENDA]
+              {valoresVariable.nameStore}
             </AppText>
             <AppText style={{ fontSize: 12, marginTop: 5 }}>
-              {waa.category}
+              {valoresVariable.description}
             </AppText>
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
