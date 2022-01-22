@@ -19,16 +19,17 @@ import firebaseConfig from "../../database/firebaseConfig";
 import { AuthContext, ProfileContext } from "../../auth/context";
 export default function ProfileStore({ route }) {
   const [valores, setValores] = useState();
-  const [segundos, setSegundos] = useState();
   const app = initializeApp(firebaseConfig);
   const firestore = getFirestore(app);
   const profileContext = useContext(ProfileContext);
+  // Funcioon para obtener los datos del documento
   const getData = () => {
     getDoc(
       doc(firestore, "stores", profileContext.profile.storeProfileId)
     ).then((snapshot) => setValores(snapshot.data()));
     return valores;
   };
+  // Forma original en la que se obtienen los datos y se guardan en la useState valores
   // useEffect(() => {
   //   getDoc(
   //     doc(firestore, "stores", profileContext.profile.storeProfileId)
@@ -37,10 +38,12 @@ export default function ProfileStore({ route }) {
   //   });
   // }, []);
 
+  // Forma en la que ejecuta la funcion, la guarda en una variable "a"
   useEffect(() => {
     const a = getData();
   }, []);
 
+  // Con la función, los valores que se llaman se guardan en la variable waa y se guardan
   const waa = { ...valores };
   console.log(waa);
   return (
