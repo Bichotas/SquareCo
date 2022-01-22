@@ -19,22 +19,30 @@ import firebaseConfig from "../../database/firebaseConfig";
 import { AuthContext, ProfileContext } from "../../auth/context";
 export default function ProfileStore({ route }) {
   const [valores, setValores] = useState();
+  const [segundos, setSegundos] = useState();
   const app = initializeApp(firebaseConfig);
   const firestore = getFirestore(app);
   const profileContext = useContext(ProfileContext);
-
-  useEffect(() => {
+  const getData = () => {
     getDoc(
       doc(firestore, "stores", profileContext.profile.storeProfileId)
-    ).then((docSnap) => {
-      setValores({ ...docSnap.data() });
-    });
-    return () => {
-      valores;
-    };
+    ).then((snapshot) => setValores(snapshot.data()));
+    return valores;
+  };
+  // useEffect(() => {
+  //   getDoc(
+  //     doc(firestore, "stores", profileContext.profile.storeProfileId)
+  //   ).then((docSnap) => {
+  //     setValores({ ...docSnap.data() });
+  //   });
+  // }, []);
+
+  useEffect(() => {
+    const a = getData();
   }, []);
 
-  console.log("Ennya", valores);
+  const waa = { ...valores };
+  console.log(waa);
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -67,7 +75,7 @@ export default function ProfileStore({ route }) {
               [NOMBRE DE LA TIENDA]
             </AppText>
             <AppText style={{ fontSize: 12, marginTop: 5 }}>
-              [DESCRIPCION]
+              {waa.category}
             </AppText>
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
