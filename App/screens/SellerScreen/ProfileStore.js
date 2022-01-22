@@ -29,7 +29,6 @@ export default function ProfileStore({ route }) {
     ).then((docSnap) => {
       setValores({ ...docSnap.data() });
     });
-
     return () => {
       valores;
     };
