@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   NativeBaseProvider,
   Box,
@@ -23,30 +23,19 @@ export default function ProfileStore({ route }) {
   const firestore = getFirestore(app);
   const profileContext = useContext(ProfileContext);
 
-  // const gettingData = () => {
-  //   if (route.params) {
-  //     console.log("Existen parametros");
-  //   } else {
-  //     const dataId = profileContext.profile.storeProfileId;
-  //     const docRef = doc(firestore, `stores/${dataId}`);
-  //     const docSnap = getDoc(docRef).then((snapshot) =>
-  //       setValores(snapshot.get())
-  //     );
-  //   }
-  // };
+  useEffect(() => {
+    getDoc(
+      doc(firestore, "stores", profileContext.profile.storeProfileId)
+    ).then((docSnap) => {
+      setValores({ ...docSnap.data() });
+    });
 
-  getDoc(doc(firestore, "stores", profileContext.profile.storeProfileId)).then(
-    (docSnap) => {
-      if (docSnap.exists()) {
-        console.log("Document data", docSnap.data());
-        let uwu = docSnap.data();
-        console.log("Guardado en una variable", uwu.category);
-      } else {
-        console.log("No such document");
-      }
-    }
-  );
+    return () => {
+      valores;
+    };
+  }, []);
 
+  console.log("Ennya", valores);
   return (
     <NativeBaseProvider>
       <ScrollView>
