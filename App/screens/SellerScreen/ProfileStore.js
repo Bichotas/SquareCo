@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   NativeBaseProvider,
   Box,
@@ -18,17 +18,35 @@ import firebaseConfig from "../../database/firebaseConfig";
 // Context
 import { AuthContext, ProfileContext } from "../../auth/context";
 export default function ProfileStore({ route }) {
+  const [valores, setValores] = useState();
   const app = initializeApp(firebaseConfig);
   const firestore = getFirestore(app);
+  const profileContext = useContext(ProfileContext);
 
-  async function gettinData() {
-    if (!route.params) {
-      const profileContext = useContext(ProfileContext);
-      console.log(profileContext.profile.profileStoreId);
+  // const gettingData = () => {
+  //   if (route.params) {
+  //     console.log("Existen parametros");
+  //   } else {
+  //     const dataId = profileContext.profile.storeProfileId;
+  //     const docRef = doc(firestore, `stores/${dataId}`);
+  //     const docSnap = getDoc(docRef).then((snapshot) =>
+  //       setValores(snapshot.get())
+  //     );
+  //   }
+  // };
+
+  getDoc(doc(firestore, "stores", profileContext.profile.storeProfileId)).then(
+    (docSnap) => {
+      if (docSnap.exists()) {
+        console.log("Document data", docSnap.data());
+        let uwu = docSnap.data();
+        console.log("Guardado en una variable", uwu.category);
+      } else {
+        console.log("No such document");
+      }
     }
-  }
+  );
 
-  gettinData();
   return (
     <NativeBaseProvider>
       <ScrollView>

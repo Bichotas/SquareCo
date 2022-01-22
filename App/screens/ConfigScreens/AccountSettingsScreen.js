@@ -22,7 +22,13 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
 import { AuthContext, ProfileContext } from "../../auth/context";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 // Cositas de firebase
 const app = initializeApp(firebaseConfig);
@@ -100,7 +106,7 @@ function AccountSettingsScreen({ navigation }) {
       console.log("Not change int the image");
     } else {
       console.log("Cambio en algo");
-      setDoc(docuRef, {
+      updateDoc(docuRef, {
         email: form.email,
         name: form.name,
         uid: uid,
