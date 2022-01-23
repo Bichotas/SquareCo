@@ -20,10 +20,8 @@ import { AuthContext, ProfileContext } from "../../auth/context";
 import StorePicture from "../../components/store_components/StorePicture";
 export default function ProfileStore({ route }) {
   const [valores, setValores] = useState();
-  const app = initializeApp(firebaseConfig);
-  const firestore = getFirestore(app);
-  const profileContext = useContext(ProfileContext);
-  // Funcioon para obtener los datos del documento
+
+  // Fotografia cuenta
   const getData = () => {
     getDoc(
       doc(firestore, "stores", profileContext.profile.storeProfileId)
@@ -43,10 +41,16 @@ export default function ProfileStore({ route }) {
   useEffect(() => {
     const a = getData();
   }, []);
+  const valoresVariable = { ...valores };
+  const [imageUri, setImageUri] = useState();
+  const app = initializeApp(firebaseConfig);
+  const firestore = getFirestore(app);
+  const profileContext = useContext(ProfileContext);
+  // Funcioon para obtener los datos del documento
 
   // Con la función, los valores que se llaman se guardan en la variable waa y se guardan
-  const valoresVariable = { ...valores };
   console.log(valoresVariable);
+  console.log(imageUri);
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -74,7 +78,10 @@ export default function ProfileStore({ route }) {
             bottom={[50, 70, 100]}
             source={{ uri: profileContext.profile.urlProfile }}
           ></Avatar> */}
-          <StorePicture />
+          <StorePicture
+            imageUri={imageUri}
+            onChangeImage={(uri) => setImageUri(uri)}
+          />
           {/* Texto */}
           <Box alignItems={"center"} marginTop={-10}>
             <AppText style={{ fontWeight: "bold" }}>
