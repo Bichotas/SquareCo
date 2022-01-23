@@ -17,6 +17,7 @@ import firebaseConfig from "../../database/firebaseConfig";
 
 // Context
 import { AuthContext, ProfileContext } from "../../auth/context";
+import StorePicture from "../../components/store_components/StorePicture";
 export default function ProfileStore({ route }) {
   const [valores, setValores] = useState();
   const app = initializeApp(firebaseConfig);
@@ -64,14 +65,16 @@ export default function ProfileStore({ route }) {
           ></Box>
 
           {/* Avatar*/}
-          <Avatar
+          {/* <Avatar
             borderColor={"purple.500"}
             borderWidth={7}
             size={[100, 145, 195, 245]}
             position={"relative"}
             // En la lista, se va a colocar diferente valores [50m 100, 150] si es que se logra hacer que el valor del tamaño del avatar se reduzca segun el breakPoint
             bottom={[50, 70, 100]}
-          ></Avatar>
+            source={{ uri: profileContext.profile.urlProfile }}
+          ></Avatar> */}
+          <StorePicture />
           {/* Texto */}
           <Box alignItems={"center"} marginTop={-10}>
             <AppText style={{ fontWeight: "bold" }}>
