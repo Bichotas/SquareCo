@@ -16,41 +16,35 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
 
 // Context
-import { AuthContext, ProfileContext } from "../../auth/context";
+import { AuthContext, ProfileContext, StoreContext } from "../../auth/context";
 import StorePicture from "../../components/store_components/StorePicture";
 export default function ProfileStore({ route }) {
-  const [valores, setValores] = useState();
+  // Cosas de firebase
+  const app = initializeApp(firebaseConfig);
+  const firestore = getFirestore(app);
 
+  // Variable de estaod
+  const [valores, setValores] = useState();
+  const profileContext = useContext(ProfileContext);
+  const storeContext = useContext(StoreContext);
+  // Se guarda en una variable
   // Fotografia cuenta
   const getData = () => {
     getDoc(
       doc(firestore, "stores", profileContext.profile.storeProfileId)
-    ).then((snapshot) => setValores(snapshot.data()));
-    return valores;
+    ).then((snapshot) => {
+      setValores(snapshot.data());
+      storeContext.setStore({ ...snapshot.data() });
+      setImageUri(valores.profilePicture);
+    });
   };
-  // Forma original en la que se obtienen los datos y se guardan en la useState valores
-  // useEffect(() => {
-  //   getDoc(
-  //     doc(firestore, "stores", profileContext.profile.storeProfileId)
-  //   ).then((docSnap) => {
-  //     setValores({ ...docSnap.data() });
-  //   });
-  // }, []);
 
-  // Forma en la que ejecuta la funcion, la guarda en una variable "a"
   useEffect(() => {
-    const a = getData();
+    getData();
   }, []);
   const valoresVariable = { ...valores };
-  const [imageUri, setImageUri] = useState();
-  const app = initializeApp(firebaseConfig);
-  const firestore = getFirestore(app);
-  const profileContext = useContext(ProfileContext);
-  // Funcioon para obtener los datos del documento
-
-  // Con la función, los valores que se llaman se guardan en la variable waa y se guardan
-  console.log(valoresVariable);
-  console.log(imageUri);
+  const [imageUri, setImageUri] = useState(storeContext.store.profilePicture);
+  console.log(storeContext.store);
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -85,14 +79,16 @@ export default function ProfileStore({ route }) {
           {/* Texto */}
           <Box alignItems={"center"} marginTop={-10}>
             <AppText style={{ fontWeight: "bold" }}>
-              {valoresVariable.nameStore}
+              {/* {valoresVariable.nameStore} */}
+              {storeContext.store.nameStore}
             </AppText>
             <AppText style={{ fontSize: 12, marginTop: 5 }}>
-              {valoresVariable.description}
+              {/* {valoresVariable.description} */}
+              {storeContext.store.description}
             </AppText>
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
-
+          <Text>HOLA</Text>
           {/* <ProductProfile /> */}
         </Center>
       </ScrollView>

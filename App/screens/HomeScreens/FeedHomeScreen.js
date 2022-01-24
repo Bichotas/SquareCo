@@ -68,6 +68,7 @@ function FeedHomeScreen({ navigation }) {
       description: values.description,
       category: category,
       userId: profile.uid,
+      profilePicture: null,
     }).then((snapshot) => {
       // Con el id del documento que agregamos vamos a agregar este mismo id
       // al campo del documento del usuario en la parte de storeId

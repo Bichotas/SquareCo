@@ -1,37 +1,46 @@
+import React, { useEffect, useState, useContext } from "react";
 import {
-  Avatar,
+  Box,
+  Center,
   NativeBaseProvider,
-  Text,
-  Pressable,
-  AddIcon,
-  Icon,
+  View,
   Button,
+  Text,
+  Avatar,
+  Icon,
+  Container,
 } from "native-base";
-import { AntDesign } from "@expo/vector-icons";
-import React, { useState, useEffect, useContext } from "react";
-
-import { ProfileContext } from "../../auth/context";
-import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
-
-// Cosas de firebase
-
+import * as ImagePicker from "expo-image-picker";
+import { ProfileContext } from "../../auth/context";
 import { getDownloadURL, uploadBytes, ref, getStorage } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
+import { Image } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { doc, getFirestore, updateDoc } from "firebase/firestore";
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
-function StorePicture({ imageUri, onChangeImage }) {
+const firestore = getFirestore(app);
+// Configuracion para integrar el degradado en el cuadro
+const config = {
+  dependencies: {
+    // For Expo projects (Bare or managed workflow)
+    "linear-gradient": require("expo-linear-gradient").LinearGradient,
+    // For non expo projects
+    // 'linear-gradient': require('react-native-linear-gradient').default,
+  },
+};
+function StorePicture({ imageUri, onChangeImage, ...otherProps }) {
   const profileContext = useContext(ProfileContext);
-  const { uid } = profileContext.profile;
+  const { storeProfileId } = profileContext.profile;
 
   useEffect(() => {
     requestPermission();
   }, []);
-  // Funciones para agarrar la imageno quitarala
   const handlePress = () => {
     if (imageUri) {
-      Alert.alert("Borrar", "¿Estás seguro que quieres borrar esta imagen?", [
+      Alert.alert("Delete", "Are you sure you want to delete this image?", [
         { text: "Yes", onPress: () => onChangeImage(null) },
         { text: "No" },
       ]);
@@ -59,12 +68,9 @@ function StorePicture({ imageUri, onChangeImage }) {
     }
   };
 
-  // Funcion para subir imagen al firebase storage
-
+  // UploadFunction
   async function uploadImage(uri) {
-    // Checar si guardar con el id de la cuenta o el id de la tienda
-    // Por el momento con el id de la tienda
-    const imageRef = ref(storage, `stores/profilePicture/${uid}`);
+    const imageRef = ref(storage, `stores/profilePicture/${storeProfileId}`);
     const response = await fetch(uri);
     const blob = await response.blob();
     if (uri == null) {
@@ -74,39 +80,48 @@ function StorePicture({ imageUri, onChangeImage }) {
         snapshot.ref.toString();
         getDownloadURL(imageRef).then((url) => {
           onChangeImage(url);
-          console.log("Url get download");
+
+          updateDoc(doc(firestore, `stores/${storeProfileId}`), {
+            profilePicture: `${url}`,
+          }).then((snapshot) => {
+            console.log(snapshot);
+          });
         });
       });
+
+      // return (await infoImage).toString();
     }
   }
   return (
-    <NativeBaseProvider>
-      <Avatar
-        borderColor={"purple.600"}
-        size={[100, 145, 195, 245]}
-        position={"relative"}
-        borderWidth={7}
-        bottom={[50, 70, 100]}
-        source={{ uri: imageUri }}
-      >
-        <Avatar.Badge size={100} justifyContent={"center"}>
-          <Button
-            padding={4}
-            right={3}
-            onPress={handlePress}
-            borderRadius={20}
-            startIcon={
-              <Icon
-                as={AntDesign}
-                name="plus"
-                size={"4"}
-                justifyContent={"center"}
-                right={2}
-              />
-            }
-          ></Button>
-        </Avatar.Badge>
-      </Avatar>
+    <NativeBaseProvider config={config}>
+      <Center position={"relative"} bottom={[60, 80, 110]}>
+        <View size={[120, 150]} overflow={"hidden"}>
+          {!imageUri && (
+            <Box
+              width={"100%"}
+              height={"100%"}
+              borderRadius={60}
+              bg={{
+                linearGradient: {
+                  colors: ["violet.100", "violet.800"],
+                  start: [0, 0],
+                  end: [0, 1],
+                },
+              }}
+            />
+          )}
+          {imageUri && (
+            <View flex={1}>
+              <Image
+                source={{
+                  uri: imageUri,
+                }}
+                style={{ width: "100%", height: "100%", borderRadius: 60 }}
+              ></Image>
+            </View>
+          )}
+        </View>
+      </Center>
     </NativeBaseProvider>
   );
 }
