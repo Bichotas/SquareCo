@@ -10,7 +10,7 @@ import {
 import UserView from "./UserView";
 import colors from "../../config/colors";
 import { signOut, getAuth } from "firebase/auth";
-import { ProfileContext, AuthContext } from "../../auth/context";
+import { ProfileContext, AuthContext, StoreContext } from "../../auth/context";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
 
@@ -22,6 +22,7 @@ const auth = getAuth(app);
 function CustomDrawer(props) {
   const { user, setUser } = useContext(AuthContext);
   const { profile, setProfile } = useContext(ProfileContext);
+  const { store, setStore } = useContext(StoreContext);
   return (
     <NativeBaseProvider>
       <View flex={1} bg={colors.primary}>
@@ -33,6 +34,7 @@ function CustomDrawer(props) {
           onPress={() => {
             setUser(null);
             setProfile("");
+            setStore("");
           }}
           inactiveTintColor="white"
           label={"Logout"}

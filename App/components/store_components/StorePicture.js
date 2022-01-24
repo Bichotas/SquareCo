@@ -10,6 +10,7 @@ import {
   Icon,
   Container,
 } from "native-base";
+import { Ionicons } from "@expo/vector-icons";
 import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { ProfileContext } from "../../auth/context";
@@ -121,6 +122,17 @@ function StorePicture({ imageUri, onChangeImage, ...otherProps }) {
             </View>
           )}
         </View>
+        <Button
+          size={"sm"}
+          bottom={8}
+          left={8}
+          borderRadius={50}
+          fontWeight={"bold"}
+          onPress={handlePress}
+          leftIcon={
+            <Icon as={Ionicons} name="cloud-download-outline" size="sm" />
+          }
+        ></Button>
       </Center>
     </NativeBaseProvider>
   );

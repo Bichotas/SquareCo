@@ -10,6 +10,8 @@ import {
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
 
+import { RefreshControl } from "react-native";
+
 // Firebase things
 import { getDoc, getFirestore, doc } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
@@ -18,7 +20,17 @@ import firebaseConfig from "../../database/firebaseConfig";
 // Context
 import { AuthContext, ProfileContext, StoreContext } from "../../auth/context";
 import StorePicture from "../../components/store_components/StorePicture";
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 export default function ProfileStore({ route }) {
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
   // Cosas de firebase
   const app = initializeApp(firebaseConfig);
   const firestore = getFirestore(app);
@@ -41,13 +53,20 @@ export default function ProfileStore({ route }) {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [refreshing]);
   const valoresVariable = { ...valores };
-  const [imageUri, setImageUri] = useState(storeContext.store.profilePicture);
+  const [imageUri, setImageUri] = useState(valoresVariable.profilePicture);
+  console.log("CONTEXTO");
   console.log(storeContext.store);
+  console.log("VARIABLE");
+  console.log(valoresVariable);
   return (
     <NativeBaseProvider>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <Center flex={1} justifyContent="flex-start" padding={4}>
           {/* Cuadro para la portada*/}
           <Box
@@ -77,7 +96,7 @@ export default function ProfileStore({ route }) {
             onChangeImage={(uri) => setImageUri(uri)}
           />
           {/* Texto */}
-          <Box alignItems={"center"} marginTop={-10}>
+          <Box alignItems={"center"} marginTop={-20}>
             <AppText style={{ fontWeight: "bold" }}>
               {/* {valoresVariable.nameStore} */}
               {storeContext.store.nameStore}
