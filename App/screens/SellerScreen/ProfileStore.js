@@ -6,6 +6,7 @@ import {
   Avatar,
   Text,
   Divider,
+  Button,
 } from "native-base";
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
@@ -19,7 +20,7 @@ import firebaseConfig from "../../database/firebaseConfig";
 
 // Context
 import { AuthContext, ProfileContext, StoreContext } from "../../auth/context";
-import StorePicture from "../../components/store_components/StorePicture";
+import { StorePicture, HeaderPicture } from "../../components/store_components";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -80,17 +81,6 @@ export default function ProfileStore({ route }) {
             justifyContent="flex-end"
             alignItems="center"
           ></Box>
-
-          {/* Avatar*/}
-          {/* <Avatar
-            borderColor={"purple.500"}
-            borderWidth={7}
-            size={[100, 145, 195, 245]}
-            position={"relative"}
-            // En la lista, se va a colocar diferente valores [50m 100, 150] si es que se logra hacer que el valor del tamaño del avatar se reduzca segun el breakPoint
-            bottom={[50, 70, 100]}
-            source={{ uri: profileContext.profile.urlProfile }}
-          ></Avatar> */}
           <StorePicture
             imageUri={imageUri}
             onChangeImage={(uri) => setImageUri(uri)}
@@ -107,7 +97,7 @@ export default function ProfileStore({ route }) {
             </AppText>
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
-          <Text>HOLA</Text>
+          <Button>Publicar producto</Button>
           {/* <ProductProfile /> */}
         </Center>
       </ScrollView>
