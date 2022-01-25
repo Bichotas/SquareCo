@@ -19,7 +19,7 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
 
 // Context
-import { AuthContext, ProfileContext, StoreContext } from "../../auth/context";
+import { ProfileContext, StoreContext } from "../../auth/context";
 import { StorePicture, HeaderPicture } from "../../components/store_components";
 
 const wait = (timeout) => {
@@ -57,10 +57,6 @@ export default function ProfileStore({ route }) {
   }, [refreshing]);
   const valoresVariable = { ...valores };
   const [imageUri, setImageUri] = useState(valoresVariable.profilePicture);
-  console.log("CONTEXTO");
-  console.log(storeContext.store);
-  console.log("VARIABLE");
-  console.log(valoresVariable);
   return (
     <NativeBaseProvider>
       <ScrollView
