@@ -12,6 +12,7 @@ import {
 } from "native-base";
 
 import HeaderScreenC from "../../components/HeaderScreenC";
+import ImagePicker from "../../components/store_components/ImagePicker";
 import {
   AppForm as Form,
   AppFormField as FormField,
@@ -50,6 +51,7 @@ function CreatingProductScreen(props) {
             onSubmit={(values) => console.log(values)}
             validationSchema={validationSchema}
           >
+            <ImagePicker />
             <FormField maxLength={255} name="title" placeholder="Title" />
             <FormField
               keyboardType="numeric"

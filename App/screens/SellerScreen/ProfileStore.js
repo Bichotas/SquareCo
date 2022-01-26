@@ -25,7 +25,7 @@ import { StorePicture, HeaderPicture } from "../../components/store_components";
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
-export default function ProfileStore({ route }) {
+export default function ProfileStore({ route, navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {
@@ -55,6 +55,10 @@ export default function ProfileStore({ route }) {
   useEffect(() => {
     getData();
   }, [refreshing]);
+
+  function createProduct() {
+    navigation.navigate("Mi tienda", { screen: "CreatingProduct" });
+  }
   const valoresVariable = { ...valores };
   const [imageUri, setImageUri] = useState(valoresVariable.profilePicture);
   return (
@@ -93,7 +97,7 @@ export default function ProfileStore({ route }) {
             </AppText>
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
-          <Button>Publicar producto</Button>
+          <Button onPress={createProduct}>Publicar producto</Button>
           {/* <ProductProfile /> */}
         </Center>
       </ScrollView>
