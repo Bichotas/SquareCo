@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import colors from "../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePickerUwU from "expo-image-picker";
+import { Alert } from "react-native";
+
 function ImagePicker({ imageUri, onChangeImage }) {
   useEffect(() => {
     requestPermission();
@@ -55,7 +57,12 @@ function ImagePicker({ imageUri, onChangeImage }) {
             />
           )}
           {imageUri && (
-            <Image source={{ uri: imageUri }} height={"100%"} width={"100%"} />
+            <Image
+              source={{ uri: imageUri }}
+              height={"100%"}
+              width={"100%"}
+              alt="Imagen"
+            />
           )}
         </Box>
       </Pressable>
