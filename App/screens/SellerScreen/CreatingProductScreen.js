@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   NativeBaseProvider,
   Box,
@@ -35,6 +35,7 @@ const categories = [
 ];
 
 function CreatingProductScreen(props) {
+  const [imageUri, setImageUri] = useState();
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -51,7 +52,10 @@ function CreatingProductScreen(props) {
             onSubmit={(values) => console.log(values)}
             validationSchema={validationSchema}
           >
-            <ImagePicker />
+            <ImagePicker
+              imageUri={imageUri}
+              onChangeImage={(uri) => setImageUri(uri)}
+            />
             <FormField maxLength={255} name="title" placeholder="Title" />
             <FormField
               keyboardType="numeric"

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import colors from "../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePickerUwU from "expo-image-picker";
-function ImagePicker({ imageUri }) {
+function ImagePicker({ imageUri, onChangeImage }) {
   useEffect(() => {
     requestPermission();
   }, []);
