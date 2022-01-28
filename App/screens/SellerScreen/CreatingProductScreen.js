@@ -20,6 +20,8 @@ import {
   SubmitButton,
 } from "../../components/forms";
 import * as Yup from "yup";
+import ImagePickerList from "../../components/store_components/ImagePickerList";
+import FormImagePicker from "../../components/store_components/FormImagePicker";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -35,7 +37,13 @@ const categories = [
 ];
 
 function CreatingProductScreen(props) {
-  const [imageUri, setImageUri] = useState();
+  const [imageUris, setImageUris] = useState([]);
+  const handleAdd = (uri) => {
+    setImageUris([...imageUris, uri]);
+  };
+  const handleRemove = (uri) => {
+    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
+  };
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -44,6 +52,7 @@ function CreatingProductScreen(props) {
         <KeyboardAvoidingView>
           <Form
             initialValues={{
+              images: [],
               title: "",
               price: "",
               description: "",
@@ -52,10 +61,7 @@ function CreatingProductScreen(props) {
             onSubmit={(values) => console.log(values)}
             validationSchema={validationSchema}
           >
-            <ImagePicker
-              imageUri={imageUri}
-              onChangeImage={(uri) => setImageUri(uri)}
-            />
+            <FormImagePicker name={"images"} />
             <FormField maxLength={255} name="title" placeholder="Title" />
             <FormField
               keyboardType="numeric"
