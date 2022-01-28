@@ -28,6 +28,9 @@ const validationSchema = Yup.object().shape({
   price: Yup.number().required().min(1).max(10000).label("Price"),
   description: Yup.string().label("Description"),
   category: Yup.object().required().nullable().label("Category"),
+  images: Yup.array()
+    .min(1, "Please select at least one image")
+    .label("Imagenes"),
 });
 
 const categories = [
@@ -37,13 +40,6 @@ const categories = [
 ];
 
 function CreatingProductScreen(props) {
-  const [imageUris, setImageUris] = useState([]);
-  const handleAdd = (uri) => {
-    setImageUris([...imageUris, uri]);
-  };
-  const handleRemove = (uri) => {
-    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
-  };
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -52,11 +48,11 @@ function CreatingProductScreen(props) {
         <KeyboardAvoidingView>
           <Form
             initialValues={{
-              images: [],
               title: "",
               price: "",
               description: "",
               category: null,
+              images: [],
             }}
             onSubmit={(values) => console.log(values)}
             validationSchema={validationSchema}
