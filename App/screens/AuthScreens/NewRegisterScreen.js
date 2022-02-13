@@ -63,7 +63,6 @@ function NewRegisterScreen({ navigation, route }) {
     });
 
     authContext.setUser(infoUsuario.user);
-    console.log(infoUsuario.user.id);
     // Parte donde se guarda la coleccion
     const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
     await setDoc(docuRef, {
