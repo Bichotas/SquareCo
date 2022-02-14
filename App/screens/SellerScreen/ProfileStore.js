@@ -36,7 +36,7 @@ const wait = (timeout) => {
 };
 export default function ProfileStore({ route, navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
-
+  const [products, setProducts] = useState();
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
@@ -63,6 +63,7 @@ export default function ProfileStore({ route, navigation }) {
 
   useEffect(() => {
     getData();
+    getProducts();
   }, [refreshing]);
 
   function createProduct() {
@@ -87,6 +88,8 @@ export default function ProfileStore({ route, navigation }) {
       );
     });
   }
+
+ 
   return (
     <NativeBaseProvider>
       <ScrollView
