@@ -7,6 +7,7 @@ import {
   Text,
   Divider,
   Button,
+  HStack,
 } from "native-base";
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
@@ -101,6 +102,20 @@ export default function ProfileStore({ route, navigation }) {
           {/* <ProductProfile /> */}
 
           {/* Apartir de aqui se van a mostrar los productos de la tienda */}
+          <HStack space={6} marginTop={4}>
+            <Box
+              width={100}
+              height={125}
+              borderRadius={25}
+              bg={"blue.300"}
+            ></Box>
+            <Box
+              width={100}
+              height={125}
+              borderRadius={25}
+              bg={"blue.300"}
+            ></Box>
+          </HStack>
         </Center>
       </ScrollView>
     </NativeBaseProvider>
