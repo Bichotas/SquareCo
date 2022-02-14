@@ -44,6 +44,7 @@ const valores = [
   { value: 7, name: "siete" },
   { value: 8, name: "ochco" },
   { value: 9, name: "nueve" },
+  { value: 10, name: "Diez" },
 ];
 function FeedHomeScreen({ navigation }) {
   // Cosas de firebase

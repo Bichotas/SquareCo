@@ -15,13 +15,21 @@ import { ScrollView } from "native-base";
 import { RefreshControl } from "react-native";
 
 // Firebase things
-import { getDoc, getFirestore, doc } from "firebase/firestore";
+import {
+  getDoc,
+  getFirestore,
+  doc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
 
 // Context
 import { ProfileContext, StoreContext } from "../../auth/context";
 import { StorePicture, HeaderPicture } from "../../components/store_components";
+
+import { ProductStore } from "../../components/store_components";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -62,6 +70,23 @@ export default function ProfileStore({ route, navigation }) {
   }
   const valoresVariable = { ...valores };
   const [imageUri, setImageUri] = useState(valoresVariable.profilePicture);
+
+  async function getProducts() {
+    getDocs(
+      collection(
+        firestore,
+        "stores",
+        profileContext.profile.storeProfileId,
+        "products"
+      )
+    ).then((snap) => {
+      console.log(
+        snap.forEach((doc) => {
+          console.log(doc.id, "=>", doc.data());
+        })
+      );
+    });
+  }
   return (
     <NativeBaseProvider>
       <ScrollView
@@ -102,20 +127,13 @@ export default function ProfileStore({ route, navigation }) {
           {/* <ProductProfile /> */}
 
           {/* Apartir de aqui se van a mostrar los productos de la tienda */}
-          <HStack space={6} marginTop={4}>
-            <Box
-              width={100}
-              height={125}
-              borderRadius={25}
-              bg={"blue.300"}
-            ></Box>
-            <Box
-              width={100}
-              height={125}
-              borderRadius={25}
-              bg={"blue.300"}
-            ></Box>
+          <HStack>
+            <ProductStore></ProductStore>
+            <ProductStore></ProductStore>
+            <ProductStore></ProductStore>
           </HStack>
+
+          <Button onPress={getProducts}>Obtener los productos info</Button>
         </Center>
       </ScrollView>
     </NativeBaseProvider>
