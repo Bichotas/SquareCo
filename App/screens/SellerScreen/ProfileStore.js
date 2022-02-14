@@ -99,6 +99,8 @@ export default function ProfileStore({ route, navigation }) {
           <Divider my={3} h={1} width={"90%"}></Divider>
           <Button onPress={createProduct}>Publicar producto</Button>
           {/* <ProductProfile /> */}
+
+          {/* Apartir de aqui se van a mostrar los productos de la tienda */}
         </Center>
       </ScrollView>
     </NativeBaseProvider>
