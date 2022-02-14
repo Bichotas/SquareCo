@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   NativeBaseProvider,
   Box,
@@ -23,6 +23,12 @@ import * as Yup from "yup";
 import ImagePickerList from "../../components/store_components/ImagePickerList";
 import FormImagePicker from "../../components/store_components/FormImagePicker";
 
+// Cosas de firebase
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
+import { AuthContext, ProfileContext } from "../../auth/context";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, getFirestore, setDoc, getDocs } from "firebase/firestore";
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.number().required().min(1).max(10000).label("Price"),
@@ -39,7 +45,23 @@ const categories = [
   { label: "Camera", value: 3 },
 ];
 
-function CreatingProductScreen(props) {
+function CreatingProductScreen({ navigation }) {
+  // Cosas del firebase
+  const app = initializeApp(firebaseConfig);
+  const firestore = getFirestore(app);
+  const profileContext = useContext(ProfileContext);
+  const { uid, storeProfileId } = profileContext.profile;
+
+  async function createProduct(values) {
+    const docRef = doc(firestore, "stores", `${storeProfileId}, "products`);
+    await setDoc(docRef, {
+      productName: values.title,
+      description: values.description,
+      price: values.price,
+      category: values.category,
+      imagesArray: values.images,
+    });
+  }
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -54,7 +76,7 @@ function CreatingProductScreen(props) {
               category: null,
               images: [],
             }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => createProduct(values)}
             validationSchema={validationSchema}
           >
             <FormImagePicker name={"images"} />
