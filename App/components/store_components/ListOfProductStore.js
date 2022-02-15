@@ -10,7 +10,7 @@ function ListOfProductStore({ list }) {
         <FlatList
           numColumns={3}
           data={list}
-          keyExtractor={(item) => item.value.toString()}
+          keyExtractor={(item) => item.price.toString()}
           renderItem={({ item }) => (
             <ProductStore
               name={item.name}

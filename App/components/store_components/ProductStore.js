@@ -12,10 +12,11 @@ function ProductStore({ backgroundColor = "blue.300", name, onPress }) {
     <NativeBaseProvider>
       <Center marginBottom={5} padding={4}>
         <Pressable
+          borderWidth={2}
+          borderColor={"white"}
           bg={backgroundColor}
           width={100}
           height={125}
-          margin={[1, 10, 20, 32]}
           borderRadius={[12, 16, 20]}
           onPress={onPress}
           _pressed={{

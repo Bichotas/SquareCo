@@ -8,6 +8,8 @@ import {
   Divider,
   Button,
   HStack,
+  Container,
+  Spacer,
 } from "native-base";
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
@@ -30,13 +32,14 @@ import { ProfileContext, StoreContext } from "../../auth/context";
 import { StorePicture, HeaderPicture } from "../../components/store_components";
 
 import { ProductStore } from "../../components/store_components";
+import ListOfProductStore from "../../components/store_components/ListOfProductStore";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 export default function ProfileStore({ route, navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState([]);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
@@ -60,18 +63,6 @@ export default function ProfileStore({ route, navigation }) {
       setImageUri(valores.profilePicture);
     });
   };
-
-  useEffect(() => {
-    getData();
-    getProducts();
-  }, [refreshing]);
-
-  function createProduct() {
-    navigation.navigate("Mi tienda", { screen: "CreatingProduct" });
-  }
-  const valoresVariable = { ...valores };
-  const [imageUri, setImageUri] = useState(valoresVariable.profilePicture);
-
   async function getProducts() {
     let wea = [];
     getDocs(
@@ -84,16 +75,25 @@ export default function ProfileStore({ route, navigation }) {
     ).then((snap) => {
       console.log(
         snap.forEach((doc) => {
-          console.log(doc.id, "=>", doc.data());
           wea.push(doc.data());
         })
       );
+      setProducts(wea);
     });
-    setProducts(wea);
     console.log("Despertar esa sensanción de más", products);
   }
 
- 
+  useEffect(() => {
+    getData();
+    getProducts();
+  }, [refreshing]);
+
+  function createProduct() {
+    navigation.navigate("Mi tienda", { screen: "CreatingProduct" });
+  }
+  const valoresVariable = { ...valores };
+  const [imageUri, setImageUri] = useState(valoresVariable.profilePicture);
+  const caca = { ...products };
   return (
     <NativeBaseProvider>
       <ScrollView
@@ -134,12 +134,14 @@ export default function ProfileStore({ route, navigation }) {
           {/* <ProductProfile /> */}
 
           {/* Apartir de aqui se van a mostrar los productos de la tienda */}
-          <HStack>
-            <ProductStore></ProductStore>
-            <ProductStore></ProductStore>
-            <ProductStore></ProductStore>
-          </HStack>
-
+          <Box flexDirection="row">
+            {products.map((product) => (
+              <ProductStore
+                name={product.productName}
+                onPress={() => console.log(product.price)}
+              />
+            ))}
+          </Box>
           <Button onPress={getProducts}>Obtener los productos info</Button>
         </Center>
       </ScrollView>
