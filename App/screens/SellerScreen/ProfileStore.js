@@ -73,6 +73,7 @@ export default function ProfileStore({ route, navigation }) {
   const [imageUri, setImageUri] = useState(valoresVariable.profilePicture);
 
   async function getProducts() {
+    let wea = [];
     getDocs(
       collection(
         firestore,
@@ -84,9 +85,12 @@ export default function ProfileStore({ route, navigation }) {
       console.log(
         snap.forEach((doc) => {
           console.log(doc.id, "=>", doc.data());
+          wea.push(doc.data());
         })
       );
     });
+    setProducts(wea);
+    console.log("Despertar esa sensanción de más", products);
   }
 
  
