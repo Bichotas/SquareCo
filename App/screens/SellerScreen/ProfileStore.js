@@ -10,6 +10,7 @@ import {
   HStack,
   Container,
   Spacer,
+  Badge,
 } from "native-base";
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
@@ -22,6 +23,10 @@ import { StorePicture, HeaderPicture } from "../../components/store_components";
 export default function ProfileStore({ route, navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
   const { store } = useContext(StoreContext);
+  useEffect(() => {
+    console.log(store);
+  }, []);
+
   return (
     <NativeBaseProvider>
       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} />}>
@@ -37,9 +42,22 @@ export default function ProfileStore({ route, navigation }) {
             rounded={"2xl"}
             justifyContent="flex-end"
             alignItems="center"
-          ></Box>
+          >
+            <Badge
+              backgroundColor={"red.200"}
+              color="white"
+              position={"relative"}
+              bottom={125}
+              left={155}
+              borderRadius={10}
+              p={2}
+            >
+              {store.category}
+            </Badge>
+          </Box>
           <StorePicture
             // imageUri={imageUri}
+            imageUri={store.profilePicture}
             onChangeImage={(uri) => setImageUri(uri)}
           />
           {/* Texto */}
@@ -52,6 +70,7 @@ export default function ProfileStore({ route, navigation }) {
             <AppText style={{ fontSize: 12, marginTop: 5 }}>
               {/* {valoresVariable.description} */}
               {/* {storeContext.store.description} */}
+              {store.description}
             </AppText>
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
