@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, Image, Pressable } from "react-native";
-
+import * as SecureStore from "expo-secure-store";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 // Pantallas
@@ -38,99 +38,108 @@ import {
   Feather,
 } from "@expo/vector-icons";
 const Drawer = createDrawerNavigator();
-const DrawerNavigator = () => (
-  <ProfileContext.Consumer>
-    {({ profile }) => (
-      <Drawer.Navigator
-        screenOptions={{
-          headerStyle: { backgroundColor: colors.primary },
-          drawerActiveTintColor: colors.white,
-          drawerInactiveTintColor: colors.white,
-          headerTintColor: colors.white,
-          headerTitleAlign: "center",
-          headerTitle: () => (
-            <Pressable>
-              <Image
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderColor: colors.white,
-                  borderWidth: 2,
-                  borderRadius: 8,
-                }}
-                source={require("../assets/logo-squareco.jpeg")}
-              />
-            </Pressable>
-          ),
-        }}
-        drawerContent={(props) => <CustomDrawer {...props} />}
-      >
-        <Drawer.Screen
-          name="Home"
-          component={MyHomeStack}
-          options={{
-            drawerIcon: ({ color, size }) => (
-              <Entypo name="home" size={size} color={color} />
-            ),
-          }}
-        />
-        {profile.typeAccount == "vendedor" && (
-          <Drawer.Screen
-            name="Mi tienda"
-            component={MySellerStack}
-            options={{
-              drawerIcon: ({ color, size }) => (
-                <MaterialCommunityIcons
-                  name="account"
-                  size={size}
-                  color={color}
+function DrawerNavigator() {
+  const [typeAccount, settypeAccount] = useState(null);
+  useEffect(async () => {
+    // let result = await SecureStore.getItemAsync("typeAccount");
+    // console.log(result);
+    // settypeAccount(result);
+  }, []);
+
+  return (
+    <ProfileContext.Consumer>
+      {({ profile }) => (
+        <Drawer.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: colors.primary },
+            drawerActiveTintColor: colors.white,
+            drawerInactiveTintColor: colors.white,
+            headerTintColor: colors.white,
+            headerTitleAlign: "center",
+            headerTitle: () => (
+              <Pressable>
+                <Image
+                  style={{
+                    width: 48,
+                    height: 48,
+                    borderColor: colors.white,
+                    borderWidth: 2,
+                    borderRadius: 8,
+                  }}
+                  source={require("../assets/logo-squareco.jpeg")}
                 />
-              ),
-            }}
-          />
-        )}
-        <Drawer.Screen
-          name="Carrito"
-          component={MyCartStack}
-          options={{
-            drawerIcon: ({ color, size }) => (
-              <AntDesign name="shoppingcart" color={color} size={size} />
+              </Pressable>
             ),
           }}
-        />
-        {profile.typeAccount == "vendedor" && (
+          drawerContent={(props) => <CustomDrawer {...props} />}
+        >
           <Drawer.Screen
-            name="Pedidos"
-            component={PedidosScreen}
+            name="Home"
+            component={MyHomeStack}
             options={{
               drawerIcon: ({ color, size }) => (
-                <Feather name="package" color={color} size={size} />
+                <Entypo name="home" size={size} color={color} />
               ),
             }}
           />
-        )}
-        <Drawer.Screen
-          name="Tiendas"
-          component={MyCategStack}
-          options={{
-            drawerIcon: ({ color, size }) => (
-              <Entypo name="shop" color={color} size={size} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Configuracion"
-          component={MyConfigStack}
-          options={{
-            drawerIcon: ({ color, size }) => (
-              <AntDesign name="setting" color={color} size={size} />
-            ),
-          }}
-        />
-        {/* <Drawer.Screen name="Actual" component={CreatingStoreScreen} /> */}
-      </Drawer.Navigator>
-    )}
-  </ProfileContext.Consumer>
-);
+          {profile.typeAccount == "vendedor" && (
+            <Drawer.Screen
+              name="Mi tienda"
+              component={MySellerStack}
+              options={{
+                drawerIcon: ({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="account"
+                    size={size}
+                    color={color}
+                  />
+                ),
+              }}
+            />
+          )}
+          <Drawer.Screen
+            name={"Carrito"}
+            component={MyCartStack}
+            options={{
+              drawerIcon: ({ color, size }) => (
+                <AntDesign name="shoppingcart" color={color} size={size} />
+              ),
+            }}
+          />
+          {profile.typeAccount == "vendedor" && (
+            <Drawer.Screen
+              name="Pedidos"
+              component={PedidosScreen}
+              options={{
+                drawerIcon: ({ color, size }) => (
+                  <Feather name="package" color={color} size={size} />
+                ),
+              }}
+            />
+          )}
+          <Drawer.Screen
+            name="Tiendas"
+            component={MyCategStack}
+            options={{
+              drawerIcon: ({ color, size }) => (
+                <Entypo name="shop" color={color} size={size} />
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Configuracion"
+            component={MyConfigStack}
+            options={{
+              drawerIcon: ({ color, size }) => (
+                <AntDesign name="setting" color={color} size={size} />
+              ),
+            }}
+          />
+          {/* <Drawer.Screen name="Actual" component={CreatingStoreScreen} /> */}
+        </Drawer.Navigator>
+      )}
+    </ProfileContext.Consumer>
+  );
+}
 
 export default DrawerNavigator;

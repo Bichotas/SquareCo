@@ -7,6 +7,9 @@ import { View, ActivityIndicator } from "react-native";
 import AppNavigator from "./Drawer";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/auth.client";
+import * as SecureStore from "expo-secure-store";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../utils/db.server";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -34,27 +37,27 @@ const StoreProvider = ({ children }) => {
     </StoreContext.Provider>
   );
 };
-
 function RootNavigator() {
   // Destructuración de contextos
   const { user, setUser } = useContext(AuthContext);
   const { profile, setProfile } = useContext(ProfileContext);
   let [isLoading, setIsLoading] = useState(true);
 
-  // useEffect
-
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(
       auth,
       async (authenticatedUser) => {
         // Si esta autenticado el usuario se va a setear en el contexto el usuario y va a ser persistente
-        authenticatedUser
-          ? setUser(authenticatedUser)
-          : () => {
-              // Si no esta entonces vamos a setear el usuario en null y resetear el contexto
-              setUser(null);
-              setProfile("");
-            };
+        if (authenticatedUser) {
+          const docRef = doc(db, `users/${authenticatedUser.uid}`);
+          const docSnapshot = (await getDoc(docRef)).data();
+          setUser(authenticatedUser);
+          setProfile({ ...docSnapshot });
+          console.log(profile);
+        } else {
+          setUser(null);
+          setProfile("");
+        }
         setIsLoading(false);
       }
     );

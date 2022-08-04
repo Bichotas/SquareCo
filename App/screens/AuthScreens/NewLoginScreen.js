@@ -39,6 +39,9 @@ function NewLoginScreen({ navigation }) {
   const auth = getAuth(app);
   const firestore = getFirestore(app);
 
+  async function save(key, value) {
+    await SecureStore.setItemAsync(key, value);
+  }
   async function handleSignIn({ email, password }) {
     const infoUsuario = await signInWithEmailAndPassword(
       auth,
@@ -49,6 +52,10 @@ function NewLoginScreen({ navigation }) {
     });
     const docRef = doc(firestore, `users/${infoUsuario.user.uid}`);
     const docSnap = await getDoc(docRef);
+    console.log(docSnap.data().typeAccount);
+    //storeData(docSnap.data().typeAccount);
+    await SecureStore.setItemAsync("typeAccount", "value");
+    await save("typeAccount", docSnap.data().typeAccount);
     await SecureStore.setItemAsync("uid", infoUsuario.user.uid);
     profileContext.setProfile({ ...docSnap.data() });
   }
