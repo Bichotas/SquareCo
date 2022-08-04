@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   NativeBaseProvider,
   ScrollView,
@@ -33,7 +33,7 @@ import {
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
-import { AuthContext, ProfileContext } from "../../auth/context";
+import { AuthContext, ProfileContext, StoreContext } from "../../auth/context";
 const valores = [
   { value: 1, name: "UWu" },
   { value: 2, name: "DOs" },
@@ -54,7 +54,7 @@ function FeedHomeScreen({ navigation }) {
 
   // Contexto
   const { profile } = useContext(ProfileContext);
-
+  const { store } = useContext(StoreContext);
   // UseState
   let [service, setService] = React.useState("");
   const [button, setbutton] = useState(true);
@@ -83,6 +83,11 @@ function FeedHomeScreen({ navigation }) {
   const data = async () => {
     return await getData();
   };
+
+  useEffect(() => {
+    console.log("Tienda: ", store);
+  }, []);
+
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -100,6 +105,7 @@ function FeedHomeScreen({ navigation }) {
           ></Box>
           <Text>{profile.email}</Text>
           <Text>{profile.name}</Text>
+          <Text>{profile.typeAccount}</Text>
 
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
           {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
