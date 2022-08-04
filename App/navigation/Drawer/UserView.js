@@ -10,9 +10,7 @@ import { ProfileContext, AuthContext } from "../../auth/context";
 function UserView(props) {
   const { user } = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  useEffect(() => {}, []);
 
   // Se uso de referencia para el useContext el siguiente articulo:
   // https://www.freecodecamp.org/news/react-context-for-beginners/
@@ -20,6 +18,7 @@ function UserView(props) {
     <View bg={colors.primary} h={150}>
       <VStack space={16} marginTop={5} padding={4}>
         <ImageSquare imageUri={user.photoURL}></ImageSquare>
+
         <Text
           fontSize={[18, 25]}
           fontWeight={"bold"}
