@@ -95,6 +95,7 @@ function FeedHomeScreen({ navigation }) {
             justifyContent="flex-end"
             alignItems="center"
           ></Box>
+          <Text>{profile.email}</Text>
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
           {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
           {profile.storeProfileId == null && profile.typeAccount == "vendedor" && (

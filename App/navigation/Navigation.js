@@ -51,9 +51,13 @@ function RootNavigator() {
         if (authenticatedUser) {
           const docRef = doc(db, `users/${authenticatedUser.uid}`);
           const docSnapshot = (await getDoc(docRef)).data();
-          setUser(authenticatedUser);
-          setProfile({ ...docSnapshot });
-          console.log(profile);
+          if (profile === "") {
+            setUser(authenticatedUser);
+            setProfile({ ...docSnapshot });
+            console.log(profile);
+          } else {
+            console.log("Profile already set");
+          }
         } else {
           setUser(null);
           setProfile("");
