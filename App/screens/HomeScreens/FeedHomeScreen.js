@@ -54,8 +54,8 @@ function FeedHomeScreen({ navigation }) {
   const firestore = getFirestore(app);
 
   // Contexto
-  const { profile } = useContext(ProfileContext);
-  const { store } = useContext(StoreContext);
+  const { profile, setProfile } = useContext(ProfileContext);
+  const { store, setStore } = useContext(StoreContext);
   // UseState
   let [service, setService] = React.useState("");
   const [button, setbutton] = useState(true);
@@ -80,6 +80,8 @@ function FeedHomeScreen({ navigation }) {
       });
       // Faltaría setear los contextos a string vacios ""
       signOut(auth);
+      setProfile("");
+      setStore("");
     });
   }
   const data = async () => {
