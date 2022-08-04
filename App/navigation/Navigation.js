@@ -54,19 +54,7 @@ function RootNavigator() {
           const docSnapshot = (await getDoc(docRef)).data();
           // Si se detecta que el tipo de cuenta del usuario es vendedor y la propiedad de la tienda
           // tiene un id entonces vamos a mandar a llamar al documento y setearlo en el contexto
-          if (store === "") {
-            if (
-              docSnapshot.typeAccount === "vendedor" &&
-              docSnapshot.storeProfileId !== ""
-            ) {
-              let storeData = (
-                await getDoc(doc(db, "stores", docSnapshot.storeProfileId))
-              ).data();
-              setStore({ ...storeData });
-            }
-          } else {
-            console.log("Store already set");
-          }
+
           if (profile === "") {
             setUser(authenticatedUser);
             setProfile({ ...docSnapshot });
@@ -75,11 +63,28 @@ function RootNavigator() {
           }
 
           // Podriamos hacer que si el tipo de cuenta del usuario es vendedor, se busque la tienda del usuario
+          // Si el contexto de Store es igual a ""
+          // Entonces vamos chechar si el tipo de cuenta es vendedor y si tiene un id de tienda
+          if (store === "") {
+            if (
+              docSnapshot.typeAccount === "vendedor" &&
+              docSnapshot.storeProfileId != null
+            ) {
+              // Si esto pasa entonces vamos a buscar la tienda del usuario
+              let storeData = (
+                await getDoc(doc(db, "stores", docSnapshot.storeProfileId))
+              ).data();
+              setStore({ ...storeData });
+            }
+          } else {
+            console.log("Store already set");
+          }
           // y se setee en el contexto la tienda
         } else {
           setUser(null);
           setProfile("");
         }
+
         setIsLoading(false);
       }
     );
