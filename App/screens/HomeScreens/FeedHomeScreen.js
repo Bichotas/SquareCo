@@ -24,7 +24,7 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-
+import AsyncStorageLib from "@react-native-async-storage/async-storage";
 // Cosaas de firebase
 import {
   getAuth,
@@ -80,6 +80,9 @@ function FeedHomeScreen({ navigation }) {
       navigation.navigate("Mi tienda");
     });
   }
+  const data = async () => {
+    return await getData();
+  };
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -96,6 +99,8 @@ function FeedHomeScreen({ navigation }) {
             alignItems="center"
           ></Box>
           <Text>{profile.email}</Text>
+          <Text>{profile.name}</Text>
+
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
           {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
           {profile.storeProfileId == null && profile.typeAccount == "vendedor" && (

@@ -10,7 +10,6 @@ import { ProfileContext, AuthContext } from "../../auth/context";
 function UserView(props) {
   const { user } = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
-  useEffect(() => {}, []);
 
   // Se uso de referencia para el useContext el siguiente articulo:
   // https://www.freecodecamp.org/news/react-context-for-beginners/

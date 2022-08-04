@@ -15,6 +15,7 @@ import ReturnArrow from "../../components/ReturnArrow";
 import LoginCirclesD from "../../designs/LoginCIrclesD";
 
 import * as SecureStore from "expo-secure-store";
+import AsyncStorageLib from "@react-native-async-storage/async-storage";
 
 // Formik and Yup
 import * as Yup from "yup";
@@ -33,15 +34,10 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 });
 function NewLoginScreen({ navigation }) {
-  const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const firestore = getFirestore(app);
-
-  async function save(key, value) {
-    await SecureStore.setItemAsync(key, value);
-  }
   async function handleSignIn({ email, password }) {
     const infoUsuario = await signInWithEmailAndPassword(
       auth,
@@ -52,11 +48,7 @@ function NewLoginScreen({ navigation }) {
     });
     const docRef = doc(firestore, `users/${infoUsuario.user.uid}`);
     const docSnap = await getDoc(docRef);
-    console.log(docSnap.data().typeAccount);
-    //storeData(docSnap.data().typeAccount);
-    await SecureStore.setItemAsync("typeAccount", "value");
-    await save("typeAccount", docSnap.data().typeAccount);
-    await SecureStore.setItemAsync("uid", infoUsuario.user.uid);
+
     profileContext.setProfile({ ...docSnap.data() });
   }
 

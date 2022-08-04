@@ -37,6 +37,7 @@ import {
   collection,
   getDoc,
 } from "firebase/firestore";
+import AsyncStorageLib from "@react-native-async-storage/async-storage";
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
@@ -74,8 +75,6 @@ function NewRegisterScreen({ navigation, route }) {
       urlProfile: null,
       storeProfileId: null,
     });
-
-    // Recibir los datos
 
     const docSnap = await getDoc(docuRef);
     profileContext.setProfile({ ...docSnap.data() });
