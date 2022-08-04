@@ -31,7 +31,7 @@ function CustomDrawer(props) {
         <DrawerItem
           onPress={() => {
             signOut(auth);
-            setUser(null);
+            // setUser(null);
             setProfile("");
             setStore("");
           }}
