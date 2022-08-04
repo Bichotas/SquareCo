@@ -30,6 +30,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  signOut,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
@@ -77,7 +78,8 @@ function FeedHomeScreen({ navigation }) {
       updateDoc(docUserRef, {
         storeProfileId: snapshot.id,
       });
-      navigation.navigate("Mi tienda");
+      // Faltaría setear los contextos a string vacios ""
+      signOut(auth);
     });
   }
   const data = async () => {

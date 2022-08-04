@@ -83,6 +83,7 @@ function RootNavigator() {
         } else {
           setUser(null);
           setProfile("");
+          setStore("");
         }
 
         setIsLoading(false);
