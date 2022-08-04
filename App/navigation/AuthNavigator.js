@@ -14,7 +14,7 @@ import {
 // navigationTheme
 
 // Stack
-import AppNavigator from "./AppNavigator";
+import AppNavigator from "./Drawer";
 import MySellerStack from "./SellerNavigator";
 const AuthStack = createNativeStackNavigator();
 

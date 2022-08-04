@@ -95,8 +95,6 @@ function FeedHomeScreen({ navigation }) {
             justifyContent="flex-end"
             alignItems="center"
           ></Box>
-          <Divider py={1} margin={4} />
-          <FeedListC list={valores} />
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
           {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
           {profile.storeProfileId == null && profile.typeAccount == "vendedor" && (
@@ -112,9 +110,9 @@ function FeedHomeScreen({ navigation }) {
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
                 size={"xl"}
+                closeOnOverlayClick={false}
               >
                 <Modal.Content>
-                  <Modal.CloseButton />
                   <Modal.Header fontWeight={"bold"} fontSize={20}>
                     <Text fontWeight={"bold"} fontSize={20}>
                       Crea tu tienda

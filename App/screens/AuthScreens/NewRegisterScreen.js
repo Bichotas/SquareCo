@@ -61,8 +61,9 @@ function NewRegisterScreen({ navigation, route }) {
     ).then((usuarioFirebase) => {
       return usuarioFirebase;
     });
+    // Actualizamos el perfil del usuario
 
-    authContext.setUser(infoUsuario.user);
+    await updateProfile(infoUsuario.user, { displayName: name });
     // Parte donde se guarda la coleccion
     const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
     await setDoc(docuRef, {
@@ -79,7 +80,6 @@ function NewRegisterScreen({ navigation, route }) {
     const docSnap = await getDoc(docuRef);
     profileContext.setProfile({ ...docSnap.data() });
     // Parte donde se redirije a la siguiente
-
   }
   return (
     <NativeBaseProvider>

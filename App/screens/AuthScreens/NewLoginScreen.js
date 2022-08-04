@@ -14,6 +14,8 @@ import ReturnArrow from "../../components/ReturnArrow";
 // Diseños
 import LoginCirclesD from "../../designs/LoginCIrclesD";
 
+import * as SecureStore from "expo-secure-store";
+
 // Formik and Yup
 import * as Yup from "yup";
 
@@ -45,9 +47,9 @@ function NewLoginScreen({ navigation }) {
     ).then((usuarioFirebase) => {
       return usuarioFirebase;
     });
-    authContext.setUser(infoUsuario.user);
     const docRef = doc(firestore, `users/${infoUsuario.user.uid}`);
     const docSnap = await getDoc(docRef);
+    await SecureStore.setItemAsync("uid", infoUsuario.user.uid);
     profileContext.setProfile({ ...docSnap.data() });
   }
 

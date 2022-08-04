@@ -27,7 +27,6 @@ import MySellerStack from "./SellerNavigator";
 
 //Screen
 import PedidosScreen from "../screens/PedidosScreen";
-
 // Context
 
 import { ProfileContext } from "../auth/context";
