@@ -47,9 +47,11 @@ function RootNavigator() {
     const unsubscribeAuth = onAuthStateChanged(
       auth,
       async (authenticatedUser) => {
+        // Si esta autenticado el usuario se va a setear en el contexto el usuario y va a ser persistente
         authenticatedUser
           ? setUser(authenticatedUser)
           : () => {
+              // Si no esta entonces vamos a setear el usuario en null y resetear el contexto
               setUser(null);
               setProfile("");
             };
