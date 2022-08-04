@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   NativeBaseProvider,
   Box,
@@ -6,13 +6,101 @@ import {
   Avatar,
   Text,
   Divider,
+  Button,
+  HStack,
+  Container,
+  Spacer,
 } from "native-base";
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
-export default function ProfileStore() {
+
+import { RefreshControl } from "react-native";
+
+// Firebase things
+import {
+  getDoc,
+  getFirestore,
+  doc,
+  getDocs,
+  collection,
+} from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
+
+// Context
+import { ProfileContext, StoreContext } from "../../auth/context";
+import { StorePicture, HeaderPicture } from "../../components/store_components";
+
+import { ProductStore } from "../../components/store_components";
+import ListOfProductStore from "../../components/store_components/ListOfProductStore";
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+export default function ProfileStore({ route, navigation }) {
+  const [refreshing, setRefreshing] = React.useState(false);
+  const [products, setProducts] = useState([]);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+  // Cosas de firebase
+  const app = initializeApp(firebaseConfig);
+  const firestore = getFirestore(app);
+
+  // Variable de estaod
+  const [valores, setValores] = useState();
+  const profileContext = useContext(ProfileContext);
+  const storeContext = useContext(StoreContext);
+  // Se guarda en una variable
+  // Fotografia cuenta
+  const getData = () => {
+    getDoc(
+      doc(firestore, "stores", profileContext.profile.storeProfileId)
+    ).then((snapshot) => {
+      setValores(snapshot.data());
+      storeContext.setStore({ ...snapshot.data() });
+      setImageUri(valores.profilePicture);
+    });
+  };
+  async function getProducts() {
+    let wea = [];
+    getDocs(
+      collection(
+        firestore,
+        "stores",
+        profileContext.profile.storeProfileId,
+        "products"
+      )
+    ).then((snap) => {
+      console.log(
+        snap.forEach((doc) => {
+          wea.push(doc.data());
+        })
+      );
+      setProducts(wea);
+    });
+    console.log("Despertar esa sensanción de más", products);
+  }
+
+  useEffect(() => {
+    getData();
+    getProducts();
+  }, [refreshing]);
+
+  function createProduct() {
+    navigation.navigate("Mi tienda", { screen: "CreatingProduct" });
+  }
+  const valoresVariable = { ...valores };
+  const [imageUri, setImageUri] = useState(valoresVariable.profilePicture);
+  const caca = { ...products };
   return (
     <NativeBaseProvider>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <Center flex={1} justifyContent="flex-start" padding={4}>
           {/* Cuadro para la portada*/}
           <Box
@@ -26,28 +114,35 @@ export default function ProfileStore() {
             justifyContent="flex-end"
             alignItems="center"
           ></Box>
-
-          {/* Avatar*/}
-          <Avatar
-            borderColor={"purple.500"}
-            borderWidth={7}
-            size={[100, 145, 195, 245]}
-            position={"relative"}
-            // En la lista, se va a colocar diferente valores [50m 100, 150] si es que se logra hacer que el valor del tamaño del avatar se reduzca segun el breakPoint
-            bottom={[50, 70, 100]}
-          ></Avatar>
+          <StorePicture
+            imageUri={imageUri}
+            onChangeImage={(uri) => setImageUri(uri)}
+          />
           {/* Texto */}
-          <Box alignItems={"center"} marginTop={-10}>
+          <Box alignItems={"center"} marginTop={-20}>
             <AppText style={{ fontWeight: "bold" }}>
-              [NOMBRE DE LA TIENDA]
+              {/* {valoresVariable.nameStore} */}
+              {storeContext.store.nameStore}
             </AppText>
             <AppText style={{ fontSize: 12, marginTop: 5 }}>
-              [DESCRIPCION]
+              {/* {valoresVariable.description} */}
+              {storeContext.store.description}
             </AppText>
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
-
+          <Button onPress={createProduct}>Publicar producto</Button>
           {/* <ProductProfile /> */}
+
+          {/* Apartir de aqui se van a mostrar los productos de la tienda */}
+          <Box flexDirection="row">
+            {products.map((product) => (
+              <ProductStore
+                name={product.productName}
+                onPress={() => console.log(product.price)}
+              />
+            ))}
+          </Box>
+          <Button onPress={getProducts}>Obtener los productos info</Button>
         </Center>
       </ScrollView>
     </NativeBaseProvider>

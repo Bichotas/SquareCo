@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Center,
   NativeBaseProvider,
@@ -20,15 +20,67 @@ import ErrorMessage from "../../components/forms/ErrorMessage";
 import { AppFormField } from "../../components/forms";
 import AppForm from "../../components/forms/AppForm";
 
+// Cosaas de firebase
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
+import { AuthContext, ProfileContext } from "../../auth/context";
+
+import {
+  doc,
+  getFirestore,
+  setDoc,
+  collection,
+  getDoc,
+} from "firebase/firestore";
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
-function NewRegisterScreen({ navigation }) {
-  const handleNavigation = () => {
-    navigation.navigate("ChoseAccount");
-  };
+
+function NewRegisterScreen({ navigation, route }) {
+  // Navegacion
+
+  const { tipoCuenta } = route.params;
+  const authContext = useContext(AuthContext);
+  const profileContext = useContext(ProfileContext);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const firestore = getFirestore(app);
+
+  async function handleRegister({ name, email, password }, typeAccount) {
+    const infoUsuario = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    ).then((usuarioFirebase) => {
+      return usuarioFirebase;
+    });
+    // Actualizamos el perfil del usuario
+
+    await updateProfile(infoUsuario.user, { displayName: name });
+    // Parte donde se guarda la coleccion
+    const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
+    await setDoc(docuRef, {
+      email: email,
+      name: name,
+      uid: infoUsuario.user.uid,
+      typeAccount: typeAccount,
+      urlProfile: null,
+      storeProfileId: null,
+    });
+
+    // Recibir los datos
+
+    const docSnap = await getDoc(docuRef);
+    profileContext.setProfile({ ...docSnap.data() });
+    // Parte donde se redirije a la siguiente
+  }
   return (
     <NativeBaseProvider>
       {/* Cosillas */}
@@ -40,7 +92,9 @@ function NewRegisterScreen({ navigation }) {
         <RegisterCirclesD></RegisterCirclesD>
         <AppForm
           initialValues={{ name: "", email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => {
+            handleRegister(values, tipoCuenta);
+          }}
           validationSchema={validationSchema}
         >
           {/* Contenedor */}
@@ -76,8 +130,8 @@ function NewRegisterScreen({ navigation }) {
 
             {/* Fin del formulario */}
 
-            {/* <SubmitButton title={"Registrarse"} /> */}
-            <Button onPress={handleNavigation}>Registrarse</Button>
+            <SubmitButton title={"Registrarse"} />
+            {/* <Button onPress={handleNavigation}>Registrarse</Button> */}
           </Center>
         </AppForm>
         {/* Fin del contenedor */}

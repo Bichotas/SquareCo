@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import AppButton from "../../components/AppButton";
 
@@ -7,16 +7,28 @@ import ScreenC from "../../components/ScreenC";
 
 // Configuraciones
 import colors from "../../config/colors";
-
+import { AuthContext } from "../../auth/context";
+// Cosaas de firebase
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../../database/firebaseConfig";
 // Diseños
 import AccountOptionsCircle from "../../designs/AccountOptionsCirclesD";
 function AccountOptionScreen({ navigation }) {
-  const onBuy = () => {
-    navigation.navigate("Uwu", { screen: "Home" });
+  const app = initializeApp(firebaseConfig);
+
+  const vendedor = () => {
+    navigation.navigate("Register", { tipoCuenta: "vendedor" });
   };
-  const onSell = () => {
-    navigation.navigate("Creacion", { screen: "CreatingStore" });
+  const comprador = () => {
+    navigation.navigate("Register", { tipoCuenta: "comprador" });
   };
+
   return (
     <ScreenC style={styles.optionScreen}>
       <AccountOptionsCircle></AccountOptionsCircle>
@@ -37,14 +49,14 @@ function AccountOptionScreen({ navigation }) {
         {/* Botones */}
         <View style={styles.buttonsContainer}>
           <View style={styles.button1}>
-            <AppButton title="Comprar" color="naranja" onPress={onBuy} />
+            <AppButton title="Comprar" color="naranja" onPress={comprador} />
           </View>
           <View style={styles.button2}>
             <AppButton
               title="Vender"
               color="white"
               text="dark"
-              onPress={onSell}
+              onPress={vendedor}
             />
           </View>
         </View>

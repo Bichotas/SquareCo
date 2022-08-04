@@ -8,11 +8,13 @@ import {
   RegisterScreen,
   RecoverPassword,
   OptionAccount,
+  CreatingStoreAuth,
 } from "../screens/AuthScreens";
+
 // navigationTheme
 
 // Stack
-import AppNavigator from './AppNavigator'
+import AppNavigator from "./Drawer";
 import MySellerStack from "./SellerNavigator";
 const AuthStack = createNativeStackNavigator();
 
@@ -25,8 +27,10 @@ const MyAuthStack = () => {
       <AuthStack.Screen name="Login" component={LoginScreen} />
       <AuthStack.Screen name="RecoverPassword" component={RecoverPassword} />
       {/* Stacks */}
-      <AuthStack.Screen name="Uwu" component={AppNavigator} />
-      <AuthStack.Screen name="Creacion" component={MySellerStack} />
+      <AuthStack.Screen
+        name="CreatingStoreAuth"
+        component={CreatingStoreAuth}
+      />
     </AuthStack.Navigator>
   );
 };
