@@ -58,6 +58,9 @@ function RootNavigator() {
           } else {
             console.log("Profile already set");
           }
+
+          // Podriamos hacer que si el tipo de cuenta del usuario es vendedor, se busque la tienda del usuario
+          // y se setee en el contexto la tienda
         } else {
           setUser(null);
           setProfile("");
