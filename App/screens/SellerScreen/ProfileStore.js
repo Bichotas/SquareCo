@@ -27,7 +27,9 @@ export default function ProfileStore({ route, navigation }) {
   useEffect(() => {
     console.log(store);
   }, []);
-
+  function createProduct() {
+    navigation.navigate("Mi tienda", { screen: "CreatingProduct" });
+  }
   return (
     <NativeBaseProvider>
       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} />}>
@@ -74,7 +76,7 @@ export default function ProfileStore({ route, navigation }) {
             </AppText>
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
-          <Button>Publicar producto</Button>
+          <Button onPress={createProduct}>Publicar producto</Button>
         </Center>
       </ScrollView>
     </NativeBaseProvider>

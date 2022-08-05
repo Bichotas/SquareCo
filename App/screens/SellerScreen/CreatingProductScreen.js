@@ -11,6 +11,8 @@ import {
   Container,
 } from "native-base";
 
+import { CommonActions } from "@react-navigation/native";
+
 import HeaderScreenC from "../../components/HeaderScreenC";
 import ImagePicker from "../../components/store_components/ImagePicker";
 import {
@@ -69,6 +71,7 @@ function CreatingProductScreen({ navigation }) {
       category: values.category,
       imagesArray: values.images,
     });
+    navigation.dispatch(CommonActions.goBack());
   }
   return (
     <NativeBaseProvider>
