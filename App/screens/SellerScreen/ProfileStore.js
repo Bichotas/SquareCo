@@ -23,6 +23,7 @@ import { StorePicture, HeaderPicture } from "../../components/store_components";
 export default function ProfileStore({ route, navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
   const { store } = useContext(StoreContext);
+  const [imageUri, setImageUri] = useState(store.profilePicture);
   useEffect(() => {
     console.log(store);
   }, []);
@@ -56,8 +57,7 @@ export default function ProfileStore({ route, navigation }) {
             </Badge>
           </Box>
           <StorePicture
-            // imageUri={imageUri}
-            imageUri={store.profilePicture}
+            imageUri={imageUri}
             onChangeImage={(uri) => setImageUri(uri)}
           />
           {/* Texto */}

@@ -84,9 +84,6 @@ function FeedHomeScreen({ navigation }) {
       setStore("");
     });
   }
-  const data = async () => {
-    return await getData();
-  };
 
   useEffect(() => {
     console.log("Tienda: ", store);
