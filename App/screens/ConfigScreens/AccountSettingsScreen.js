@@ -17,15 +17,25 @@ import ReturnArrow from "../../components/ReturnArrow";
 import ImageF from "../../components/forms2/ImageF";
 import { Form, FormField, SubmitButton } from "../../components/forms2";
 
+// Cosillas
+import { auth } from "../../utils/auth.client";
 // CONTEXTO
 import { AuthContext, ProfileContext } from "../../auth/context";
+import { updateProfile } from "firebase/auth";
 export default function AccountSettingsScreen() {
   const { user } = React.useContext(AuthContext);
   const { profile } = React.useContext(ProfileContext);
 
   // Estados para el formulario -------------------------------------------------
   const [imageUri, setimageUri] = React.useState(user.photoURL);
-  console.log(imageUri);
+
+  // Hacer una funcion la cual actualice los valores del usuario según como crea el usuario
+
+  async function handleChange(values, auhtObject) {
+    await updateProfile(auhtObject.currentUser, {
+      displayName: values.name,
+    });
+  }
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -48,9 +58,13 @@ export default function AccountSettingsScreen() {
                 name: profile.name,
                 email: profile.email,
               }}
+              onSubmit={(values) => handleChange(values, auth)}
             >
               {/* Fotografia */}
-              <ImageF />
+              <ImageF
+                imageUri={imageUri}
+                onChangeImage={(uri) => setimageUri(uri)}
+              />
               {/* Fin-Fotografia */}
               <Text fontWeight={"bold"} fontSize={16} padding={2}>
                 Nombre de la cuenta
@@ -93,7 +107,6 @@ export default function AccountSettingsScreen() {
                   </Center>
                 </VStack>
               </HStack>
-
               <SubmitButton title={"Guardar cambios"} />
             </Form>
           </View>

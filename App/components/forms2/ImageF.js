@@ -78,8 +78,6 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
           console.log("Url get download", url);
         });
       });
-      console.log(imageUri);
-      // return (await infoImage).toString();
     }
   }
 
