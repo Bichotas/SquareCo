@@ -9,7 +9,7 @@ import {
 } from "native-base";
 import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { ProfileContext } from "../../auth/context";
+import { AuthContext, ProfileContext } from "../../auth/context";
 import { getDownloadURL, uploadBytes, ref, getStorage } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
@@ -26,6 +26,7 @@ const config = {
   },
 };
 function ImageF({ imageUri, onChangeImage, ...otherProps }) {
+  const { user } = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
   const { uid } = profileContext.profile;
 
