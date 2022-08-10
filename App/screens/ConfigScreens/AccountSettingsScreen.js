@@ -21,7 +21,7 @@ import { Form, FormField, SubmitButton } from "../../components/forms2";
 import { auth } from "../../utils/auth.client";
 // CONTEXTO
 import { AuthContext, ProfileContext } from "../../auth/context";
-import { updateProfile } from "firebase/auth";
+import { signOut, updateEmail, updateProfile } from "firebase/auth";
 export default function AccountSettingsScreen() {
   const { user } = React.useContext(AuthContext);
   const { profile } = React.useContext(ProfileContext);
@@ -32,6 +32,17 @@ export default function AccountSettingsScreen() {
   // Hacer una funcion la cual actualice los valores del usuario según como crea el usuario
 
   async function handleChange(values, auhtObject) {
+    let profileUpdate = { displayName: values.name, photoURL: imageUri };
+
+    if (values.email !== user.email) {
+      console.log("Se va a cambiar el correo");
+      updateEmail(auhtObject, values.email);
+      signOut(auhtObject);
+    }
+
+    // Se tiene que actualizar el tipo de cuenta desde el documento
+    // Actualizar el correo se tiene que usar updateEmail() y después salirse de la cuenta
+
     await updateProfile(auhtObject.currentUser, {
       displayName: values.name,
     });

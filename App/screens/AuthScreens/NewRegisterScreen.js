@@ -68,12 +68,8 @@ function NewRegisterScreen({ navigation, route }) {
     // Parte donde se guarda la coleccion
     const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
     await setDoc(docuRef, {
-      email: email,
-      name: name,
       uid: infoUsuario.user.uid,
       typeAccount: typeAccount,
-      urlProfile: null,
-      storeProfileId: null,
     });
 
     const docSnap = await getDoc(docuRef);
