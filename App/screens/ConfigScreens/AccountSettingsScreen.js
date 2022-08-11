@@ -50,7 +50,9 @@ export default function AccountSettingsScreen() {
       console.log("Se debe de salir tipos de cuentas diferentes");
       // signOut(auhtObject);
     }
-    await updateProfile(auhtObject.currentUser, updateProps);
+    await updateProfile(auhtObject.currentUser, updateProps).then(() => {
+      Alert.alert("Se actualizo correctamente");
+    });
   }
   return (
     <NativeBaseProvider>

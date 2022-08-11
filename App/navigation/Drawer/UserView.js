@@ -25,7 +25,7 @@ function UserView(props) {
           color={"white"}
           noOfLines={1}
         >
-          {user.email}
+          {user.displayName}
         </Text>
       </VStack>
     </View>
