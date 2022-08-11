@@ -11,7 +11,7 @@ import {
   Button,
   VStack,
 } from "native-base";
-import React from "react";
+import React, { useEffect } from "react";
 // COMPONENTES
 import ReturnArrow from "../../components/ReturnArrow";
 import ImageF from "../../components/forms2/ImageF";
@@ -22,30 +22,35 @@ import { auth } from "../../utils/auth.client";
 // CONTEXTO
 import { AuthContext, ProfileContext } from "../../auth/context";
 import { signOut, updateEmail, updateProfile } from "firebase/auth";
+import { updateDoc } from "firebase/firestore";
+import { Firebase } from "../../utils/firebaseConfig";
+import { Alert, Modal } from "react-native";
 export default function AccountSettingsScreen() {
   const { user } = React.useContext(AuthContext);
   const { profile } = React.useContext(ProfileContext);
 
   // Estados para el formulario -------------------------------------------------
   const [imageUri, setimageUri] = React.useState(user.photoURL);
-
+  const [typeAccountS, setTypeAccountS] = React.useState(profile.typeAccount);
   // Hacer una funcion la cual actualice los valores del usuario según como crea el usuario
 
   async function handleChange(values, auhtObject) {
-    let profileUpdate = { displayName: values.name, photoURL: imageUri };
-
-    if (values.email !== user.email) {
-      console.log("Se va a cambiar el correo");
-      updateEmail(auhtObject, values.email);
-      signOut(auhtObject);
-    }
-
-    // Se tiene que actualizar el tipo de cuenta desde el documento
-    // Actualizar el correo se tiene que usar updateEmail() y después salirse de la cuenta
-
-    await updateProfile(auhtObject.currentUser, {
+    let valor = 0;
+    const updateProps = {
       displayName: values.name,
-    });
+      photoURL: imageUri,
+    };
+
+    if (typeAccountS !== profile.typeAccount) {
+      // Se actualiza el documento de firestores
+      updateDoc(doc(Firebase, `users/${user.uid}`), {
+        uid: user.uid,
+        typeAccount: typeAccountS,
+      });
+      console.log("Se debe de salir tipos de cuentas diferentes");
+      // signOut(auhtObject);
+    }
+    await updateProfile(auhtObject.currentUser, updateProps);
   }
   return (
     <NativeBaseProvider>
@@ -87,18 +92,6 @@ export default function AccountSettingsScreen() {
                 autoCapitalize="none"
               />
               <Text fontWeight={"bold"} fontSize={16} padding={2}>
-                Correo Electronico
-              </Text>
-
-              <FormField
-                value={user.email}
-                name={"email"}
-                placeholder="Correo Electronico"
-                autoCapitalize="none"
-                keyboardType="email-address"
-                textContentType="emailAddress"
-              />
-              <Text fontWeight={"bold"} fontSize={16} padding={2}>
                 Tipo de cuenta
               </Text>
               <HStack space={2}>
@@ -108,13 +101,27 @@ export default function AccountSettingsScreen() {
                   width={"25%"}
                   borderRadius={10}
                   padding={2}
+                  colorScheme={
+                    typeAccountS == "vendedor" ? "danger" : "success"
+                  }
                 >
-                  Vendedor
+                  {typeAccountS}
                 </Badge>
                 <VStack>
                   <Text>¿Quierés cambiar el tipo de cuenta?</Text>
                   <Center>
-                    <Button width={"50%"}>Cambiar</Button>
+                    <Button
+                      width={"50%"}
+                      onPress={() => {
+                        if (typeAccountS === "vendedor") {
+                          setTypeAccountS("comprador");
+                        } else if (typeAccountS === "comprador") {
+                          setTypeAccountS("vendedor");
+                        }
+                      }}
+                    >
+                      Cambiar
+                    </Button>
                   </Center>
                 </VStack>
               </HStack>
