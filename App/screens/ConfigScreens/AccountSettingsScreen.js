@@ -25,7 +25,7 @@ import { signOut, updateEmail, updateProfile } from "firebase/auth";
 import { updateDoc } from "firebase/firestore";
 import { Firebase } from "../../utils/firebaseConfig";
 import { Alert, Modal } from "react-native";
-export default function AccountSettingsScreen() {
+export default function AccountSettingsScreen({ navigation }) {
   const { user } = React.useContext(AuthContext);
   const { profile } = React.useContext(ProfileContext);
 
@@ -50,14 +50,19 @@ export default function AccountSettingsScreen() {
       console.log("Se debe de salir tipos de cuentas diferentes");
       // signOut(auhtObject);
     }
+    // Actualizamos el perfil del usuario y después se muestra una alerta
     await updateProfile(auhtObject.currentUser, updateProps).then(() => {
       Alert.alert("Se actualizo correctamente");
     });
   }
+  const pressHandler = () => {
+    console.log("Pressing");
+    navigation.goBack();
+  };
   return (
     <NativeBaseProvider>
       <ScrollView>
-        <ReturnArrow />
+        <ReturnArrow onPress={pressHandler} />
 
         <KeyboardAvoidingView>
           <View flex={1} padding={6} marginTop={-10}>
