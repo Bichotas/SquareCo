@@ -15,8 +15,9 @@ import {
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
 
-import { RefreshControl } from "react-native";
-
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { FlatList, RefreshControl } from "react-native";
+import { db } from "../../utils/db.server";
 // Context
 import { ProfileContext, StoreContext } from "../../auth/context";
 import { StorePicture, HeaderPicture } from "../../components/store_components";
@@ -24,10 +25,26 @@ export default function ProfileStore({ route, navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
   const { store } = useContext(StoreContext);
   const [imageUri, setImageUri] = useState(store.profilePicture);
-
+  const [products, setProducts] = useState([]);
   function createProduct() {
     navigation.navigate("Mi tienda", { screen: "CreatingProduct" });
   }
+  useEffect(() => {
+    let collectionRef = collection(db, "products");
+    const q = query(collectionRef, orderBy("price", "desc"));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      setProducts(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.data().id,
+          title: doc.data().title,
+          price: doc.data().price,
+        }))
+      );
+    });
+    return unsubscribe;
+  }, []);
+
   return (
     <NativeBaseProvider>
       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} />}>
@@ -75,6 +92,19 @@ export default function ProfileStore({ route, navigation }) {
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
           <Button onPress={createProduct}>Publicar producto</Button>
+          <FlatList
+            data={products}
+            keyExtractor={(item) => {
+              item.id;
+            }}
+            renderItem={({ item }) => (
+              <Box key={item.id}>
+                <Box flexDirection="row" justifyContent="space-between">
+                  <AppText>{item.title}</AppText>
+                </Box>
+              </Box>
+            )}
+          />
         </Center>
       </ScrollView>
     </NativeBaseProvider>

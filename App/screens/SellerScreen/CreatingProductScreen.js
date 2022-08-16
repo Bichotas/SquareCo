@@ -65,6 +65,7 @@ function CreatingProductScreen({ navigation }) {
   async function createProduct(values) {
     const docRef = collection(firestore, `products`);
     await addDoc(docRef, {
+      title: values.title,
       description: values.description,
       price: values.price,
       category: values.category,
