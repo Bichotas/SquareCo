@@ -13,7 +13,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { ProfileContext } from "../../auth/context";
+import { ProfileContext, StoreContext } from "../../auth/context";
 import { getDownloadURL, uploadBytes, ref, getStorage } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../database/firebaseConfig";
@@ -33,8 +33,9 @@ const config = {
   },
 };
 function StorePicture({ imageUri, onChangeImage, ...otherProps }) {
-  const profileContext = useContext(ProfileContext);
-  const { storeProfileId } = profileContext.profile;
+  const { profile, setProfile } = useContext(ProfileContext);
+
+  const { store, setStore } = useContext(StoreContext);
 
   useEffect(() => {
     requestPermission();
@@ -71,21 +72,27 @@ function StorePicture({ imageUri, onChangeImage, ...otherProps }) {
 
   // UploadFunction
   async function uploadImage(uri) {
-    const imageRef = ref(storage, `stores/profilePicture/${storeProfileId}`);
+    const imageRef = ref(
+      storage,
+      `stores/profilePicture/${profile.storeProfileId}`
+    );
     const response = await fetch(uri);
     const blob = await response.blob();
     if (uri == null) {
       return null;
     } else {
       uploadBytes(imageRef, blob).then((snapshot) => {
+        console.log("Subiendo");
         snapshot.ref.toString();
         getDownloadURL(imageRef).then((url) => {
           onChangeImage(url);
-
-          updateDoc(doc(firestore, `stores/${storeProfileId}`), {
+          updateDoc(doc(firestore, `stores/${profile.storeProfileId}`), {
             profilePicture: `${url}`,
           }).then((snapshot) => {
-            console.log(snapshot);
+            console.log("Escribiendo");
+            let newStore = { ...store };
+            newStore.profilePicture = `${url}`;
+            setStore(newStore);
           });
         });
       });

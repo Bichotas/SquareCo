@@ -6,7 +6,7 @@
 // Your web app's Firebase configuration
 
 
-const firebaseConfig = {
+const firebaseConfig_0 = {
   apiKey: "AIzaSyBmv3icaDQ9xIVHZYFIpuAVY4l8q2J9vYk",
   authDomain: "squareco-9a19a.firebaseapp.com",
   projectId: "squareco-9a19a",
@@ -14,4 +14,13 @@ const firebaseConfig = {
   messagingSenderId: "501899774472",
   appId: "1:501899774472:web:b86a17681d475e7fdddfbd",
 };
+const firebaseConfig = {
+  apiKey: "AIzaSyD0pFdrmB93AeIi3W6nC_13NhabjCZKz3E",
+  authDomain: "ghoul-1679b.firebaseapp.com",
+  projectId: "ghoul-1679b",
+  storageBucket: "ghoul-1679b.appspot.com",
+  messagingSenderId: "846069621473",
+  appId: "1:846069621473:web:25430d2a4a4bf314570da0"
+};
+
 export default firebaseConfig;

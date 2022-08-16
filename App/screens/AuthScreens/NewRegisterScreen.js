@@ -70,6 +70,7 @@ function NewRegisterScreen({ navigation, route }) {
     await setDoc(docuRef, {
       uid: infoUsuario.user.uid,
       typeAccount: typeAccount,
+      storeProfileId: null,
     });
 
     const docSnap = await getDoc(docuRef);
