@@ -7,21 +7,9 @@ import ScreenC from "../../components/ScreenC";
 
 // Configuraciones
 import colors from "../../config/colors";
-import { AuthContext } from "../../auth/context";
-// Cosaas de firebase
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  updateProfile,
-} from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../../database/firebaseConfig";
 // Diseños
 import AccountOptionsCircle from "../../designs/AccountOptionsCirclesD";
 function AccountOptionScreen({ navigation }) {
-  const app = initializeApp(firebaseConfig);
-
   const vendedor = () => {
     navigation.navigate("Register", { tipoCuenta: "vendedor" });
   };

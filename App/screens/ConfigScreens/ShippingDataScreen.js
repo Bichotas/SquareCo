@@ -12,13 +12,13 @@ import {
 } from "native-base";
 import * as Yup from "yup";
 import { Form, FormField, SubmitButton } from "../../components/forms2";
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../../database/firebaseConfig";
-import { AuthContext, ProfileContext } from "../../auth/context";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc, getFirestore, setDoc, getDocs } from "firebase/firestore";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+
+import { ProfileContext } from "../../auth/context";
 // Cositas de firebase
+import { doc, getDoc, setDoc } from "firebase/firestore";
+
+// Refactor Import
+import { db } from "../../utils/db.server";
 const validationSchema = Yup.object().shape({
   streetName: Yup.string().required().label("Dirección"),
   postalCode: Yup.number().required().min(5).label("Código postal"),
@@ -26,9 +26,6 @@ const validationSchema = Yup.object().shape({
 });
 import ReturnArrow from "../../components/ReturnArrow";
 function ShippingDataScreen({ navigation }) {
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const firestore = getFirestore(app);
   const profileContext = useContext(ProfileContext);
   const { uid } = profileContext.profile;
 
@@ -45,7 +42,7 @@ function ShippingDataScreen({ navigation }) {
   //          }
 
   async function makeDocumentSubCollection(values) {
-    const docRef = doc(firestore, "users", `${uid}`, "shippingData", `${uid}`);
+    const docRef = doc(db, "users", `${uid}`, "shippingData", `${uid}`);
     await setDoc(docRef, {
       streetName: values.streetName,
       postalCode: values.postalCode,

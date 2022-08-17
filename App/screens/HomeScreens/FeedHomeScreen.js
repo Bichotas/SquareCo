@@ -26,15 +26,12 @@ import {
 } from "firebase/firestore";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
 // Cosaas de firebase
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-  signOut,
-} from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../../database/firebaseConfig";
+import { signOut } from "firebase/auth";
+
 import { AuthContext, ProfileContext, StoreContext } from "../../auth/context";
+// Refactor Import
+import { db } from "../../utils/db.server";
+import { auth } from "../../utils/auth.client";
 const valores = [
   { value: 1, name: "UWu" },
   { value: 2, name: "DOs" },
@@ -48,11 +45,6 @@ const valores = [
   { value: 10, name: "Diez" },
 ];
 function FeedHomeScreen({ navigation }) {
-  // Cosas de firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const firestore = getFirestore(app);
-
   // Contexto
   const { profile, setProfile } = useContext(ProfileContext);
   const { store, setStore } = useContext(StoreContext);
@@ -63,7 +55,7 @@ function FeedHomeScreen({ navigation }) {
 
   // Funcion para crear documento de la tienda
   async function handleStore(values, category) {
-    const docRef = collection(firestore, "stores");
+    const docRef = collection(db, "stores");
     await addDoc(docRef, {
       // Hacemos un documento en la colección stores
       nameStore: values.nameStore,

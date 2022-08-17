@@ -21,13 +21,7 @@ import { AppFormField } from "../../components/forms";
 import AppForm from "../../components/forms/AppForm";
 
 // Cosaas de firebase
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../../database/firebaseConfig";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { AuthContext, ProfileContext } from "../../auth/context";
 
 import {
@@ -38,6 +32,12 @@ import {
   getDoc,
 } from "firebase/firestore";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
+
+// Refactorizando imports
+import { db } from "../../utils/db.server";
+import { auth } from "../../utils/auth.client";
+
+// Validation Shcema
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
@@ -48,11 +48,7 @@ function NewRegisterScreen({ navigation, route }) {
   // Navegacion
 
   const { tipoCuenta } = route.params;
-  const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const firestore = getFirestore(app);
 
   async function handleRegister({ name, email, password }, typeAccount) {
     const infoUsuario = await createUserWithEmailAndPassword(
@@ -66,7 +62,7 @@ function NewRegisterScreen({ navigation, route }) {
 
     await updateProfile(infoUsuario.user, { displayName: name });
     // Parte donde se guarda la coleccion
-    const docuRef = doc(firestore, `users/${infoUsuario.user.uid}`);
+    const docuRef = doc(db, `users/${infoUsuario.user.uid}`);
     await setDoc(docuRef, {
       uid: infoUsuario.user.uid,
       typeAccount: typeAccount,

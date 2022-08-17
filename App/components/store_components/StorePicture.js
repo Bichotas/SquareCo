@@ -14,15 +14,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { ProfileContext, StoreContext } from "../../auth/context";
-import { getDownloadURL, uploadBytes, ref, getStorage } from "firebase/storage";
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../../database/firebaseConfig";
+import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 import { Image } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { doc, getFirestore, updateDoc } from "firebase/firestore";
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
-const firestore = getFirestore(app);
+import { doc, updateDoc } from "firebase/firestore";
+
+// Imports Refactor
+import { storage } from "../../utils/storage.server";
+import { db } from "../../utils/db.server";
+
 // Configuracion para integrar el degradado en el cuadro
 const config = {
   dependencies: {
@@ -86,7 +85,7 @@ function StorePicture({ imageUri, onChangeImage, ...otherProps }) {
         snapshot.ref.toString();
         getDownloadURL(imageRef).then((url) => {
           onChangeImage(url);
-          updateDoc(doc(firestore, `stores/${profile.storeProfileId}`), {
+          updateDoc(doc(db, `stores/${profile.storeProfileId}`), {
             profilePicture: `${url}`,
           }).then((snapshot) => {
             console.log("Escribiendo");
