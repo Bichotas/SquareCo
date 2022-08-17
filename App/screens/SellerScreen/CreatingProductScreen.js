@@ -63,13 +63,14 @@ function CreatingProductScreen({ navigation }) {
   const { uid, storeProfileId } = profileContext.profile;
 
   async function createProduct(values) {
-    const docRef = collection(firestore, `stores/${storeProfileId}/products`);
+    const docRef = collection(firestore, `products`);
     await addDoc(docRef, {
-      productName: values.title,
+      title: values.title,
       description: values.description,
       price: values.price,
       category: values.category,
       imagesArray: values.images,
+      storeProfileId: storeProfileId,
     });
     navigation.dispatch(CommonActions.goBack());
   }

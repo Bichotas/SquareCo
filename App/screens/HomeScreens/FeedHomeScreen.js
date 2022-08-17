@@ -78,10 +78,21 @@ function FeedHomeScreen({ navigation }) {
       updateDoc(docUserRef, {
         storeProfileId: snapshot.id,
       });
+      let newUser = { ...profile, storeProfileId: snapshot.id };
+      setProfile(newUser);
+
       // Faltaría setear los contextos a string vacios ""
+      setStore({
+        nameStore: values.nameStore,
+        description: values.description,
+        category: category,
+        userId: profile.uid,
+        profilePicture: null,
+      });
       signOut(auth);
       setProfile("");
       setStore("");
+      // navigation.navigate("Mi tienda");
     });
   }
 
