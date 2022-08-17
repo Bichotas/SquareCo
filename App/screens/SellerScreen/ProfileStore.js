@@ -39,6 +39,7 @@ export default function ProfileStore({ route, navigation }) {
           id: doc.data().id,
           title: doc.data().title,
           price: doc.data().price,
+          storeProfileId: doc.data().storeProfileId,
         }))
       );
     });
@@ -98,9 +99,14 @@ export default function ProfileStore({ route, navigation }) {
               item.id;
             }}
             renderItem={({ item }) => (
-              <Box key={item.id}>
-                <Box flexDirection="row" justifyContent="space-between">
+              <Box key={item.id} marginBottom={2}>
+                <Box
+                  flexDirection="column"
+                  justifyContent="space-between"
+                  backgroundColor={"cyan.300"}
+                >
                   <AppText>{item.title}</AppText>
+                  <AppText>{item.storeProfileId}</AppText>
                 </Box>
               </Box>
             )}
