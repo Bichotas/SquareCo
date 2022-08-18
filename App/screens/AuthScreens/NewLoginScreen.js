@@ -15,6 +15,7 @@ import ReturnArrow from "../../components/ReturnArrow";
 import LoginCirclesD from "../../designs/LoginCIrclesD";
 
 import * as SecureStore from "expo-secure-store";
+import AsyncStorageLib from "@react-native-async-storage/async-storage";
 
 // Formik and Yup
 import * as Yup from "yup";
@@ -22,26 +23,20 @@ import * as Yup from "yup";
 import { AppFormField, SubmitButton, AppForm } from "../../components/forms";
 
 // Cosas de firebase
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../../database/firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext, ProfileContext } from "../../auth/context";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
+// Refactorizacion
+import { auth } from "../../utils/auth.client";
+import { db } from "../../utils/db.server";
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
 function NewLoginScreen({ navigation }) {
-  const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const firestore = getFirestore(app);
 
-  async function save(key, value) {
-    await SecureStore.setItemAsync(key, value);
-  }
   async function handleSignIn({ email, password }) {
     const infoUsuario = await signInWithEmailAndPassword(
       auth,
@@ -50,13 +45,9 @@ function NewLoginScreen({ navigation }) {
     ).then((usuarioFirebase) => {
       return usuarioFirebase;
     });
-    const docRef = doc(firestore, `users/${infoUsuario.user.uid}`);
+    const docRef = doc(db, `users/${infoUsuario.user.uid}`);
     const docSnap = await getDoc(docRef);
-    console.log(docSnap.data().typeAccount);
-    //storeData(docSnap.data().typeAccount);
-    await SecureStore.setItemAsync("typeAccount", "value");
-    await save("typeAccount", docSnap.data().typeAccount);
-    await SecureStore.setItemAsync("uid", infoUsuario.user.uid);
+
     profileContext.setProfile({ ...docSnap.data() });
   }
 

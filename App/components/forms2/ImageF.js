@@ -9,13 +9,13 @@ import {
 } from "native-base";
 import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { ProfileContext } from "../../auth/context";
-import { getDownloadURL, uploadBytes, ref, getStorage } from "firebase/storage";
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../../database/firebaseConfig";
+import { AuthContext, ProfileContext } from "../../auth/context";
+import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
+
 import { Image } from "react-native";
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
+// Refactor import
+import { db } from "../../utils/db.server";
+
 // Configuracion para integrar el degradado en el cuadro
 const config = {
   dependencies: {
@@ -26,6 +26,7 @@ const config = {
   },
 };
 function ImageF({ imageUri, onChangeImage, ...otherProps }) {
+  const { user } = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
   const { uid } = profileContext.profile;
 
@@ -64,7 +65,7 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
 
   // UploadFunction
   async function uploadImage(uri) {
-    const imageRef = ref(storage, `users/${uid}`);
+    const imageRef = ref(db, `users/${uid}`);
     const response = await fetch(uri);
     const blob = await response.blob();
     if (uri == null) {
@@ -77,8 +78,6 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
           console.log("Url get download", url);
         });
       });
-      console.log(imageUri);
-      // return (await infoImage).toString();
     }
   }
 

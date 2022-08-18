@@ -40,7 +40,7 @@ import {
 const Drawer = createDrawerNavigator();
 function DrawerNavigator() {
   const [typeAccount, settypeAccount] = useState(null);
-  useEffect(async () => {
+  useEffect(() => {
     // let result = await SecureStore.getItemAsync("typeAccount");
     // console.log(result);
     // settypeAccount(result);

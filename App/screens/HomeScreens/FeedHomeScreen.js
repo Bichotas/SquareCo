@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   NativeBaseProvider,
   ScrollView,
@@ -24,16 +24,14 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-
+import AsyncStorageLib from "@react-native-async-storage/async-storage";
 // Cosaas de firebase
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../../database/firebaseConfig";
-import { AuthContext, ProfileContext } from "../../auth/context";
+import { signOut } from "firebase/auth";
+
+import { AuthContext, ProfileContext, StoreContext } from "../../auth/context";
+// Refactor Import
+import { db } from "../../utils/db.server";
+import { auth } from "../../utils/auth.client";
 const valores = [
   { value: 1, name: "UWu" },
   { value: 2, name: "DOs" },
@@ -47,14 +45,9 @@ const valores = [
   { value: 10, name: "Diez" },
 ];
 function FeedHomeScreen({ navigation }) {
-  // Cosas de firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const firestore = getFirestore(app);
-
   // Contexto
-  const { profile } = useContext(ProfileContext);
-
+  const { profile, setProfile } = useContext(ProfileContext);
+  const { store, setStore } = useContext(StoreContext);
   // UseState
   let [service, setService] = React.useState("");
   const [button, setbutton] = useState(true);
@@ -62,7 +55,7 @@ function FeedHomeScreen({ navigation }) {
 
   // Funcion para crear documento de la tienda
   async function handleStore(values, category) {
-    const docRef = collection(firestore, "stores");
+    const docRef = collection(db, "stores");
     await addDoc(docRef, {
       // Hacemos un documento en la colección stores
       nameStore: values.nameStore,
@@ -77,9 +70,28 @@ function FeedHomeScreen({ navigation }) {
       updateDoc(docUserRef, {
         storeProfileId: snapshot.id,
       });
-      navigation.navigate("Mi tienda");
+      let newUser = { ...profile, storeProfileId: snapshot.id };
+      setProfile(newUser);
+
+      // Faltaría setear los contextos a string vacios ""
+      setStore({
+        nameStore: values.nameStore,
+        description: values.description,
+        category: category,
+        userId: profile.uid,
+        profilePicture: null,
+      });
+      signOut(auth);
+      setProfile("");
+      setStore("");
+      // navigation.navigate("Mi tienda");
     });
   }
+
+  useEffect(() => {
+    console.log("Tienda: ", store);
+  }, []);
+
   return (
     <NativeBaseProvider>
       <ScrollView>
@@ -96,6 +108,9 @@ function FeedHomeScreen({ navigation }) {
             alignItems="center"
           ></Box>
           <Text>{profile.email}</Text>
+          <Text>{profile.name}</Text>
+          <Text>{profile.typeAccount}</Text>
+
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
           {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
           {profile.storeProfileId == null && profile.typeAccount == "vendedor" && (
