@@ -104,24 +104,11 @@ export default function ProfileStore({ route, navigation }) {
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
           <Button onPress={createProduct}>Publicar producto</Button>
-          <FlatList
-            data={products}
-            keyExtractor={(item) => {
-              item.id;
-            }}
-            renderItem={({ item }) => (
-              <Box key={item.id} marginBottom={2}>
-                <Box
-                  flexDirection="column"
-                  justifyContent="space-between"
-                  backgroundColor={"cyan.300"}
-                >
-                  <AppText>{item.title}</AppText>
-                  <AppText>{item.storeProfileId}</AppText>
-                </Box>
-              </Box>
-            )}
-          />
+          {products.map((product, index) => (
+            <Text key={index.toString()} style={{ marginTop: 40 }}>
+              {product.title}
+            </Text>
+          ))}
         </Center>
       </ScrollView>
     </NativeBaseProvider>
