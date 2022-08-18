@@ -104,11 +104,27 @@ export default function ProfileStore({ route, navigation }) {
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
           <Button onPress={createProduct}>Publicar producto</Button>
-          {products.map((product, index) => (
-            <Text key={index.toString()} style={{ marginTop: 40 }}>
-              {product.title}
-            </Text>
-          ))}
+
+          <FlatList
+            data={products}
+            keyExtractor={(item) => {
+              item.id;
+            }}
+            numColumns={4}
+            renderItem={({ item }) => (
+              <Box
+                bg={"cyan.300"}
+                size={[78, 108, 138, 190]}
+                margin={[1, 10, 20, 32]}
+                borderRadius={[12, 16, 20]}
+                _pressed={{
+                  bg: "gray.600",
+                }}
+              >
+                {/* Aqui debera poner el icono que debe */}
+              </Box>
+            )}
+          />
         </Center>
       </ScrollView>
     </NativeBaseProvider>
