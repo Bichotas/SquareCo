@@ -98,6 +98,7 @@ export default function ProfileStore({ route, navigation }) {
             keyExtractor={(item) => {
               item.id;
             }}
+            numColumns={3}
             renderItem={({ item }) => (
               <Box key={item.id} marginBottom={2}>
                 <Box
