@@ -10,11 +10,17 @@ import {
   HStack,
   Container,
   Spacer,
-  Badge
+  Badge,
 } from "native-base";
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { FlatList, RefreshControl } from "react-native";
 import { db } from "../../utils/db.server";
 // Context
@@ -28,17 +34,23 @@ export default function ProfileStore({ route, navigation }) {
   function createProduct() {
     navigation.navigate("Mi tienda", { screen: "CreatingProduct" });
   }
+  const { profile } = useContext(ProfileContext);
   useEffect(() => {
+    console.log(store);
     let collectionRef = collection(db, "products");
-    const q = query(collectionRef, orderBy("price", "desc"));
+    const q = query(
+      collectionRef,
+      // Faltaría obtener el id de la tienda
+      where("storeProfileId", "==", `${profile.storeProfileId}`)
+    );
 
-    const unsubscribe = onSnapshot(q, querySnapshot => {
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setProducts(
-        querySnapshot.docs.map(doc => ({
+        querySnapshot.docs.map((doc) => ({
           id: doc.data().id,
           title: doc.data().title,
           price: doc.data().price,
-          storeProfileId: doc.data().storeProfileId
+          storeProfileId: doc.data().storeProfileId,
         }))
       );
     });
@@ -75,7 +87,7 @@ export default function ProfileStore({ route, navigation }) {
           </Box>
           <StorePicture
             imageUri={imageUri}
-            onChangeImage={uri => setImageUri(uri)}
+            onChangeImage={(uri) => setImageUri(uri)}
           />
           {/* Texto */}
           <Box alignItems={"center"} marginTop={-20}>
@@ -94,7 +106,7 @@ export default function ProfileStore({ route, navigation }) {
           <Button onPress={createProduct}>Publicar producto</Button>
           <FlatList
             data={products}
-            keyExtractor={item => {
+            keyExtractor={(item) => {
               item.id;
             }}
             renderItem={({ item }) => (
