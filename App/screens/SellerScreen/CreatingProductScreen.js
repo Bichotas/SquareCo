@@ -26,19 +26,20 @@ import ImagePickerList from "../../components/store_components/ImagePickerList";
 import FormImagePicker from "../../components/store_components/FormImagePicker";
 
 // Cosas de firebase
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../../database/firebaseConfig";
+
 import { AuthContext, ProfileContext } from "../../auth/context";
 
 import {
   doc,
   getDoc,
-  getFirestore,
   setDoc,
   getDocs,
   collection,
   addDoc,
 } from "firebase/firestore";
+
+// Refactor Import
+import { db } from "../../utils/db.server";
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.number().required().min(1).max(10000).label("Price"),
@@ -57,13 +58,12 @@ const categories = [
 
 function CreatingProductScreen({ navigation }) {
   // Cosas del firebase
-  const app = initializeApp(firebaseConfig);
-  const firestore = getFirestore(app);
+
   const profileContext = useContext(ProfileContext);
   const { uid, storeProfileId } = profileContext.profile;
 
   async function createProduct(values) {
-    const docRef = collection(firestore, `products`);
+    const docRef = collection(db, `products`);
     await addDoc(docRef, {
       title: values.title,
       description: values.description,

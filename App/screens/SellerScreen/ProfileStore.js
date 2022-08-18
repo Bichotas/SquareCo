@@ -14,8 +14,13 @@ import {
 } from "native-base";
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
-
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { FlatList, RefreshControl } from "react-native";
 import { db } from "../../utils/db.server";
 // Context
@@ -29,9 +34,15 @@ export default function ProfileStore({ route, navigation }) {
   function createProduct() {
     navigation.navigate("Mi tienda", { screen: "CreatingProduct" });
   }
+  const { profile } = useContext(ProfileContext);
   useEffect(() => {
+    console.log(store);
     let collectionRef = collection(db, "products");
-    const q = query(collectionRef, orderBy("price", "desc"));
+    const q = query(
+      collectionRef,
+      // Faltaría obtener el id de la tienda
+      where("storeProfileId", "==", `${profile.storeProfileId}`)
+    );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setProducts(
@@ -93,25 +104,11 @@ export default function ProfileStore({ route, navigation }) {
           </Box>
           <Divider my={3} h={1} width={"90%"}></Divider>
           <Button onPress={createProduct}>Publicar producto</Button>
-          <FlatList
-            data={products}
-            keyExtractor={(item) => {
-              item.id;
-            }}
-            numColumns={3}
-            renderItem={({ item }) => (
-              <Box key={item.id} marginBottom={2}>
-                <Box
-                  flexDirection="column"
-                  justifyContent="space-between"
-                  backgroundColor={"cyan.300"}
-                >
-                  <AppText>{item.title}</AppText>
-                  <AppText>{item.storeProfileId}</AppText>
-                </Box>
-              </Box>
-            )}
-          />
+          {products.map((product, index) => (
+            <Text key={index.toString()} style={{ marginTop: 40 }}>
+              {product.title}
+            </Text>
+          ))}
         </Center>
       </ScrollView>
     </NativeBaseProvider>

@@ -10,12 +10,12 @@ import {
 import { Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { AuthContext, ProfileContext } from "../../auth/context";
-import { getDownloadURL, uploadBytes, ref, getStorage } from "firebase/storage";
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../../database/firebaseConfig";
+import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
+
 import { Image } from "react-native";
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
+// Refactor import
+import { db } from "../../utils/db.server";
+
 // Configuracion para integrar el degradado en el cuadro
 const config = {
   dependencies: {
@@ -65,7 +65,7 @@ function ImageF({ imageUri, onChangeImage, ...otherProps }) {
 
   // UploadFunction
   async function uploadImage(uri) {
-    const imageRef = ref(storage, `users/${uid}`);
+    const imageRef = ref(db, `users/${uid}`);
     const response = await fetch(uri);
     const blob = await response.blob();
     if (uri == null) {
