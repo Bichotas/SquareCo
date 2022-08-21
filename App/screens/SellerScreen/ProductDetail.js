@@ -1,14 +1,19 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
+import { Heading, NativeBaseProvider } from "native-base";
 
 export default function ProductDetail({ route, navigation }) {
   useEffect(() => {
-    navigation.setOptions({ title: route.params.item.title });
+    console.log(route.params);
   }, []);
   return (
-    <View>
-      <Text>ProductDetail</Text>
-    </View>
+    <NativeBaseProvider>
+      <View>
+        <Heading size={"xl"}>Title: {route.params.item.title}</Heading>
+        <Text> price: {route.params.item.price}</Text>
+        <Text> description: {route.params.item.description}</Text>
+      </View>
+    </NativeBaseProvider>
   );
 }
 

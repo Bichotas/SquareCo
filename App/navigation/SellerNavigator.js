@@ -22,11 +22,7 @@ const MySellerStack = () => {
       />
       <SellerStack.Screen name="EditProduct" component={EditProduct} />
       <SellerStack.Screen name="CreatingStore" component={CreatingStore} />
-      <SellerStack.Screen
-        name="ProductDetail"
-        component={ProductDetail}
-        options={{ headerShown: true }}
-      />
+      <SellerStack.Screen name="ProductDetail" component={ProductDetail} />
     </SellerStack.Navigator>
   );
 };
