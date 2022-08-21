@@ -11,6 +11,8 @@ import {
   Container,
   Spacer,
   Badge,
+  Heading,
+  Pressable,
 } from "native-base";
 import AppText from "../../components/AppText";
 import { ScrollView } from "native-base";
@@ -50,6 +52,7 @@ export default function ProfileStore({ route, navigation }) {
           id: doc.data().id,
           title: doc.data().title,
           price: doc.data().price,
+          description: doc.data().description,
           storeProfileId: doc.data().storeProfileId,
         }))
       );
@@ -106,23 +109,32 @@ export default function ProfileStore({ route, navigation }) {
           <Button onPress={createProduct}>Publicar producto</Button>
 
           <FlatList
+            style={{ marginTop: 12 }}
             data={products}
             keyExtractor={(item) => {
               item.id;
             }}
-            numColumns={4}
+            numColumns={2}
             renderItem={({ item }) => (
-              <Box
-                bg={"cyan.300"}
-                size={[78, 108, 138, 190]}
-                margin={[1, 10, 20, 32]}
-                borderRadius={[12, 16, 20]}
-                _pressed={{
-                  bg: "gray.600",
-                }}
-              >
-                {/* Aqui debera poner el icono que debe */}
-              </Box>
+              <Container margin={[4]} marginBottom={[3]}>
+                <Pressable
+                  bg={"cyan.300"}
+                  size={[160, 190, 220]}
+                  borderRadius={[20]}
+                  _pressed={{ backgroundColor: "red.300" }}
+                >
+                  {/* Aqui debera poner el icono que debe */}
+                </Pressable>
+                <Container marginLeft={2} marginTop={1}>
+                  <Heading size={"sm"}>{item.title}</Heading>
+                  <AppText style={{ fontSize: 12, marginTop: 5 }}>
+                    {item.description}
+                  </AppText>
+                  <AppText style={{ fontSize: 12, marginTop: 5 }}>
+                    {`$ ${item.price}`}
+                  </AppText>
+                </Container>
+              </Container>
             )}
           />
         </Center>
