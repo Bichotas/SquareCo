@@ -32,6 +32,7 @@ import { AuthContext, ProfileContext, StoreContext } from "../../auth/context";
 // Refactor Import
 import { db } from "../../utils/db.server";
 import { auth } from "../../utils/auth.client";
+import { Firebase } from "../../utils/firebaseConfig";
 const valores = [
   { value: 1, name: "UWu" },
   { value: 2, name: "DOs" },
@@ -66,7 +67,7 @@ function FeedHomeScreen({ navigation }) {
     }).then((snapshot) => {
       // Con el id del documento que agregamos vamos a agregar este mismo id
       // al campo del documento del usuario en la parte de storeId
-      let docUserRef = doc(firestore, `users/${profile.uid}`);
+      let docUserRef = doc(db, `users/${profile.uid}`);
       updateDoc(docUserRef, {
         storeProfileId: snapshot.id,
       });

@@ -70,7 +70,10 @@ function CreatingProductScreen({ navigation }) {
       price: values.price,
       category: values.category,
       imagesArray: values.images,
+      createdAt: new Date(),
       storeProfileId: storeProfileId,
+    }).then((snapshot) => {
+      console.log(console.log("ID del nuevo: ", snapshot.id));
     });
     navigation.dispatch(CommonActions.goBack());
   }

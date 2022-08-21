@@ -38,7 +38,6 @@ export default function ProfileStore({ route, navigation }) {
   }
   const { profile } = useContext(ProfileContext);
   useEffect(() => {
-    console.log(store);
     let collectionRef = collection(db, "products");
     const q = query(
       collectionRef,
@@ -49,10 +48,11 @@ export default function ProfileStore({ route, navigation }) {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setProducts(
         querySnapshot.docs.map((doc) => ({
-          id: doc.data().id,
+          id: doc.id,
           title: doc.data().title,
           price: doc.data().price,
           description: doc.data().description,
+          createdAt: doc.data().createdAt,
           storeProfileId: doc.data().storeProfileId,
         }))
       );
@@ -116,12 +116,19 @@ export default function ProfileStore({ route, navigation }) {
             }}
             numColumns={2}
             renderItem={({ item }) => (
-              <Container margin={[4]} marginBottom={[3]}>
+              <Container margin={[3]} marginBottom={[3]}>
                 <Pressable
                   bg={"cyan.300"}
                   size={[160, 190, 220]}
                   borderRadius={[20]}
                   _pressed={{ backgroundColor: "red.300" }}
+                  onPress={() => {
+                    console.log(item);
+                    navigation.navigate("Mi tienda", {
+                      screen: "ProductDetail",
+                      params: { item },
+                    });
+                  }}
                 >
                   {/* Aqui debera poner el icono que debe */}
                 </Pressable>

@@ -1,5 +1,4 @@
 // En este archivo se van a poner las funciones para hacer las modificaciones en la base de datos de firebase
-import { Firebases } from "./firebaseConfig";
 import {
   getFirestore,
   doc,
@@ -11,7 +10,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-const db = getFirestore(Firebases);
+import { Firebase } from "./firebaseConfig";
+const db = getFirestore(Firebase);
 
 // Funcion para crear un documento en la colección usuario
 async function setUserDoc(data, uid) {

@@ -7,6 +7,7 @@ import {
   PostProduct,
   ProfileStore,
   EditProduct,
+  ProductDetail,
 } from "../screens/SellerScreen";
 
 const SellerStack = createNativeStackNavigator();
@@ -21,6 +22,11 @@ const MySellerStack = () => {
       />
       <SellerStack.Screen name="EditProduct" component={EditProduct} />
       <SellerStack.Screen name="CreatingStore" component={CreatingStore} />
+      <SellerStack.Screen
+        name="ProductDetail"
+        component={ProductDetail}
+        options={{ headerShown: true }}
+      />
     </SellerStack.Navigator>
   );
 };
