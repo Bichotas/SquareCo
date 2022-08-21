@@ -53,6 +53,7 @@ export default function ProfileStore({ route, navigation }) {
           price: doc.data().price,
           description: doc.data().description,
           createdAt: doc.data().createdAt,
+          category: doc.data().category,
           storeProfileId: doc.data().storeProfileId,
         }))
       );
