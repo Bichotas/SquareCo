@@ -127,9 +127,7 @@ export default function ProfileStore({ route, navigation }) {
                 </Pressable>
                 <Container marginLeft={2} marginTop={1}>
                   <Heading size={"sm"}>{item.title}</Heading>
-                  <AppText style={{ fontSize: 12, marginTop: 5 }}>
-                    {item.description}
-                  </AppText>
+
                   <AppText style={{ fontSize: 12, marginTop: 5 }}>
                     {`$ ${item.price}`}
                   </AppText>
