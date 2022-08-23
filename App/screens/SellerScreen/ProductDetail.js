@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
-import { Heading, NativeBaseProvider } from "native-base";
+import { Box, Heading, NativeBaseProvider } from "native-base";
 
 export default function ProductDetail({ route, navigation }) {
   useEffect(() => {
