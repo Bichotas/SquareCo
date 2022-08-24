@@ -15,7 +15,7 @@ const categories = [
     backgroundColor: "#fc5c65",
     icon: "floor-lamp",
     label: "Furniture",
-    navigate: "furniture",
+    navigate: "category",
     value: 1,
   },
   {
@@ -29,7 +29,7 @@ const categories = [
     backgroundColor: "#fed330",
     icon: "camera",
     label: "Cameras",
-    navigate: "carmeras",
+    navigate: "cameras",
     value: 3,
   },
   {
@@ -43,7 +43,7 @@ const categories = [
     backgroundColor: "#2bcbba",
     icon: "shoe-heel",
     label: "Clothing",
-    navigate: "clothing",
+    navigate: "clothes",
     value: 5,
   },
   {
