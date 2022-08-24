@@ -7,6 +7,9 @@ import {
   Center,
 } from "native-base";
 import { CategoryComponentC } from "../../components/lists";
+import ReturnArrow from "../../components/ReturnArrow";
+import { CommonActions } from "@react-navigation/native";
+
 const categories = [
   {
     backgroundColor: "#fc5c65",
@@ -77,6 +80,9 @@ function ShopCategoriesScreen({ navigation }) {
     <NativeBaseProvider>
       <Center>
         <ScrollView nestedScrollEnabled={true}>
+          <ReturnArrow
+            onPress={() => navigation.dispatch(CommonActions.goBack())}
+          />
           <VStack paddingTop={10}>
             <FlatList
               scrollEnabled={false}
