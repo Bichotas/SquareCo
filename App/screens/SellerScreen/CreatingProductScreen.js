@@ -68,6 +68,8 @@ function CreatingProductScreen({ navigation }) {
     values.images.map(async (image) => {
       const response = await fetch(image);
       const blob = await response.blob();
+      console.log("----Blob y Response de la imagen----");
+      console.log(response, blob);
       const ref = storage().ref().child(`post/${image.name}`);
       await ref.put(blob);
       const url = await ref.getDownloadURL();
