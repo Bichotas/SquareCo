@@ -65,6 +65,14 @@ function CreatingProductScreen({ navigation }) {
   async function createProduct(values) {
     // Subir las imagenes a firebase  storage
     // Obtener los links de las imagenes y colocarlos en un array
+    values.images.map(async (image) => {
+      const response = await fetch(image);
+      const blob = await response.blob();
+      const ref = storage().ref().child(`post/${image.name}`);
+      await ref.put(blob);
+      const url = await ref.getDownloadURL();
+      console.log(url);
+    });
     const docRef = collection(db, `products`);
     await addDoc(docRef, {
       title: values.title,
@@ -75,7 +83,7 @@ function CreatingProductScreen({ navigation }) {
       createdAt: new Date(),
       storeProfileId: storeProfileId,
     }).then((snapshot) => {
-      console.log(console.log("ID del nuevo: ", snapshot.id));
+      console.log(console.log("ID del nuevo producto: ", snapshot.id));
     });
     navigation.dispatch(CommonActions.goBack());
   }
@@ -97,7 +105,7 @@ function CreatingProductScreen({ navigation }) {
               category: null,
               images: [],
             }}
-            onSubmit={(values) => checkValues(values)}
+            onSubmit={(values) => createProduct(values)}
             validationSchema={validationSchema}
           >
             <FormImagePicker name={"images"} />
