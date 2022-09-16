@@ -37,9 +37,10 @@ import {
   collection,
   addDoc,
 } from "firebase/firestore";
-
 // Refactor Import
 import { db } from "../../utils/db.server";
+import { storage } from "../../utils/storage.server";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.number().required().min(1).max(10000).label("Price"),
@@ -65,22 +66,21 @@ function CreatingProductScreen({ navigation }) {
   async function createProduct(values) {
     // Subir las imagenes a firebase  storage
     // Obtener los links de las imagenes y colocarlos en un array
-    values.images.map(async (image) => {
+    let arrayOfImages = values.images.map(async (image, index) => {
       const response = await fetch(image);
       const blob = await response.blob();
-      console.log("----Blob y Response de la imagen----");
-      console.log(response, blob);
-      const ref = storage().ref().child(`post/${image.name}`);
-      await ref.put(blob);
-      const url = await ref.getDownloadURL();
-      console.log(url);
+      const productRef = ref(storage, `products/${image.name}`);
+      console.log(index, "Response", response);
+      console.log(index, "Blob", blob);
     });
+    console.log("Array de Imagenes", arrayOfImages);
     const docRef = collection(db, `products`);
     await addDoc(docRef, {
       title: values.title,
       description: values.description,
       price: values.price,
       category: values.category,
+      //imagesArray: arrayOfImages,
       imagesArray: values.images,
       createdAt: new Date(),
       storeProfileId: storeProfileId,
@@ -91,8 +91,14 @@ function CreatingProductScreen({ navigation }) {
   }
 
   async function checkValues(values) {
-    console.log(values.images);
-    let newResutl;
+    let arrayOfImages = values.images.map(async (image, index) => {
+      const response = await fetch(image);
+      const blob = await response.blob();
+      const productRef = ref(storage, `products/${image}`);
+      uploadBytes(productRef, blob).then((snapshot) => {
+        console.log("Uploaded a blob or file!", snapshot);
+      });
+    });
   }
   return (
     <NativeBaseProvider>
@@ -108,7 +114,7 @@ function CreatingProductScreen({ navigation }) {
               category: null,
               images: [],
             }}
-            onSubmit={(values) => createProduct(values)}
+            onSubmit={(values) => checkValues(values)}
             validationSchema={validationSchema}
           >
             <FormImagePicker name={"images"} />
