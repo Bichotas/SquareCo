@@ -92,6 +92,7 @@ function CreatingProductScreen({ navigation }) {
 
   async function checkValues(values) {
     console.log(values.images);
+    let newResutl;
   }
   return (
     <NativeBaseProvider>
