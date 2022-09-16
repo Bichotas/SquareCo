@@ -64,24 +64,24 @@ function CreatingProductScreen({ navigation }) {
   const { uid, storeProfileId } = profileContext.profile;
 
   async function createProduct(values) {
-    // Subir las imagenes a firebase  storage
-    // Obtener los links de las imagenes y colocarlos en un array
-    let arrayOfImages = values.images.map(async (image, index) => {
-      const response = await fetch(image);
-      const blob = await response.blob();
-      const productRef = ref(storage, `products/${image.name}`);
-      console.log(index, "Response", response);
-      console.log(index, "Blob", blob);
+    let urlDownload = values.images.map(async (image, index) => {
+      let response = await fetch(image);
+      let blob = await response.blob();
+      const imageRef = ref(storage, `products/${blob._data.name}`);
+      await uploadBytes(imageRef, blob).then((snapshot) => {
+        console.log("Uploaded a blob or file!");
+      });
+      const url = await getDownloadURL(imageRef);
+      return url;
     });
-    console.log("Array de Imagenes", arrayOfImages);
+
     const docRef = collection(db, `products`);
     await addDoc(docRef, {
       title: values.title,
       description: values.description,
       price: values.price,
       category: values.category,
-      //imagesArray: arrayOfImages,
-      imagesArray: values.images,
+      imagesArray: await urlDownload,
       createdAt: new Date(),
       storeProfileId: storeProfileId,
     }).then((snapshot) => {
@@ -91,14 +91,16 @@ function CreatingProductScreen({ navigation }) {
   }
 
   async function checkValues(values) {
-    let arrayOfImages = values.images.map(async (image, index) => {
-      const response = await fetch(image);
-      const blob = await response.blob();
-      const productRef = ref(storage, `products/${image}`);
-      uploadBytes(productRef, blob).then((snapshot) => {
-        console.log("Uploaded a blob or file!", snapshot);
-      });
+    let urlDownload = values.images.forEach(async (image) => {
+      let response = await fetch(image);
+      let blob = await response.blob();
+      const imageRef = ref(storage, `products/${blob._data.name}`);
+      await uploadBytes(imageRef, blob);
+      const url = await getDownloadURL(imageRef);
+      console.log("URL", url);
+      return url;
     });
+    console.log("URL", urlDownload);
   }
   return (
     <NativeBaseProvider>
@@ -114,7 +116,7 @@ function CreatingProductScreen({ navigation }) {
               category: null,
               images: [],
             }}
-            onSubmit={(values) => checkValues(values)}
+            onSubmit={(values) => createProduct(values)}
             validationSchema={validationSchema}
           >
             <FormImagePicker name={"images"} />
