@@ -31,6 +31,7 @@ function ImagePicker({ imageUri, onChangeImage }) {
       const result = await ImagePickerUwU.launchImageLibraryAsync({
         mediaTypes: ImagePickerUwU.MediaTypeOptions.Images,
         quality: 0.5,
+        allowsMultipleSelection: true,
       });
       if (!result.cancelled) onChangeImage(result.uri);
     } catch (error) {
