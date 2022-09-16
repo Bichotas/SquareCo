@@ -63,8 +63,6 @@ function CreatingProductScreen({ navigation }) {
   const { uid, storeProfileId } = profileContext.profile;
 
   async function createProduct(values) {
-    // Subir las imagenes a firebase  storage
-    // Obtener los links de las imagenes y colocarlos en un array
     const docRef = collection(db, `products`);
     await addDoc(docRef, {
       title: values.title,
@@ -78,10 +76,6 @@ function CreatingProductScreen({ navigation }) {
       console.log(console.log("ID del nuevo: ", snapshot.id));
     });
     navigation.dispatch(CommonActions.goBack());
-  }
-
-  async function checkValues(values) {
-    console.log(values.images);
   }
   return (
     <NativeBaseProvider>
@@ -97,7 +91,7 @@ function CreatingProductScreen({ navigation }) {
               category: null,
               images: [],
             }}
-            onSubmit={(values) => checkValues(values)}
+            onSubmit={(values) => createProduct(values)}
             validationSchema={validationSchema}
           >
             <FormImagePicker name={"images"} />
