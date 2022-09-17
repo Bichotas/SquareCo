@@ -63,25 +63,26 @@ function CreatingProductScreen({ navigation }) {
   const profileContext = useContext(ProfileContext);
   const { uid, storeProfileId } = profileContext.profile;
 
+
   async function createProduct(values) {
-    let urlDownload = values.images.map(async (image, index) => {
+    
+    let images = [];
+    for (let i = 0; i < values.images.length; i++) {
+      const image = values.images[i];
       let response = await fetch(image);
       let blob = await response.blob();
-      const imageRef = ref(storage, `products/${blob._data.name}`);
-      await uploadBytes(imageRef, blob).then((snapshot) => {
-        console.log("Uploaded a blob or file!");
-      });
-      const url = await getDownloadURL(imageRef);
-      return url;
-    });
-
+      const storageRef = ref(storage, `products/${blob._data.name}`);
+      await uploadBytes(storageRef, blob);
+      const url = await getDownloadURL(storageRef);
+      images.push(url);
+    }
     const docRef = collection(db, `products`);
     await addDoc(docRef, {
       title: values.title,
       description: values.description,
       price: values.price,
       category: values.category,
-      imagesArray: await urlDownload,
+      imagesArray: images,
       createdAt: new Date(),
       storeProfileId: storeProfileId,
     }).then((snapshot) => {
@@ -90,18 +91,18 @@ function CreatingProductScreen({ navigation }) {
     navigation.dispatch(CommonActions.goBack());
   }
 
-  async function checkValues(values) {
-    let urlDownload = values.images.forEach(async (image) => {
-      let response = await fetch(image);
-      let blob = await response.blob();
-      const imageRef = ref(storage, `products/${blob._data.name}`);
-      await uploadBytes(imageRef, blob);
-      const url = await getDownloadURL(imageRef);
-      console.log("URL", url);
-      return url;
-    });
-    console.log("URL", urlDownload);
-  }
+  // async function checkValues(values) {
+  //   let urlDownload = values.images.forEach(async (image) => {
+  //     let response = await fetch(image);
+  //     let blob = await response.blob();
+  //     const imageRef = ref(storage, `products/${blob._data.name}`);
+  //     await uploadBytes(imageRef, blob);
+  //     const url = await getDownloadURL(imageRef);
+  //     console.log("URL", url);
+  //     return url;
+  //   });
+  //   return urlDownload;
+  // }
   return (
     <NativeBaseProvider>
       <ScrollView>
