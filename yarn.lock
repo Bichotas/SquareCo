@@ -2649,6 +2649,11 @@
     prompts "^2.4.0"
     semver "^6.3.0"
 
+"@react-native-community/viewpager@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@react-native-community/viewpager/-/viewpager-1.1.7.tgz#7d3b1631f1ec91145db92a8e25c80d53027e96ba"
+  integrity sha512-k9v2KJtAprNPq7IZmedD2VLMePvPW+ohX3uDnkpoKritBji+/RtRmTKrdtPi3Uvp0toq/KtPttAds1dr7AZNpw==
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@react-native/assets/-/assets-1.0.0.tgz#c6f9bf63d274bafc8e970628de24986b30a55c8e"
@@ -7793,6 +7798,14 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-carousel@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/react-native-carousel/-/react-native-carousel-0.12.0.tgz#3297b965b5b233e351bd8995597d85c65775ca9b"
+  integrity sha512-quuOYsEYPJ0g8YLWNyZ8mc6BVye4kHavQ+Ba/FlNbb4LdVqAyL3jo3Pd9doa96XBh65JCY2B2XNtaGlnHk3t5w==
+  dependencies:
+    "@react-native-community/viewpager" "^1.1.7"
+    react-timer-mixin "^0.13.3"
+
 react-native-codegen@^0.69.2:
   version "0.69.2"
   resolved "https://registry.yarnpkg.com/react-native-codegen/-/react-native-codegen-0.69.2.tgz#e33ac3b1486de59ddae687b731ddbfcef8af0e4e"
@@ -7931,6 +7944,11 @@ react-shallow-renderer@16.15.0:
   dependencies:
     object-assign "^4.1.1"
     react-is "^16.12.0 || ^17.0.0 || ^18.0.0"
+
+react-timer-mixin@^0.13.3:
+  version "0.13.4"
+  resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
+  integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
 
 react@18.0.0:
   version "18.0.0"

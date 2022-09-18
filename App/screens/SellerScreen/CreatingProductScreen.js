@@ -29,14 +29,14 @@ import FormImagePicker from "../../components/store_components/FormImagePicker";
 
 import { AuthContext, ProfileContext } from "../../auth/context";
 
-import {
-  collection,
-  addDoc,
-} from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 // Refactor Import
 import { db } from "../../utils/db.server";
 import { storage } from "../../utils/storage.server";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+
+// --- VALIDATION SCHEMA ---
+
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.number().required().min(1).max(10000).label("Price"),
@@ -47,6 +47,7 @@ const validationSchema = Yup.object().shape({
     .label("Imagenes"),
 });
 
+// --- CATEGORIES FOR PRODUCTS ---
 const categories = [
   { label: "Furniture", value: 1 },
   { label: "Clothing", value: 2 },
@@ -54,25 +55,45 @@ const categories = [
 ];
 
 function CreatingProductScreen({ navigation }) {
-  // Cosas del firebase
-
   const profileContext = useContext(ProfileContext);
   const { uid, storeProfileId } = profileContext.profile;
 
-
+  // Funcion para crear un producto y subir las imagenes
   async function createProduct(values) {
-    
+    // --- UPLOAD IMAGES AND GET URLS ---
+
+    // Se coloca un array vacio en donde se van a "pushear" las urls de las imagenes
     let images = [];
+
+    // Se itera el array de imagenes
     for (let i = 0; i < values.images.length; i++) {
+      // Colocamos en una constate temporal la imagen según el ciclo en el que se esta
       const image = values.images[i];
+
+      // -- Definir que hacen las dos lineas de codigo siguiente
       let response = await fetch(image);
       let blob = await response.blob();
+
+      // Referencia de la carpeta en el bucket y el nombre que va a tener la imagen
+      //    -- En este caso sería el nombre que se tiene desde un inicio
+      // @TODO: Hacer una combinación para mejorar el nombre de la imagen
       const storageRef = ref(storage, `products/${blob._data.name}`);
+
+      // Subimos la imagen al bucket con el metodo uploadBytes -- Este utiliza un blob
       await uploadBytes(storageRef, blob);
+      // Se consigue la url con la referencia de la imagen
+      // --> Esto ya que se subio y ya hay una referencia en el buckets
       const url = await getDownloadURL(storageRef);
+      // Se pushea la url al array de imagenes
       images.push(url);
     }
+
+    // --- CREATE DOC PRODUCT ---
+
+    // Referencia de la coleccion de productos
     const docRef = collection(db, `products`);
+
+    // Se manda a llamar la funcion para crear el producto en la coleccion con los atributos que tienen adentro como segundo parametro de la funcion
     await addDoc(docRef, {
       title: values.title,
       description: values.description,
@@ -84,6 +105,8 @@ function CreatingProductScreen({ navigation }) {
     }).then((snapshot) => {
       console.log(console.log("ID del nuevo producto: ", snapshot.id));
     });
+
+    // Una vez creado el producto se regresa a la pantalla de productos
     navigation.dispatch(CommonActions.goBack());
   }
   return (
