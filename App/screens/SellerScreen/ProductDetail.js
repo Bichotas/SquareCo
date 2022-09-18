@@ -23,9 +23,7 @@ const HEIGH = Dimensions.get("window").height;
 
 export default function ProductDetail({ route, navigation }) {
   const [imgActive, setimgActive] = useState(0);
-  useEffect(() => {
-    console.log(route.params);
-  }, []);
+
   const { width, height } = useWindowDimensions();
 
   const onchange = (event) => {};

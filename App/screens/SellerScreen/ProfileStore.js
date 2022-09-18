@@ -135,7 +135,6 @@ export default function ProfileStore({ route, navigation }) {
                   borderRadius={[20]}
                   _pressed={{ backgroundColor: "red.300" }}
                   onPress={() => {
-                    console.log(item);
                     navigation.navigate("Mi tienda", {
                       screen: "ProductDetail",
                       params: { item },
