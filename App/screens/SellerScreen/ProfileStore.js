@@ -38,13 +38,13 @@ export default function ProfileStore({ route, navigation }) {
   }
   const { profile } = useContext(ProfileContext);
   useEffect(() => {
+    let nameStore = store.nameStore;
     let collectionRef = collection(db, "products");
     const q = query(
       collectionRef,
       // Faltaría obtener el id de la tienda
       where("storeProfileId", "==", `${profile.storeProfileId}`)
     );
-
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setProducts(
         querySnapshot.docs.map((doc) => ({
@@ -56,6 +56,7 @@ export default function ProfileStore({ route, navigation }) {
           category: doc.data().category,
           storeProfileId: doc.data().storeProfileId,
           imagesArray: doc.data().imagesArray,
+          nameStore: nameStore,
         }))
       );
     });
