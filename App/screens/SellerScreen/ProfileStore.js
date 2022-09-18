@@ -57,6 +57,7 @@ export default function ProfileStore({ route, navigation }) {
           storeProfileId: doc.data().storeProfileId,
           imagesArray: doc.data().imagesArray,
           nameStore: nameStore,
+          // Colocar el uid de la tienda
         }))
       );
     });

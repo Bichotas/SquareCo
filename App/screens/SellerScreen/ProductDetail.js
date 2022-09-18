@@ -1,22 +1,28 @@
 import {
+  Dimensions,
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   useWindowDimensions,
   View,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
   Center,
   Heading,
+  Text,
   Image,
   NativeBaseProvider,
+  Divider,
 } from "native-base";
 
+const WIDHT = Dimensions.get("window").width;
+const HEIGH = Dimensions.get("window").height;
+
 export default function ProductDetail({ route, navigation }) {
+  const [imgActive, setimgActive] = useState(0);
   useEffect(() => {
     console.log(route.params);
   }, []);
@@ -34,21 +40,55 @@ export default function ProductDetail({ route, navigation }) {
             {route.params.item.nameStore}
           </Heading>
           <Box
-            width={"100%"}
+            style={styles.wrap}
             height={height / 3.5}
             bg={"cyan.300"}
             my={2}
             borderRadius={20}
-          ></Box>
-          <Heading size="md" color="green.500" my={1}>
-            Precio: {`$ ${route.params.item.price}`}
+          >
+            <ScrollView
+              onScroll={({ nativeEvent }) => onchange(nativeEvent)}
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled
+              horizontal
+            >
+              {route.params.item.imagesArray.map((image, index) => (
+                <Image
+                  key={index}
+                  source={{ uri: image }}
+                  alt="image base"
+                  style={styles.wrap}
+                  resizeMode="cover"
+                  width={width / 0.25}
+                  height={height / 3.5}
+                />
+              ))}
+            </ScrollView>
+            <View style={styles.wrapDot}>
+              {route.params.item.imagesArray.map((e, index) => (
+                <Text
+                  key={e}
+                  style={imgActive == index ? styles.dotActive : styles.dot}
+                >
+                  ⚫
+                </Text>
+              ))}
+            </View>
+          </Box>
+          <Heading size="md" color="gray.500" my={1}>
+            Precio:{" "}
+            <Text color={"green.500"}>{`$${route.params.item.price}`}</Text>
           </Heading>
-          <Heading size="sm" color="primary.700" my={1}>
-            Descripción: {route.params.item.description}
+          <Heading size="sm" color="gray.500" my={1}>
+            Descripción:{" "}
+            <Text color={"blueGray.400"}>{route.params.item.description}</Text>
           </Heading>
           <Center p={8}>
-            <Button size={"sm"}>Agregar al carrito</Button>
+            <Button size={"sm"} p={4} borderRadius={10}>
+              Agregar al carrito
+            </Button>
           </Center>
+          <Divider h={1} />
         </ScrollView>
       </SafeAreaView>
     </NativeBaseProvider>
@@ -60,7 +100,24 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  wrap: {},
+  wrap: {
+    width: WIDHT,
+    height: HEIGH * 0.25,
+  },
+  wrapDot: {
+    position: "absolute",
+    bottom: 0,
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+  dotActive: {
+    margin: 3,
+    color: "white",
+  },
+  dot: {
+    margin: 3,
+    color: "#8888",
+  },
 });
 
 {
