@@ -13,8 +13,10 @@ import {
   Badge,
   Heading,
   Pressable,
+  Image,
 } from "native-base";
 import AppText from "../../components/AppText";
+import { Dimensions, StyleSheet } from "react-native";
 import { ScrollView } from "native-base";
 import {
   collection,
@@ -28,6 +30,10 @@ import { db } from "../../utils/db.server";
 // Context
 import { ProfileContext, StoreContext } from "../../auth/context";
 import { StorePicture, HeaderPicture } from "../../components/store_components";
+
+const WIDHT = Dimensions.get("window").width;
+const HEIGH = Dimensions.get("window").height;
+
 export default function ProfileStore({ route, navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
   const { store } = useContext(StoreContext);
@@ -64,6 +70,7 @@ export default function ProfileStore({ route, navigation }) {
     });
     return unsubscribe;
   }, []);
+  const onchange = (event) => {};
 
   return (
     <NativeBaseProvider>
@@ -136,6 +143,24 @@ export default function ProfileStore({ route, navigation }) {
                   }}
                 >
                   {/* Aqui debera poner el icono que debe */}
+                  <ScrollView
+                    onScroll={({ nativeEvent }) => onchange(nativeEvent)}
+                    showsHorizontalScrollIndicator={false}
+                    pagingEnabled
+                    horizontal
+                  >
+                    {item.imagesArray.map((image, index) => (
+                      <Image
+                        key={index}
+                        source={{ uri: image }}
+                        alt="image base"
+                        style={styles.wrap}
+                        overflow="hidden"
+                        resizeMode="cover"
+                        borderRadius={20}
+                      />
+                    ))}
+                  </ScrollView>
                 </Pressable>
                 <Container marginLeft={2} marginTop={1}>
                   <Heading size={"sm"}>{item.title}</Heading>
@@ -152,3 +177,29 @@ export default function ProfileStore({ route, navigation }) {
     </NativeBaseProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  wrap: {
+    width: WIDHT,
+    height: HEIGH * 0.25,
+    overflow: "hidden",
+  },
+  wrapDot: {
+    position: "absolute",
+    bottom: 0,
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+  dotActive: {
+    margin: 3,
+    color: "white",
+  },
+  dot: {
+    margin: 3,
+    color: "#8888",
+  },
+});

@@ -8,6 +8,7 @@ import {
   Center,
   Select,
   Button,
+  Text,
   Container,
 } from "native-base";
 
@@ -127,6 +128,9 @@ function CreatingProductScreen({ navigation }) {
             validationSchema={validationSchema}
           >
             <FormImagePicker name={"images"} />
+            <Text fontSize={"xs"} italic color={"danger.00"}>
+              *La primera imagen que eliga es la que se va a mostrar primero*
+            </Text>
             <FormField maxLength={255} name="title" placeholder="Title" />
             <FormField
               keyboardType="numeric"
