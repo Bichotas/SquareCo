@@ -30,10 +30,6 @@ import FormImagePicker from "../../components/store_components/FormImagePicker";
 import { AuthContext, ProfileContext } from "../../auth/context";
 
 import {
-  doc,
-  getDoc,
-  setDoc,
-  getDocs,
   collection,
   addDoc,
 } from "firebase/firestore";
@@ -90,19 +86,6 @@ function CreatingProductScreen({ navigation }) {
     });
     navigation.dispatch(CommonActions.goBack());
   }
-
-  // async function checkValues(values) {
-  //   let urlDownload = values.images.forEach(async (image) => {
-  //     let response = await fetch(image);
-  //     let blob = await response.blob();
-  //     const imageRef = ref(storage, `products/${blob._data.name}`);
-  //     await uploadBytes(imageRef, blob);
-  //     const url = await getDownloadURL(imageRef);
-  //     console.log("URL", url);
-  //     return url;
-  //   });
-  //   return urlDownload;
-  // }
   return (
     <NativeBaseProvider>
       <ScrollView>

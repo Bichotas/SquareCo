@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import {  StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
-import { Box, Heading, NativeBaseProvider } from "native-base";
+import { Box, Heading, Image, NativeBaseProvider } from "native-base";
 
 export default function ProductDetail({ route, navigation }) {
   useEffect(() => {
@@ -12,6 +12,9 @@ export default function ProductDetail({ route, navigation }) {
         <Heading size={"xl"}>Title: {route.params.item.title}</Heading>
         <Text> price: {route.params.item.price}</Text>
         <Text> description: {route.params.item.description}</Text>
+          {route.params.item.imagesArray.map((image) => (
+            <Image source={{ uri: image }} alt="image base" size="2xl" />
+          ))}
       </View>
     </NativeBaseProvider>
   );

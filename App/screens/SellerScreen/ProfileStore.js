@@ -55,6 +55,7 @@ export default function ProfileStore({ route, navigation }) {
           createdAt: doc.data().createdAt,
           category: doc.data().category,
           storeProfileId: doc.data().storeProfileId,
+          imagesArray: doc.data().imagesArray,
         }))
       );
     });
