@@ -35,7 +35,7 @@ import { db } from "../../utils/db.server";
 import { auth } from "../../utils/auth.client";
 import { Firebase } from "../../utils/firebaseConfig";
 import { ref } from "firebase/storage";
-import { handleProductsRandom } from "./utils";
+import { handleProductsRandom, shuffle } from "./utils";
 const valores = [
   { value: 1, name: "UWu" },
   { value: 2, name: "DOs" },
@@ -54,6 +54,7 @@ function FeedHomeScreen({ navigation }) {
   const { store, setStore } = useContext(StoreContext);
   // UseState
   let [service, setService] = React.useState("");
+  const [products, setProducts] = useState([]);
   const [button, setbutton] = useState(true);
   const [showModal, setShowModal] = useState(true);
 
@@ -91,9 +92,34 @@ function FeedHomeScreen({ navigation }) {
       // navigation.navigate("Mi tienda");
     });
   }
-  useEffect(() => {
-    let productShow = handleProductsRandom();
-    console.log(productShow);
+  useEffect(async () => {
+    async function handleProductsRandom() {
+      // Se define un array vacio
+      let products = [];
+
+      // Se define la referencia para la coleccion a productos
+
+      const productsRef = collection(db, "products");
+      // Se define un snapshot de la referencia
+      let querySnapshot = await getDocs(productsRef);
+      // Se recorre el snapshot
+      // Cada documento se agrega al array
+      querySnapshot.forEach((doc) => {
+        products.push(doc.data());
+      });
+
+      // Se pasa por la funcion para shuffle y devuelve un nuevo array
+      let productsRandom = shuffle(products);
+      // Devolvemos el array
+      return productsRandom;
+    }
+
+    let productsRandom = await handleProductsRandom();
+    productsRandom.forEach((product) => {
+      product.quantity = 1;
+      setProducts((products) => [...products, product]);
+    });
+    console.log(products);
   }, []);
 
   return (

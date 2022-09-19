@@ -1,3 +1,5 @@
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../utils/db.server";
 function shuffle(array) {
   var copy = [],
     n = array.length,
@@ -25,9 +27,10 @@ async function handleProductsRandom() {
   let products = [];
 
   // Se define la referencia para la coleccion a productos
-  let reference = collection(Firebase, "products");
+
+  const productsRef = collection(db, "products");
   // Se define un snapshot de la referencia
-  let querySnapshot = await getDocs(reference);
+  let querySnapshot = await getDocs(productsRef);
   // Se recorre el snapshot
   // Cada documento se agrega al array
   querySnapshot.forEach((doc) => {
