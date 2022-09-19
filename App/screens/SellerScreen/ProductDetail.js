@@ -17,7 +17,6 @@ import {
   NativeBaseProvider,
   Divider,
 } from "native-base";
-
 const WIDHT = Dimensions.get("window").width;
 const HEIGH = Dimensions.get("window").height;
 
@@ -35,7 +34,7 @@ export default function ProductDetail({ route, navigation }) {
             {route.params.item.title}
           </Heading>
           <Heading size="md" color="primary.700" my={3}>
-            {route.params.item.nameStore}
+            {route.params.item.nameStore} - {route.params.item.storeProfileId}
           </Heading>
           <Box
             style={styles.wrap}

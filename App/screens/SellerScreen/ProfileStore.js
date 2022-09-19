@@ -63,6 +63,7 @@ export default function ProfileStore({ route, navigation }) {
           storeProfileId: doc.data().storeProfileId,
           imagesArray: doc.data().imagesArray,
           nameStore: nameStore,
+          storeProfileId: doc.data().storeProfileId,
           // Colocar el uid de la tienda
           // uidStore: profile.uid,
         }))
