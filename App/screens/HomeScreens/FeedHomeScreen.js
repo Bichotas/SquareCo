@@ -108,9 +108,8 @@ function FeedHomeScreen({ navigation }) {
             justifyContent="flex-end"
             alignItems="center"
           ></Box>
-          <Text>{profile.email}</Text>
-          <Text>{profile.name}</Text>
-          <Text>{profile.typeAccount}</Text>
+          <Divider my={4} />
+          {/* Aqui iran los productos */}
 
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
           {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
