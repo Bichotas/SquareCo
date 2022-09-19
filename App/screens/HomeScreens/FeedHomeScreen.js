@@ -23,6 +23,7 @@ import {
   getFirestore,
   updateDoc,
   doc,
+  getDocs,
 } from "firebase/firestore";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
 // Cosaas de firebase
@@ -33,6 +34,8 @@ import { AuthContext, ProfileContext, StoreContext } from "../../auth/context";
 import { db } from "../../utils/db.server";
 import { auth } from "../../utils/auth.client";
 import { Firebase } from "../../utils/firebaseConfig";
+import { ref } from "firebase/storage";
+import { handleProductsRandom } from "./utils";
 const valores = [
   { value: 1, name: "UWu" },
   { value: 2, name: "DOs" },
@@ -88,9 +91,9 @@ function FeedHomeScreen({ navigation }) {
       // navigation.navigate("Mi tienda");
     });
   }
-
   useEffect(() => {
-    console.log("Tienda: ", store);
+    let productShow = handleProductsRandom();
+    console.log(productShow);
   }, []);
 
   return (
