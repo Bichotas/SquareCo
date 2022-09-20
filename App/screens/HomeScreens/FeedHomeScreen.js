@@ -11,8 +11,10 @@ import {
   Select,
   VStack,
   CheckIcon,
+  Pressable,
   Container,
 } from "native-base";
+import AppText from "../../components/AppText";
 import ImageProductC from "../../components/feed/ImageProductC";
 import FeedListC from "../../components/feed/FeedListC";
 import CreatingStoreScreen from "../../screens/SellerScreen/CreatingStoreScreen";
@@ -24,6 +26,8 @@ import {
   updateDoc,
   doc,
   getDocs,
+  query,
+  onSnapshot,
 } from "firebase/firestore";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
 // Cosaas de firebase
@@ -36,6 +40,7 @@ import { auth } from "../../utils/auth.client";
 import { Firebase } from "../../utils/firebaseConfig";
 import { ref } from "firebase/storage";
 import { handleProductsRandom, shuffle } from "./utils";
+import { FlatList } from "react-native";
 const valores = [
   { value: 1, name: "UWu" },
   { value: 2, name: "DOs" },
@@ -92,34 +97,19 @@ function FeedHomeScreen({ navigation }) {
       // navigation.navigate("Mi tienda");
     });
   }
-  useEffect(async () => {
-    async function handleProductsRandom() {
-      // Se define un array vacio
-      let products = [];
 
-      // Se define la referencia para la coleccion a productos
-
-      const productsRef = collection(db, "products");
-      // Se define un snapshot de la referencia
-      let querySnapshot = await getDocs(productsRef);
-      // Se recorre el snapshot
-      // Cada documento se agrega al array
-      querySnapshot.forEach((doc) => {
-        products.push(doc.data());
-      });
-
-      // Se pasa por la funcion para shuffle y devuelve un nuevo array
-      let productsRandom = shuffle(products);
-      // Devolvemos el array
-      return productsRandom;
-    }
-
-    let productsRandom = await handleProductsRandom();
-    productsRandom.forEach((product) => {
-      product.quantity = 1;
-      setProducts((products) => [...products, product]);
+  useEffect(() => {
+    let collectionRef = collection(db, "products");
+    const q = query(collectionRef);
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      setProducts(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+      );
     });
-    console.log(products);
+    return unsubscribe;
   }, []);
 
   return (
@@ -140,6 +130,48 @@ function FeedHomeScreen({ navigation }) {
           <Divider my={4} />
           {/* Aqui iran los productos */}
 
+          <FlatList
+            style={{ marginTop: 12 }}
+            data={products}
+            keyExtractor={(item) => {
+              item.id;
+            }}
+            numColumns={2}
+            renderItem={({ item }) => (
+              <Container margin={[3]} marginBottom={[3]}>
+                <Pressable
+                  bg={"cyan.300"}
+                  size={[160, 190, 220]}
+                  borderRadius={[20]}
+                  _pressed={{ backgroundColor: "red.300" }}
+                  onPress={() => {
+                    console.log(
+                      "Devolver a productDetails pero en el StackPrincipal"
+                    );
+                  }}
+                >
+                  {item.imagesArray.map((image, index) => (
+                    <Image
+                      key={index}
+                      source={{ uri: image }}
+                      alt="image base"
+                      style={styles.wrap}
+                      overflow="hidden"
+                      resizeMode="cover"
+                      borderRadius={20}
+                    />
+                  ))}
+                </Pressable>
+                <Container marginLeft={2} marginTop={1}>
+                  <Heading size={"sm"}>{item.title}</Heading>
+
+                  <AppText style={{ fontSize: 12, marginTop: 5 }}>
+                    {`$ ${item.price}`}
+                  </AppText>
+                </Container>
+              </Container>
+            )}
+          />
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
           {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
           {profile.storeProfileId == null && profile.typeAccount == "vendedor" && (

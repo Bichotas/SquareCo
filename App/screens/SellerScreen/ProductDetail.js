@@ -118,6 +118,10 @@ const styles = StyleSheet.create({
 });
 
 {
+  /* Duplicar el documento y de alguna manera usar el documento duplicado para el stackPrincipal */
+}
+
+{
   /* <SafeAreaView style={styles.container}>
   <NativeBaseProvider>
     <View>
