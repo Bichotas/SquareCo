@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   NativeBaseProvider,
-  ScrollView,
   Center,
   Box,
   Divider,
@@ -9,6 +8,8 @@ import {
   Text,
   Button,
   Select,
+  Image,
+  Heading,
   VStack,
   CheckIcon,
   Pressable,
@@ -17,6 +18,7 @@ import {
 import AppText from "../../components/AppText";
 import ImageProductC from "../../components/feed/ImageProductC";
 import FeedListC from "../../components/feed/FeedListC";
+import { Dimensions } from "react-native";
 import CreatingStoreScreen from "../../screens/SellerScreen/CreatingStoreScreen";
 import { Form, FormField, SubmitButton } from "../../components/forms2";
 import {
@@ -40,7 +42,7 @@ import { auth } from "../../utils/auth.client";
 import { Firebase } from "../../utils/firebaseConfig";
 import { ref } from "firebase/storage";
 import { handleProductsRandom, shuffle } from "./utils";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet, ScrollView } from "react-native";
 const valores = [
   { value: 1, name: "UWu" },
   { value: 2, name: "DOs" },
@@ -53,6 +55,8 @@ const valores = [
   { value: 9, name: "nueve" },
   { value: 10, name: "Diez" },
 ];
+const WIDHT = Dimensions.get("window").width;
+const HEIGH = Dimensions.get("window").height;
 function FeedHomeScreen({ navigation }) {
   // Contexto
   const { profile, setProfile } = useContext(ProfileContext);
@@ -128,50 +132,15 @@ function FeedHomeScreen({ navigation }) {
             alignItems="center"
           ></Box>
           <Divider my={4} />
-          {/* Aqui iran los productos */}
-
           <FlatList
-            style={{ marginTop: 12 }}
-            data={products}
-            keyExtractor={(item) => {
-              item.id;
-            }}
             numColumns={2}
+            data={products}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <Container margin={[3]} marginBottom={[3]}>
-                <Pressable
-                  bg={"cyan.300"}
-                  size={[160, 190, 220]}
-                  borderRadius={[20]}
-                  _pressed={{ backgroundColor: "red.300" }}
-                  onPress={() => {
-                    console.log(
-                      "Devolver a productDetails pero en el StackPrincipal"
-                    );
-                  }}
-                >
-                  {item.imagesArray.map((image, index) => (
-                    <Image
-                      key={index}
-                      source={{ uri: image }}
-                      alt="image base"
-                      style={styles.wrap}
-                      overflow="hidden"
-                      resizeMode="cover"
-                      borderRadius={20}
-                    />
-                  ))}
-                </Pressable>
-                <Container marginLeft={2} marginTop={1}>
-                  <Heading size={"sm"}>{item.title}</Heading>
-
-                  <AppText style={{ fontSize: 12, marginTop: 5 }}>
-                    {`$ ${item.price}`}
-                  </AppText>
-                </Container>
-              </Container>
+              <ImageProductC image={item.image} name={item.name} />
             )}
           />
+          {/* Aqui iran los productos */}
           {/* Mensaje para ir a crear la tienda si es que no se ha creado */}
           {/* Hacerlo un componente para que no haya tanto codigo y no sea tan sucio */}
           {profile.storeProfileId == null && profile.typeAccount == "vendedor" && (
@@ -246,5 +215,30 @@ function FeedHomeScreen({ navigation }) {
     </NativeBaseProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  wrap: {
+    width: WIDHT,
+    height: HEIGH * 0.25,
+  },
+  wrapDot: {
+    position: "absolute",
+    bottom: 0,
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+  dotActive: {
+    margin: 3,
+    color: "white",
+  },
+  dot: {
+    margin: 3,
+    color: "#8888",
+  },
+});
 
 export default FeedHomeScreen;
