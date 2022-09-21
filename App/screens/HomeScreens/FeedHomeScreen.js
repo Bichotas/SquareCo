@@ -137,7 +137,13 @@ function FeedHomeScreen({ navigation }) {
             data={products}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <ImageProductC image={item.image} name={item.name} />
+              <ImageProductC
+                image={item.image}
+                name={item.name}
+                onPress={() => {
+                  console.log(item);
+                }}
+              />
             )}
           />
           {/* Aqui iran los productos */}
